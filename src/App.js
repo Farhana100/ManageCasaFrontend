@@ -1,10 +1,16 @@
 import './App.css';
+import Header from './my-components/Header';
+import Navbar from './my-components/Navbar';
+import Content from './my-components/Content';
+import Footer from './my-components/Footer';
 
 function App() {
   return (
     <>
-      <h3>This is a test</h3>
-      <p>Hello World</p>
+      <Header username="Farhana"/>
+      <Navbar/>
+      <Content/>
+      <Footer/>
     </>
   );
 }

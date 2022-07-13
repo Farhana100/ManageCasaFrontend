@@ -1,0 +1,10 @@
+.my-header {
+    background-color: #fff;
+    font-size: large;
+}
+
+.header-divider {
+    height: 4px;
+    width: 100vw;
+    background-color: #7656B7;
+}

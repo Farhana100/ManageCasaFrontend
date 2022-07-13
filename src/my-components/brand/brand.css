@@ -1,0 +1,13 @@
+.brand {
+    display: grid;
+    grid-template-columns: 35px 100%;
+    grid-gap: 10px;
+}
+
+.brand img {
+    display: flex;
+    max-height: auto;
+    max-width: 35px;
+}
+
+
