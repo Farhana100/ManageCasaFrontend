@@ -1,6 +1,5 @@
 import React from 'react'
-import {Tenant} from './Tenant';
-// import '../css/tenants.css';
+import '../css/tenants.css';
 
 export const Tenants = (props) => {
   return (
@@ -11,14 +10,16 @@ export const Tenants = (props) => {
          return(
           <>
           <div className='grid-container'>
-          <div className='grid-child-element'>
-              <img className='image' src={require('../images/nahian.jpg')}/>
-          </div>
-          <div className='grid-child-elemenr'>
-          <div className='row'>
-              <Tenant key={tenant.id} tenant={tenant}/>
-          </div>
-          </div>
+            <div className='grid-child-element'>
+                <img className='image' src={require('../images/nahian.jpg')}/>
+            </div>
+            <div className='grid-child-element'>
+              <div className='row'>
+                <h5 className='tenant-title'>{tenant.name}</h5>
+                <p className='tenant-text'> Apartment No. {tenant.floor}{tenant.unit}</p>
+                <p className='mobile'>Mobile No. {tenant.phone_no}</p>
+              </div>
+            </div>
           </div>
           <hr/>
           </>

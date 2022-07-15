@@ -3,6 +3,7 @@ import Header from './my-components/Header';
 import Navbar from './my-components/Navbar';
 import { Tenants } from './my-components/content/js/Tenants';
 import { Owners } from './my-components/content/js/Owners';
+import {CommitteeMembers} from './my-components/content/js/CommitteeMembers';
 
 
 function App() {
@@ -102,13 +103,46 @@ function App() {
       bkash_no: '123456789',
     }
   ]
+  let committeemembers= [
+    {
+      id: 1,
+      name: 'John Doe',
+      floor: 1,
+      unit: 'A',
+      email: 'john@gmail.com',
+      phone_no: '1234567890',
+      bkash_no: '1234567890',
+      position: 'President',
+    },
+    {
+      id: 2,
+      name: 'Jane Doe',
+      floor: 2,
+      unit: 'B',
+      email: 'jane@gmail.com',
+      phone_no: '123456790',
+      bkash_no: '123456790',
+      position: 'Vice President',
+    },
+    {
+      id: 3,
+      name: 'Johny Doe',
+      floor: 1,
+      unit: 'C',
+      email: 'johny@gmail.com',
+      phone_no: '123456789',
+      bkash_no: '123456789',
+      position: 'Secretary',
+    }
+  ]
   return (
     <>
         <Header username="Farhana"/>
           <div className='grid-container'>
             <Navbar/>
             {/* <Tenants tenants={tenants}/> */}
-            <Owners owners={owners}/>
+            {/* <Owners owners={owners}/> */}
+            <CommitteeMembers committee={committeemembers}/>
           </div>
     </>
     

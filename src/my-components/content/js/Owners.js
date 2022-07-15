@@ -1,5 +1,4 @@
 import React from 'react'
-import {Owner} from './Owner';
 import '../css/owners.css';
 
 export const Owners = (props) => {
@@ -14,9 +13,11 @@ export const Owners = (props) => {
                     <div className='grid-child-element'>
                         <img className='image' src={require('../images/nahian.jpg')}/>
                     </div>
-                    <div className='grid-child-elemenr'>
+                    <div className='grid-child-element'>
                     <div className='row'>
-                        <Owner key={owner.id} owner={owner}/>
+                        <h5 className='owner-title'>{owner.name}</h5>
+                        <p className='owner-text'> Apartment No. {owner.floor}{owner.unit}</p>
+                        <p className='mobile'>Mobile No. {owner.phone_no}</p>
                     </div>
                     </div>
                     </div>
