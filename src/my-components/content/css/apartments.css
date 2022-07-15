@@ -1,0 +1,15 @@
+.apartment{
+    margin: 6px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 25%;
+    height: 100%;
+    background-color: #D8BFD8;
+    padding: 10px;
+}
+
+.floor{
+    display: inline;
+}
