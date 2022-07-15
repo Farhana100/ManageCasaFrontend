@@ -1,8 +1,8 @@
 import React from 'react'
-import {Apartment} from './Apartment';
+import Apartment from './Apartment';
 // import '../css/apartments.css';
 
-export const Apartments = (props) => {
+export default function Apartments (props) {
   return (
     <div className='apartments'>
       <div className='container'>

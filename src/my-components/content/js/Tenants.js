@@ -1,7 +1,7 @@
 import React from 'react'
 import '../css/tenants.css';
 
-export const Tenants = (props) => {
+export default function Tenants (props) {
   return (
     <div className='tenants'>
        <div className='container'>

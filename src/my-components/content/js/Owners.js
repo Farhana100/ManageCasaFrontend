@@ -1,7 +1,7 @@
 import React from 'react'
 import '../css/owners.css';
 
-export const Owners = (props) => {
+export default function Owners (props) {
   return (
     <div className='owners'>
        <div className='container'>

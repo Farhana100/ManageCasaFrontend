@@ -10,3 +10,28 @@
   height:100%;
   width: 100%;
 }
+
+/* button */
+.mybutton {
+  color: white;
+  background-color: #7656B7!important;
+  border-color: #4C0070!important;
+}
+
+.mybutton:hover {
+  color: white;
+  background-color: #4C0070!important;
+}
+
+
+.mybutton-light {
+  color: #4C0070;
+  background-color: white!important;
+  border-color: #4C0070!important;
+}
+
+.mybutton-light:hover {
+  color: white;
+  background-color: #4C0070!important;
+}
+

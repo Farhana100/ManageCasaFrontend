@@ -1,7 +1,7 @@
 import React from 'react'
 import '../css/committeemembers.css';
 
-export const CommitteeMembers = (props) => {
+export default function CommitteeMembers (props) {
   return (
     <div className='committeemembers'>
        <div className='container'>
