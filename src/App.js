@@ -9,10 +9,10 @@ import Register from './my-components/Register';
 const user = {
   username: "Farhana",
   userType: "tenant",
-  userActive: false,
+  userActive: true,
 };
 
-const page = "tenants";
+const page = "add committee member";
 
 function App() {
   let content_vars;
