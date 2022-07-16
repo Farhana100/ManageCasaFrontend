@@ -1,17 +1,17 @@
 import React from 'react'
-import '../css/owners.css';
+import '../static/css/owners.css'
 
-export default function Owners (props) {
+export default function Owners ({owners}) {
   return (
     <div className='owners'>
        <div className='container'>
-        <h3 className='owner_head'>List of Flat Owners</h3>
-        {props.owners.map(owner=> {
+        <h3 className='owner-head'>List of Flat Owners</h3>
+        {owners.map(owner=> {
                 return(
                     <>
                     <div className='grid-container'>
                     <div className='grid-child-element'>
-                        <img className='image' src={require('../images/nahian.jpg')}/>
+                        <img className='image' src={require('../static/images/nahian.jpg')}/>
                     </div>
                     <div className='grid-child-element'>
                     <div className='row'>

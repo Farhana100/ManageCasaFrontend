@@ -20,18 +20,18 @@
     padding-top: 1rem;
 }
 
-.committeemembers .container .committee_head{
+.committee-members .container .committee-head{
     padding: 1rem;
 }
 
-.committeemembers .container .image{
+.committee-members .container .image{
     width: 100%;
     height: 60%;
     border-radius: 50%;
     margin-top: 0.85rem;
 }
 
-.committeemembers .container .grid-container .grid-child-element .row .committee-text{
+.committee-members .container .grid-container .grid-child-element .row .committee-text{
     text-align: right;
     padding-right: 2rem;
 }

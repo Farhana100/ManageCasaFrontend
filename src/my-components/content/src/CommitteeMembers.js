@@ -1,18 +1,18 @@
 import React from 'react'
+import '../static/css/committeeMembers.css'
 import Button from '../../misc/Button'
-import '../css/committeemembers.css';
 
 export default function CommitteeMembers (props) {
   return (
-    <div className='committeemembers'>
+    <div className='committee-members'>
        <div className='container'>
-        <h3 className='committee_head'>List of Current Committee Members</h3>
+        <h3 className='committee-head'>List of Current Committee Members</h3>
         {props.committee.map(committeemember=> {
                 return(
                     <>
                     <div className='grid-container'>
                       <div className='grid-child-element'>
-                          <img className='image' src={require('../images/nahian.jpg')}/>
+                          <img className='image' src={require('../static/images/nahian.jpg')}/>
                       </div>
                       <div className='grid-child-element'>
                         <div className='row'>
