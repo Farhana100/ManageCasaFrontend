@@ -9,7 +9,7 @@ const user = {
   userActive: true,
 };
 
-const page = "owners";
+const page = "committee members";
 
 function App() {
   let content_vars;
