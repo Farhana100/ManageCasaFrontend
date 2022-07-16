@@ -1,0 +1,83 @@
+.flex-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.committee_hd{
+    margin-bottom: 30px;
+}
+
+
+.info{
+    width: 80%;
+    height: 80%;
+    margin-left: 10px;
+    background-color: #F5E8F3;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.image{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-top: 5px;
+}
+
+.button{
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    margin-top: 40px;
+    
+}
+
+.flex-end {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.form-group{
+    margin-left: 100px;
+    margin-right: 50px;
+    width: 600px;
+}
+
+.my-form-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.formimage{
+    width: 150px;
+    height: 150px;
+    /* border-radius: 50%; */
+    margin-top: 20px;
+    margin-right: 200px;
+    margin-bottom: 10px;
+    align-self: center;
+}
+
+.btn-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+hr {
+    width: 50%;
+    height: 1px;
+    color: #333; /* old IE */
+    background-color: rgb(78, 75, 75); /* Modern Browsers */
+    margin-left: 0;
+}
+
+h4{
+    margin-left: 50px;
+}
