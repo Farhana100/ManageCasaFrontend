@@ -6,7 +6,7 @@ All to-dos, updates and plans are logged in this file
 Will be updated on the go. Basically what we are currently working on or need/planning to do next.
 
 * need to specify default types and values in Tenant.js, Owners.js and Comm...
-* content filtering according to page
+* 
 
 ## Updates
 Append the changes added in the latest commit
@@ -16,6 +16,9 @@ Format :-
 * update 1
 * update 2
 * update 3 ...
+
+### 3. Fk - Content Navbar synched
+* content filtering according to page
 
 ### 2. Fk - Navbar content added
 * navbar content
