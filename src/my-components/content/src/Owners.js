@@ -4,7 +4,7 @@ import '../static/css/owners.css'
 export default function Owners ({owners}) {
   return (
     <div className='owners'>
-       <div className='container'>
+       <div className='container mycontainer'>
         <h3 className='owner-head'>List of Flat Owners</h3>
         {owners.map(owner=> {
                 return(
@@ -14,7 +14,7 @@ export default function Owners ({owners}) {
                         <img className='image' src={require('../static/images/nahian.jpg')}/>
                     </div>
                     <div className='grid-child-element'>
-                    <div className='row'>
+                    <div className='row myrow'>
                         <h5 className='owner-title'>{owner.name}</h5>
                         <p className='owner-text'> Apartment No. {owner.floor}{owner.unit}</p>
                         <p className='mobile'>Mobile No. {owner.phone_no}</p>

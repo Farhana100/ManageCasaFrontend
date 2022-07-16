@@ -5,7 +5,7 @@ import Button from '../../misc/Button'
 export default function CommitteeMembers (props) {
   return (
     <div className='committee-members'>
-       <div className='container'>
+       <div className='container mycontainer'>
         <h3 className='committee-head'>List of Current Committee Members</h3>
         {props.committee.map(committeemember=> {
                 return(
@@ -15,7 +15,7 @@ export default function CommitteeMembers (props) {
                           <img className='image' src={require('../static/images/nahian.jpg')}/>
                       </div>
                       <div className='grid-child-element'>
-                        <div className='row'>
+                        <div className='row myrow'>
                             <h5 className='committee-title'>{committeemember.name}</h5>
                             <p className='position'>{committeemember.position} </p>
                             <p className='committee-text'> Apartment No. {committeemember.floor}{committeemember.unit}
