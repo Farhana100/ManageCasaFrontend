@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '../../misc/Button'
 import '../static/css/committee.css';
+import AddCommittee from './AddCommittee';
 
 export default function Committee (props) {
   return (

@@ -4,9 +4,11 @@ import Tenants from './content/src/Tenants';
 import Committee from './content/src/Committee';
 import Owners from './content/src/Owners';
 import AddCommittee from './content/src/AddCommittee';
+import Election from './content/src/Election';
 import Button from './misc/Button'
 
 import './content/static/css/content.css';
+
 
 export default function Content({page, content_vars, user}) {
   switch(page.toLowerCase()) {
@@ -18,6 +20,8 @@ export default function Content({page, content_vars, user}) {
       return ( <Owners owners={content_vars}/> )
     case "add committee member":
       return ( <AddCommittee/> )
+    case "election":
+        return ( <Election/> )
     default:
       return (<>content</>)
   }

@@ -1,0 +1,31 @@
+.navbar{
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+}
+
+.elec{
+    font-size: 1.5em;
+    color: black;
+}
+
+.poll{
+    font-size: 1.5em;
+    color: black;
+}
+
+.second-header{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.calender{
+    display: flex;
+}
+
+.datepicker{
+    margin-top: 5px;
+    margin-left: 20px;
+}

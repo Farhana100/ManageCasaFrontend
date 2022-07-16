@@ -12,7 +12,7 @@ const user = {
   userActive: true,
 };
 
-const page = "committee members";
+const page = "election";
 
 function App() {
   let content_vars;
