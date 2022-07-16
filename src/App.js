@@ -9,7 +9,7 @@ function App() {
     <>
       <Header username="Farhana" userActive={true}/>
       {/* <Header/> */}
-      <div className='grid-container'>
+      <div className='app-grid-container'>
         <Navbar/>
         <Content/>
       </div>

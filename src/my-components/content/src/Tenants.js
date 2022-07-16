@@ -1,12 +1,12 @@
 import React from 'react'
-import '../css/tenants.css';
+import '../static/css/tenants.css'
 
-export default function Tenants (props) {
+export default function Tenants ({tenants}) {
   return (
     <div className='tenants'>
        <div className='container'>
-        <h3 className='tenant_head'>List of Tenants</h3>
-        {props.tenants.map(tenant=> {
+        <h3 className='tenant-head'>List of Tenants</h3>
+        {tenants.map(tenant=> {
          return(
           <>
           <div className='grid-container'>

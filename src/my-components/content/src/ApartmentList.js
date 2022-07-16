@@ -1,8 +1,7 @@
 import React from 'react'
 import Apartment from './Apartment';
-// import '../css/apartments.css';
 
-export default function Apartments (props) {
+export default function ApartmentList (props) {
   return (
     <div className='apartments'>
       <div className='container'>

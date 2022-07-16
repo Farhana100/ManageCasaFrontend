@@ -3,7 +3,7 @@
   height: 100%;
 }
 
-.grid-container {
+.app-grid-container {
   display: grid;
   grid-template-columns: 0.15fr 0.85fr;
   grid-gap: 2px;

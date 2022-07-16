@@ -1,11 +1,11 @@
 import React from 'react'
-import '../css/committeemembers.css';
+import '../static/css/committeeMembers.css'
 
 export default function CommitteeMembers (props) {
   return (
-    <div className='committeemembers'>
+    <div className='committee-members'>
        <div className='container'>
-        <h3 className='committee_head'>List of Current Committee Members</h3>
+        <h3 className='committee-head'>List of Current Committee Members</h3>
         {props.committee.map(committeemember=> {
                 return(
                     <>
