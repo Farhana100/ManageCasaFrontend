@@ -4,7 +4,7 @@ import CommitteeMembers from './content/src/CommitteeMembers';
 import Owners from './content/src/Owners';
 import Button from './misc/Button'
 
-import './content/css/content.css';
+import './content/static/css/content.css';
 
 
 export default function Content() {

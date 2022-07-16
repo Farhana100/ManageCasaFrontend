@@ -11,7 +11,7 @@ export default function Owners ({owners}) {
                     <>
                     <div className='grid-container'>
                     <div className='grid-child-element'>
-                        <img className='image' src={require('../images/nahian.jpg')}/>
+                        <img className='image' src={require('../static/images/nahian.jpg')}/>
                     </div>
                     <div className='grid-child-element'>
                     <div className='row'>
