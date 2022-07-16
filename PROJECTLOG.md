@@ -6,18 +6,21 @@ All to-dos, updates and plans are logged in this file
 Will be updated on the go. Basically what we are currently working on or need/planning to do next.
 
 * need to specify default types and values in Tenant.js, Owners.js and Comm...
-* ...
+* content filtering according to page
 
 ## Updates
 Append the changes added in the latest commit
 
 Format :-
-### who - commit message
+### No. who - commit message
 * update 1
 * update 2
 * update 3 ...
 
-### Fk - Files rearranged and Navbar fixed. Check PROJECTLOG.md for details
+### 2. Fk - Navbar content added
+* navbar content
+
+### 1. Fk - Files rearranged and Navbar fixed. Check PROJECTLOG.md for details
 * content
     * src : all js files of components
     * static : for static files of contents

@@ -3,18 +3,23 @@ import Header from './my-components/Header';
 import Navbar from './my-components/Navbar';
 import Content from './my-components/Content';
 
+const user = {
+  username: "Farhana",
+  userType: "tenant",
+  userActive: true,
+};
+
+const page = "Tenants";
 
 function App() {
   return (
     <>
-      <Header username="Farhana" userActive={true}/>
-      {/* <Header/> */}
+      <Header username={user.username} userActive={user.userActive}/>
       <div className='app-grid-container'>
-        <Navbar/>
+        <Navbar userType={user.userType} page={page}/>
         <Content/>
       </div>
     </>
-    
   );
 }
 
