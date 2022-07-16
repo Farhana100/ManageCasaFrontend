@@ -1,0 +1,36 @@
+.test {
+    background-image: linear-gradient(
+        white, white, rgba(118, 86, 183, 0.2), white
+      );
+}
+
+
+.lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+  }
+
+.fw-bolder {
+    font-weight: bolder !important;
+}
+
+
+.fs-3 {
+    font-size: 1.75rem !important;
+}
+
+.bg-image-full {
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center;
+    background-size: cover;
+}
+
+.home-bg-image {
+    background-image: url('../images/managecasa.png');
+}
+
+.home-bg-image-test {
+    background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800');
+    height: 20rem;
+}

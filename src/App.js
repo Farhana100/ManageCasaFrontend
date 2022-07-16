@@ -2,14 +2,17 @@ import './App.css';
 import Header from './my-components/Header';
 import Navbar from './my-components/Navbar';
 import Content from './my-components/Content';
+import Home from './my-components/Home';
+import Login from './my-components/Login';
+import Register from './my-components/Register';
 
 const user = {
   username: "Farhana",
   userType: "tenant",
-  userActive: true,
+  userActive: false,
 };
 
-const page = "committee members";
+const page = "tenants";
 
 function App() {
   let content_vars;
@@ -31,10 +34,23 @@ function App() {
   return (
     <>
       <Header username={user.username} userActive={user.userActive}/>
-      <div className='app-grid-container'>
-        <Navbar userType={user.userType} page={page}/>
-        <div className='p-3'><Content page={page} content_vars={content_vars}/></div>
-      </div>
+      {user.userActive
+        ? 
+        <div className='app-grid-container'>
+          <Navbar userType={user.userType} page={page}/>
+          <div className='p-3'><Content page={page} content_vars={content_vars}/></div>
+        </div>
+        : 
+        page.toLocaleLowerCase() === "login"
+        ?
+        <Login/>
+        :
+        page.toLocaleLowerCase() === "register"
+        ?
+        <Register/>
+        :
+        <Home/>
+      }
     </>
   );
 }
