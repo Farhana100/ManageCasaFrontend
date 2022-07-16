@@ -2,7 +2,8 @@ import React from 'react'
 import Tenants from './content/js/Tenants';
 import Owners from './content/js/Owners';
 import CommitteeMembers from './content/js/CommitteeMembers';
-import Button from './misc/Button'
+import Button from './misc/Button';
+import Committee from './content/js/committee';
 
 import './content/css/content.css';
 
@@ -143,7 +144,8 @@ export default function Content() {
       {/* <Button style={"mybutton-light"}/> */}
       {/* <Tenants tenants={tenants}/> */}
       {/* <Owners owners={owners}/> */}
-      <CommitteeMembers committee={committeemembers}/>
+      {/* <CommitteeMembers committee={committeemembers}/> */}
+      {/* <Committee committee={committeemembers}/> */}
       {/* content */}
     </div>
   )
