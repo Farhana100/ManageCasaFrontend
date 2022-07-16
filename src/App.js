@@ -9,7 +9,7 @@ import Register from './my-components/Register';
 const user = {
   username: "Farhana",
   userType: "tenant",
-  userActive: true,
+  userActive: false,
 };
 
 const page = "add committee member";
