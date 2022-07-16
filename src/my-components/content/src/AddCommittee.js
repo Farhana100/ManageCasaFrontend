@@ -11,7 +11,8 @@ export default class AddCommittee extends Component{
             unit: '',
             name: '',
             email: '',
-            phone: ''
+            phone: '',
+            // imgSrc: null
         }
     }
 
@@ -45,6 +46,19 @@ export default class AddCommittee extends Component{
             unit: e.target.value
         })
     }
+
+    // handleImage() {
+    //     var file = this.refs.file.files[0];
+    //     var reader = new FileReader();
+    //     var url = reader.readAsDataURL(file);
+
+    //     reader.onloadend = function (e) {
+    //         this.setState({
+    //             imgSrc: [reader.result];
+    //         })
+    //         }.bind(this);
+    //     console.log(url)
+    // }
 
 
     render(){
@@ -107,6 +121,12 @@ export default class AddCommittee extends Component{
         </div>
         <div>
             <img className='formimage' src={require('../static/images/default_upload.png')}/>
+            {/* <form>
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Example file input</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1"/>
+                </div>
+            </form> */}
             <br/>
             <Button text="Add Photo"/>
         </div>

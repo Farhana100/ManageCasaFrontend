@@ -8,11 +8,11 @@ import Register from './my-components/Register';
 
 const user = {
   username: "Farhana",
-  userType: "tenant",
+  userType: "admin",
   userActive: true,
 };
 
-const page = "add committee member";
+const page = "committee members";
 
 function App() {
   let content_vars;
@@ -38,7 +38,7 @@ function App() {
         ? 
         <div className='app-grid-container'>
           <Navbar userType={user.userType} page={page}/>
-          <div className='p-3'><Content page={page} content_vars={content_vars}/></div>
+          <div className='p-3'><Content page={page} content_vars={content_vars} user={user.userType}/></div>
         </div>
         : 
         page.toLocaleLowerCase() === "login"

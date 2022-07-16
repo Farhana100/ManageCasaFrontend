@@ -8,10 +8,10 @@ import Button from './misc/Button'
 
 import './content/static/css/content.css';
 
-export default function Content({page, content_vars}) {
+export default function Content({page, content_vars, user}) {
   switch(page.toLowerCase()) {
     case "committee members":
-      return ( <Committee committee={content_vars}/> )
+      return ( <Committee committee={content_vars} user={user}/> )
     case "tenants":
       return ( <Tenants tenants={content_vars}/> )
     case "owners":

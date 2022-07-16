@@ -24,6 +24,28 @@
     margin-top: 5px;
 }
 
+.fcontainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.notadminimage{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.notadmininfo{
+    width: 80%;
+    height: 80%;
+    margin: 10px;
+    background-color: #F5E8F3;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 .button{
     width: 100px;
     height: 100px;
