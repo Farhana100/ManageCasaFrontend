@@ -1,6 +1,6 @@
 .test {
     background-image: linear-gradient(
-        white, white, rgba(118, 86, 183, 0.2), white
+        white, white,  rgba(118, 86, 183, 0.2), white
       );
 }
 
@@ -27,10 +27,10 @@
 }
 
 .home-bg-image {
-    background-image: url('../images/managecasa.png');
+    background-image: url('../images/home_image_1.png');
 }
 
 .home-bg-image-test {
-    background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800');
+    background-image: url('../images/home_image_2.png');
     height: 20rem;
 }
