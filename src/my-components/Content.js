@@ -140,11 +140,11 @@ export default function Content() {
 
   return (
     <div className='p-2'>
-      <Button/>
-      <Button style={"mybutton-light"}/>
+      {/* <Button/> */}
+      {/* <Button style={"mybutton-light"}/> */}
       {/* <Tenants tenants={tenants}/> */}
       {/* <Owners owners={owners}/> */}
-      {/* <CommitteeMembers committee={committeemembers}/> */}
+      <CommitteeMembers committee={committeemembers}/>
       {/* content */}
     </div>
   )
