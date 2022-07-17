@@ -6,8 +6,6 @@ import Navlinks from './Navlinks'
  
 function FilterContent ({navbar_content_array, page, access}) {
 
-  console.log(access);
-
   const nav_items = navbar_content_array.map(
     (item) => {
       if (item.for & access) {
@@ -16,8 +14,6 @@ function FilterContent ({navbar_content_array, page, access}) {
       return null;
     }
   );
-
-  console.log(nav_items)
 
   return (
     <>{nav_items}</>
@@ -59,9 +55,6 @@ export default function Navbar({userType, page}) {
   // let admin_access = 0b111001111111111;
   // let owner_access = 0b111111111111111;
   // let tenat_access = 0b101110001111111;
-
-  console.log(0b000 & 0b111);
-  console.log(userType);
 
   return (
     <div className='my-navbar'>

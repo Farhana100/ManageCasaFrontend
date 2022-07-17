@@ -91,15 +91,3 @@
     padding-left: 100px;
     padding-right: 100px;
 }
-
-hr {
-    width: 50%;
-    height: 1px;
-    color: #333; /* old IE */
-    background-color: rgb(78, 75, 75); /* Modern Browsers */
-    margin-left: 0;
-}
-
-h4{
-    margin-left: 50px;
-}

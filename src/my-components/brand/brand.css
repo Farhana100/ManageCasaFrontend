@@ -1,6 +1,11 @@
+.brand-test {
+    display: flex;
+    justify-content: center;
+}
+
 .brand {
     display: grid;
-    grid-template-columns: 35px 100%;
+    grid-template-columns: 0.25fr 0.75fr;
     grid-gap: 10px;
 }
 

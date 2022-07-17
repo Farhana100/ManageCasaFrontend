@@ -6,12 +6,12 @@ import Footer from './Footer'
 export default function Home() {
   return (
     <div>
-        <div className='test'>
+        <div className='home-bg-image1-grad'>
             <div className="text-center my-5">
                 <img className="img-fluid mb-4" src={logo} alt="..." />
                 <h1 className="fs-3 fw-bolder">ManageCasa</h1>
             </div>
-            <div className="py-5 bg-image-full home-bg-image">
+            <div className="py-5 bg-image-full home-bg-image1">
                 <div className="py-5"></div>
             </div>
         </div>
@@ -29,7 +29,7 @@ export default function Home() {
         </section>
 
         {/* <!-- Image element - set the background image for the header in the line below--> */}
-        <div className="py-5 bg-image-full home-bg-image-test"></div>
+        <div className="py-5 bg-image-full home-bg-image2"></div>
         {/* <!-- Content section--> */}
         <section className="py-5">
             <div className="container my-5">

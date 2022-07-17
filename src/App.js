@@ -9,14 +9,15 @@ import Register from './my-components/Register';
 const user = {
   username: "Farhana",
   userType: "admin",
-  userActive: true,
+  userActive: false,
 };
 
-const page = "election";
+const page = "register";
 
 function App() {
   let content_vars;
 
+  // pass content variables -------------------------------- start >>>
   switch(page.toLowerCase()) {
     case "committee members":
       content_vars = committeemembers;
@@ -30,6 +31,8 @@ function App() {
     default:
       content_vars = null;
   }
+  // pass content variables ---------------------------------- end >>>
+
 
   return (
     <>

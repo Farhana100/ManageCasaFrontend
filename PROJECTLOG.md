@@ -7,6 +7,8 @@ Will be updated on the go. Basically what we are currently working on or need/pl
 
 * need to specify default types and values in Tenant.js, Owners.js and Comm...
 * more works left on basic pages
+* need to apply js on dynamically change district options according to choosen division - register
+* create modal - confirmation pop up - apply to all forms
 
 ## Updates
 Append the changes added in the latest commit
@@ -16,6 +18,11 @@ Format :-
 * update 1
 * update 2
 * update 3 ...
+
+### 4. Fk - login page and register page added
+* Log in page done
+* header className fixed
+* register page done 
 
 ### 4. Fk - Added basic pages
 * added home page, register and login
