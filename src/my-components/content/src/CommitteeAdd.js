@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Button from '../../misc/Button'
 import '../static/css/committee.css';
 
 export default class AddCommittee extends Component{
+    
     constructor(props){
         super(props);
         this.state = {
@@ -61,7 +63,7 @@ export default class AddCommittee extends Component{
     // }
 
 
-    render(){
+render(){
   return (
     <>
     <h3> New Member</h3>

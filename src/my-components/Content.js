@@ -11,6 +11,9 @@ import Button from './misc/Button'
 import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import './content/static/css/content.css';
+import ElectionView from './content/src/ElectionView';
+import CreateElection from './content/src/ElectionCreate';
+import Login from './Login';
 
 
 // export default function Content({page, content_vars, user}) {
@@ -40,8 +43,9 @@ export default function Content() {
         <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
         <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
         <Route path="/addcommittee" element={<CommitteeAdd/>} />
-        <Route path="/election" element={<Election/>} />
-
+        <Route path="/election" element={<Election elections={elections} user={user}/>} />
+        <Route path="createelection" element={<CreateElection/>}/>
+        <Route path="/viewelection" element={<ElectionView/>} />
       </Routes>
     </Router>
   );
@@ -186,4 +190,41 @@ let committeemembers= [
     bkash_no: '123456789',
     position: 'Secretary',
   }
+]
+
+let elections= [
+  {
+    name: 'President',
+    status: 'Running',
+    candidates: ['nahian', 'farhana', 'utsha', 'alif'],
+    winner: '',
+    create_time: '2020-01-01',
+    nom_start_time: '2020-01-01',
+    nom_end_time: '2020-01-01',
+    voting_start_time: '2020-01-01',
+    voting_end_time: '2020-01-01',
+  },
+  {
+    name: 'Secretary',
+    status: 'Ended',
+    candidates: ['nahian', 'farhana', 'utsha', 'alif'],
+    winner: 'nahian',
+    create_time: '2020-01-01',
+    nom_start_time: '2020-01-01',
+    nom_end_time: '2020-01-01',
+    voting_start_time: '2020-01-01',
+    voting_end_time: '2020-01-01',
+  },
+  {
+    name: 'President',
+    status: 'Nomination',
+    candidates: ['nahian', 'farhana', 'utsha', 'alif'],
+    winner: '',
+    create_time: '2020-01-01',
+    nom_start_time: '2020-01-01',
+    nom_end_time: '2020-01-01',
+    voting_start_time: '2020-01-01',
+    voting_end_time: '2020-01-01',
+  }
+
 ]

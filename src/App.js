@@ -12,7 +12,7 @@ const user = {
   userActive: true,
 };
 
-const page = "owners";
+const page = "register";
 
 function App() {
   // let content_vars;
