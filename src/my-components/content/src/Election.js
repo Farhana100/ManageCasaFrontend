@@ -41,11 +41,11 @@ export default class Election extends Component{
                             // timeFormat="HH:mm"
                             // timeIntervals={20}
                             // timeCaption="time"
-                            dateFormat="MMMM d, yyyy"
+                            dateFormat="MMMM, yyyy"
                         />
                     </div>
                     <div className='date-btn'>
-                        <Button text={"Select"}/>
+                        <Button text={"Select"} style={"width:40px"}/>
                     </div>       
                 </div>
             </form>

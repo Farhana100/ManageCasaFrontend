@@ -1,9 +1,12 @@
 import React from 'react'
 import Button from '../../misc/Button'
 import '../static/css/committee.css';
-import AddCommittee from './AddCommittee';
+import {useNavigate} from "react-router-dom";
+
 
 export default function Committee (props) {
+    let navigate = useNavigate();
+
   return (
     <div className='committee'>
        <div className='container'>
@@ -27,7 +30,8 @@ export default function Committee (props) {
                         <Button text="Delete"/>
                     </div>   
                 </div>
-                )}
+                )
+            }
             else{
                 return( 
                     <div className="fcontainer">
@@ -46,7 +50,7 @@ export default function Committee (props) {
         {props.user === 'admin'
             ?
             <div className='flex-end'>
-                <Button text="Add New Committee Member"/>
+                <Button text="Add New Committee Member" OnClick={() => {navigate('/addcommittee');}}/>
             </div>
             :
             <div></div>

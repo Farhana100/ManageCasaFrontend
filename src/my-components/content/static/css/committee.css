@@ -92,7 +92,7 @@
     padding-right: 100px;
 }
 
-hr {
+.mainline {
     width: 50%;
     height: 1px;
     color: #333; /* old IE */

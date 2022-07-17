@@ -65,7 +65,7 @@ export default class AddCommittee extends Component{
   return (
     <>
     <h3> New Member</h3>
-    <hr/>
+    <hr className='mainline'/>
     <br/>
     <form>
         <div class="form-group">
