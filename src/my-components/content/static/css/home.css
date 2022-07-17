@@ -1,4 +1,4 @@
-.test {
+.home-bg-image1-grad {
     background-image: linear-gradient(
         white, white,  rgba(118, 86, 183, 0.2), white
       );
@@ -26,11 +26,11 @@
     background-size: cover;
 }
 
-.home-bg-image {
+.home-bg-image1 {
     background-image: url('../images/home_image_1.png');
 }
 
-.home-bg-image-test {
+.home-bg-image2 {
     background-image: url('../images/home_image_2.png');
     height: 20rem;
 }

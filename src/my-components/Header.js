@@ -6,11 +6,11 @@ import './header/header.css'
 function ActiveUserHeader ({username}) {
     return (
         <>
-            <li class="nav-item active">
-                <a class="nav-link disabled px-3">Welcome, {username}</a>
+            <li className="nav-item active">
+                <a className="nav-link disabled px-3">Welcome, {username}</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+            <li className="nav-item">
+                <a className="nav-link" href="{% url 'logout' %}">Log out</a>
             </li>
         </>
     )
@@ -19,11 +19,11 @@ function ActiveUserHeader ({username}) {
 function InactiveUserHeader () {
     return (
         <>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Log in</a>
+            <li className="nav-item">
+                <a className="nav-link" href="{% url 'login' %}">Log in</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'register' %}">Register</a>
+            <li className="nav-item">
+                <a className="nav-link" href="{% url 'register' %}">Register</a>
             </li>
         </>
     )
@@ -39,13 +39,13 @@ function HeaderContent ({username, userActive}) {
 export default function Header({username, userActive}) {
   return (
     <div>
-        <nav class="navbar navbar-expand-lg navbar-light my-header">
-            <a class="navbar-brand" href="{% url 'home' %}"><Brand/></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+        <nav className="navbar navbar-expand-lg navbar-light my-header">
+            <a className="navbar-brand" href="{% url 'home' %}"><Brand/></a>
+            <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav ml-auto">
+            <div className="collapse navbar-collapse" id="navbarCollapse">
+                <ul className="navbar-nav ml-auto">
                     <HeaderContent username={username} userActive={userActive} />
                 </ul>
             </div>
