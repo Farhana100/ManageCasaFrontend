@@ -41,7 +41,6 @@ export default function Content() {
         <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
         <Route path="/addcommittee" element={<CommitteeAdd/>} />
         <Route path="/election" element={<Election/>} />
-
       </Routes>
     </Router>
   );

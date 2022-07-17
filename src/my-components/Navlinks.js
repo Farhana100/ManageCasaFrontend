@@ -5,7 +5,7 @@ import './navbar/navlinks.css'
 export default function Navlinks({link, text, active}) {
   return (
     <div>
-      <a className={`nav-link my-navlink ${active ? "active" : ""}`} href={ link }>{ text }</a>
+      <a className={`nav-link my-navlink ${active ? "active disabled" : ""}`} href={ link }>{ text }</a>
     </div>
   )
 }

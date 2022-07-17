@@ -15,29 +15,13 @@ const user = {
 const page = "owners";
 
 function App() {
-  // let content_vars;
-
-  // switch(page.toLowerCase()) {
-  //   case "committee members":
-  //     content_vars = committeemembers;
-  //     break;
-  //   case "tenants":
-  //     content_vars = tenants;
-  //     break;
-  //   case "owners":
-  //     content_vars = owners;
-  //     break;
-  //   default:
-  //     content_vars = null;
-  // }
-
   return (
     <>
       <Header username={user.username} userActive={user.userActive}/>
       {user.userActive
         ? 
         <div className='app-grid-container'>
-          <Navbar userType={user.userType} page={page}/>
+          <Navbar userType={user.userType}/>
           <div className='p-3'><Content /></div>
         </div>
         : 
