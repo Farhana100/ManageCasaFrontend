@@ -60,31 +60,31 @@ export default function Navbar({userType}) {
   return (
     <Router>
       <Routes>
-        <Route path="/dashboard" element={
+        <Route path="/dashboard" exact element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'dashboard' } userType={ userType }/></div>
         } />
-        <Route path="/owners" element={
+        <Route path="/owners" exact element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'owners' } userType={ userType }/></div>
         } />
-        <Route path="/tenants" element={
+        <Route path="/tenants" exact element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'tenants' } userType={ userType }/></div>
         } />
-        <Route path="/committee" element={
+        <Route path="/committee" exact element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'committee' } userType={ userType }/></div>
         }/>
-        <Route path="/addcommittee" element={
+        <Route path="/addcommittee" exact element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'committee' } userType={ userType }/></div>
         } />
-        <Route path="/election" element={
+        <Route path="/election" exact element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'election' } userType={ userType }/></div>
         } />
-        <Route path="/createelection" element={
+        <Route path="/createelection" exact element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'createelection' } userType={ userType }/></div>
         } />
-        <Route path="/viewelection" element={
+        <Route path="/viewelection" exact element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'viewelection' } userType={ userType }/></div>
         } />
-         <Route path="/descelection" element={
+         <Route path="/descelection" exact element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'descelection' } userType={ userType }/></div>
         } />
       </Routes>

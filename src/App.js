@@ -22,7 +22,6 @@ export class App extends Component {
   };
 
   fetchUserStatus(){
-    console.log('fetching...');
     fetch('http://127.0.0.1:8000/getUser')
     .then(response => response.json())
     .then(data =>
@@ -48,10 +47,10 @@ export class App extends Component {
           :
           <Router>
             <Routes>
-              <Route path="/login" element={<Login/>} />
-              <Route path="/register" element={<Register/>} />
-              <Route path="/home" element={<Home/>} />
-              <Route path="*" element={<Home/>} />
+              <Route path="/login" exact element={<Login/>} />
+              <Route path="/register" exact element={<Register/>} />
+              <Route path="/home" exact element={<Home/>} />
+              {/* <Route path="*" exact element={<Home/>} /> */}
             </Routes>
           </Router> 
         }
