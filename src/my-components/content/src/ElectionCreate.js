@@ -5,7 +5,7 @@ import DateTimePicker from '../../misc/DateTimePicker';
 import ElectionNavbar from './miscElection/ElectionNavbar';
 
 
-export default class ElectionCreate extends Component{
+class ElectionCreateClass extends Component{
     
     constructor(props){
         super(props);
@@ -89,16 +89,23 @@ render(){
         </div>
         <div className='btn-cont'>
             <div>
-                <Button text='Cancel'/>
+                <Button text='Cancel' OnClick={() => {this.props.navigate('/election');}}/>
             </div>
             <div>
-                <Button text='Create'/>
+                <Button text='Create' OnClick={() => {this.props.navigate('/election');}}/>
             </div>
         </div>
     </>
   )
 }
 }
+
+export default function ElectionCreate(props){
+    let navigate = useNavigate();
+    return(
+        <ElectionCreateClass elections={props.elections} navigate={navigate}/>
+    )
+  }
 
 
 

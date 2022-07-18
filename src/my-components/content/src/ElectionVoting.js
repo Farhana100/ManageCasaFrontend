@@ -22,12 +22,23 @@ export default function ElectionVoting(props){
                         <h5 className="card-title">{candidate.name}</h5>
                         <p className="card-text"><small className="text-muted">Apartment No. {candidate.floor}{candidate.unit}</small></p>  
                     </div> 
-                    <div className='progbar'>
-                    <Progress_bar bgcolor="#452954" progress='30'  height={15}/> 
-                    </div>
-                     <div className='votecnt'>
-                     <text className='votecount'> 10</text>
-                     </div>
+                    {
+                        props.user === "admin"
+                        ?
+                        <>
+                        <div className='progbar'>
+                            <Progress_bar bgcolor="#452954" progress='30'  height={15}/> 
+                        </div>
+                        <div className='votecnt'>
+                            <text className='votecount'> 10</text>
+                        </div>
+                        </>
+                        :
+                        <div class="voteradio">
+                            <input class="vote-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                        </div>
+                    }
+                    
                     
                 </div>
             <hr/>
@@ -35,14 +46,28 @@ export default function ElectionVoting(props){
             </>
             )
         })}
-        <div className='mybtn'>
-        <div className='btn-can'>
-                <Button text="Cancel Election"/>
-            </div>
-            <div className='nom-btn'>
-                <Button text="Early Stop"/>
-            </div> 
-        </div>
+        {
+            props.user === "admin"
+            ?
+            <>
+                <div className='mybtn'>
+                    <div className='btn-can'>
+                        <Button text="Cancel Election"/>
+                    </div>
+                    <div className='nom-btn'>
+                        <Button text="Early Stop"/>
+                    </div> 
+                </div>
+            </>
+            :
+            <div className='mybtn'>
+                    <div></div>
+                    <div className='myvote'>
+                        <Button text="Vote" OnClick={() => {alert(`${"You have succesfully casted your vote"}`)}}/>
+                    </div> 
+                </div>
+        }
+        
         </>
     )
 }

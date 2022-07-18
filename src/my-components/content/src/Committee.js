@@ -24,7 +24,7 @@ export default function Committee (props) {
                         <p className="card-text"><small className="text-muted">Apartment No. {committeemember.floor}{committeemember.unit}</small></p>  
                     </div> 
                     <div className='fitem button'>
-                        <Button text="Edit"/>
+                        <Button text="Edit" OnClick={() => {navigate('/addcommittee')}}/>
                     </div>
                     <div className='fitem button'>
                         <Button text="Delete"/>

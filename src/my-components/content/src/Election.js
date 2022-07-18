@@ -28,11 +28,6 @@ class ElectionClass extends Component{
         console.log(this.state.startDate)
       }
 
-      showdetailshandler(e){
-        alert(`${"hoise"}`)
-        this.props.navigate('/viewelection');
-      }
-
 
 render() {
   return (
@@ -59,15 +54,22 @@ render() {
                 </div>
             </form>
         </div>
-        <div className='new-btn'>
-            <Button text="Create New" OnClick={() => {this.props.navigate('/createelection');}}/>
-        </div> 
+        {
+            this.props.user === 'admin' 
+            ?
+            <div className='new-btn'>
+              <Button text="Create New" OnClick={() => {this.props.navigate('/createelection');}}/>
+            </div> 
+            :
+            null
+        }
+        
     </div>
     <div>
       {this.props.elections.map(election=> {
             return( 
             <div className="elec-container" >
-                <div className="elec-info" onClick={this.showdetailshandler}>
+                <div className="elec-info" onClick={() => {this.props.navigate('/viewelection');}}>
                     <h5 className="elec-title">{election.status}</h5>
                     <p className="elec-name">{election.name}</p>
                     <p className="card-text"><small className="text-muted">Start Time {election.create_time}</small></p>  
@@ -85,6 +87,6 @@ render() {
 export default function Election(props){
   let navigate = useNavigate();
   return(
-      <ElectionClass elections={props.elections} navigate={navigate}/>
+      <ElectionClass elections={props.elections} navigate={navigate} user={props.user}/>
   )
 }

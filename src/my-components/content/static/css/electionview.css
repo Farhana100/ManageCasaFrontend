@@ -97,6 +97,13 @@
     margin-top: 20px;
 }
 
+.mynom{
+    width: 200px;
+    height: 100px;
+    margin: 5px;
+    margin-top: 20px;
+}
+
 .mybtn{
     display: flex;
     justify-content: space-between;
@@ -106,6 +113,13 @@
 
 .btn-can{
     margin: 5px;
+    margin-top: 20px;
+}
+
+.myvote{
+    width: 100px;
+    height: 100px;
+    margin: 50px;
     margin-top: 20px;
 }
 
@@ -124,6 +138,13 @@
     margin-left: 30px;
     padding: 10px;
     border-radius: 5px;
+}
+
+.vote-radio{
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+    margin-right: 50px;
 }
 
 .progbar{

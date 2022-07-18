@@ -26,10 +26,10 @@ export default function Content() {
         <Route path="/owners" element={<Owners owners={owners}/>} />
         <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
         <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
-        <Route path="/addcommittee" element={<CommitteeAdd/>} />
+        <Route path="/addcommittee" element={<CommitteeAdd user={user}/> } />
         <Route path="/election" element={<Election elections={elections} user={user}/>} />
-        <Route path="createelection" element={<CreateElection/>}/>
-        <Route path="/viewelection" element={<ElectionView elections={elections} candidates={candidates}/>} />
+        <Route path="createelection" element={<CreateElection user={user}/>}/>
+        <Route path="/viewelection" element={<ElectionView elections={elections} candidates={candidates} user={user}/>} />
         {/* <Route path="/descelection" element={<ElectionDesc elections={elections}/>} />
         <Route path="/nomelection" element={<ElectionNomination elections={elections} candidates={candidates}/>} />
         <Route path="/votelection" element={<ElectionVoting elections={elections} candidates={candidates}/>} />
@@ -184,7 +184,7 @@ let committeemembers= [
 let elections= [
   {
     name: 'President',
-    status: 'Ended',
+    status: 'Nomination',
     candidates: ['nahian', 'farhana', 'utsha', 'alif'],
     winner: '',
     create_time: '2020-01-01',
@@ -223,11 +223,13 @@ let candidates = [
     name: 'nahian',
     floor: 1,
     unit: 'A',
+    status: "approved"
   },
   {
     id: 2,
     name: 'farhana',
     floor: 1,
     unit: 'B',
+    status: "pending"
   }
 ]

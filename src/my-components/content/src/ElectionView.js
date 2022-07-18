@@ -14,13 +14,13 @@ export default function ElectionView(props){
     {
         props.elections[0].status.toLowerCase() === 'nomination'
         ?
-        <ElectionNomination elections={props.elections} candidates={props.candidates}/>
+        <ElectionNomination elections={props.elections} candidates={props.candidates} user={props.user}/>
         :
         props.elections[0].status.toLowerCase() === 'voting'
         ?
-        <ElectionVoting elections={props.elections} candidates={props.candidates}/>
+        <ElectionVoting elections={props.elections} candidates={props.candidates} user={props.user}/>
         :
-        <ElectionEnded elections={props.elections} candidates={props.candidates}/>
+        <ElectionEnded elections={props.elections} candidates={props.candidates} user={props.user}/>
     }
     
     </>
