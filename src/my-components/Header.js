@@ -1,4 +1,5 @@
 import React from 'react'
+import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Brand from './Brand'
 import PropTypes from 'prop-types'
 import './header/header.css'
@@ -10,7 +11,7 @@ function ActiveUserHeader ({username}) {
                 <a className="nav-link disabled px-3">Welcome, {username}</a>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="{% url 'logout' %}">Log out</a>
+                <a className="nav-link" href="/logout">Log out</a>
             </li>
         </>
     )
@@ -19,12 +20,30 @@ function ActiveUserHeader ({username}) {
 function InactiveUserHeader () {
     return (
         <>
-            <li className="nav-item">
-                <a className="nav-link" href="{% url 'login' %}">Log in</a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link" href="{% url 'register' %}">Register</a>
-            </li>
+            <Router>
+                <Routes>
+                <Route path="/login" element={
+                    <li className="nav-item">
+                        <a className="nav-link" href="/register">Register</a>
+                    </li>
+                } />
+                <Route path="/register" element={
+                    <li className="nav-item">
+                        <a className="nav-link" href="/login">Log in</a>
+                    </li>
+                } />
+                <Route path="/home" element={
+                    <>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/login">Log in</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/register">Register</a>
+                    </li>
+                    </>
+                } />
+                </Routes>
+            </Router>
         </>
     )
 }
@@ -40,7 +59,7 @@ export default function Header({username, userActive}) {
   return (
     <div>
         <nav className="navbar navbar-expand-lg navbar-light my-header">
-            <a className="navbar-brand" href="{% url 'home' %}"><Brand/></a>
+            <a className="navbar-brand" href={`${userActive ? "/dashboard" : "/home"}`}><Brand/></a>
             <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>

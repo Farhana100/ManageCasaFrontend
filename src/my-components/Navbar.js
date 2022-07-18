@@ -36,7 +36,7 @@ function NavbarContent ({navbar_content_array, page, userType}) {
 
 export default function Navbar({userType}) {
   let navbar_content = [
-    { link:"#",               text:"Dashboard",         for: 0b111, },
+    { link:"/dashboard",      text:"Dashboard",         for: 0b111, },
     { link:"#",               text:"Apartments",        for: 0b111, },
     { link:"/committee",      text:"Committee Members", for: 0b111, },
     { link:"/owners",         text:"Owners",            for: 0b111, },
@@ -60,6 +60,9 @@ export default function Navbar({userType}) {
   return (
     <Router>
       <Routes>
+        <Route path="/dashboard" element={
+          <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'dashboard' } userType={ userType }/></div>
+        } />
         <Route path="/owners" element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'owners' } userType={ userType }/></div>
         } />
