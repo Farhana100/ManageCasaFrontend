@@ -12,7 +12,11 @@ export class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data:[] 
+      data:{
+        username:"nahian",
+        user_active: true,
+        userType: 'admin'
+      }
      };
     this.fetchUserStatus = this.fetchUserStatus.bind(this);
   };
@@ -25,9 +29,10 @@ export class App extends Component {
     fetch('http://127.0.0.1:8000/getUser')
     .then(response => response.json())
     .then(data =>
-          this.setState({
-           data:data 
-          })
+          // this.setState({
+          //  data:data 
+          // })
+          console.log(data)
       );
     console.log("this state", this.state);
   };
