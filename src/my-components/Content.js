@@ -185,7 +185,7 @@ let elections= [
   {
     name: 'President',
     status: 'Nomination',
-    candidates: ['nahian', 'farhana', 'utsha', 'alif'],
+    candidates: ['Nahian', 'Farhana', 'Utsha', 'Alif'],
     winner: '',
     create_time: '2020-01-01',
     nom_start_time: '2020-01-01',
@@ -220,14 +220,14 @@ let elections= [
 let candidates = [
   {
     id: 1,
-    name: 'nahian',
+    name: 'Nahian',
     floor: 1,
     unit: 'A',
     status: "approved"
   },
   {
     id: 2,
-    name: 'farhana',
+    name: 'Farhana',
     floor: 1,
     unit: 'B',
     status: "pending"
