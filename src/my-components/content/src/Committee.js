@@ -21,7 +21,7 @@ export default function Committee (props) {
                     <div className="fitem info">
                         <h5 className="card-title">{committeemember.name}</h5>
                         <p className="card-text">{committeemember.position}</p>
-                        <p className="card-text"><small className="text-muted">Apartment No. {committeemember.floor}</small></p>  
+                        <p className="card-text"><small className="text-muted">Apartment No. {committeemember.floor}{committeemember.unit}</small></p>  
                     </div> 
                     <div className='fitem button'>
                         <Button text="Edit"/>
