@@ -75,6 +75,15 @@ export default function Navbar({userType}) {
         <Route path="/election" element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'election' } userType={ userType }/></div>
         } />
+        <Route path="/createelection" element={
+          <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'createelection' } userType={ userType }/></div>
+        } />
+        <Route path="/viewelection" element={
+          <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'viewelection' } userType={ userType }/></div>
+        } />
+         <Route path="/descelection" element={
+          <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'descelection' } userType={ userType }/></div>
+        } />
       </Routes>
     </Router>
   )

@@ -6,6 +6,7 @@ import Button from '../../misc/Button'
 import "../static/css/election.css"
 
 import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ElectionNavbar from './miscElection/ElectionNavbar';
 
 class ElectionClass extends Component{
     constructor (props) {
@@ -36,10 +37,7 @@ class ElectionClass extends Component{
 render() {
   return (
     <>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="nav-item nav-link elec" href="#">Election</a>
-        <a class="nav-item nav-link poll" href="#">Poll</a>
-    </nav>
+    <ElectionNavbar/>
     <div className='second-header'>
         <div>
             <form>

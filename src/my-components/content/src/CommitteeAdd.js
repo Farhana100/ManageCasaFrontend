@@ -94,7 +94,7 @@ render(){
         </div>
     </form>
     <br/>
-    <h4> Personal Information</h4>
+    <h4 className='myh4'> Personal Information</h4>
     <br/>
     <div className='my-form-container'>
         <div className='forminfo'>

@@ -14,26 +14,10 @@ import './content/static/css/content.css';
 import ElectionView from './content/src/ElectionView';
 import CreateElection from './content/src/ElectionCreate';
 import Login from './Login';
-
-
-// export default function Content({page, content_vars, user}) {
-//   switch(page.toLowerCase()) {
-//     case "committee members":
-//       return ( <Committee committee={content_vars} user={user}/> )
-//     case "tenants":
-//       return ( <Tenants tenants={content_vars}/> )
-//     case "owners":
-//       return ( <Owners owners={content_vars}/> )
-//     case "add committee member":
-//       return ( <AddCommittee/> )
-//     case "election":
-//         return ( <Election/> )
-//     default:
-//       return (<>content</>)
-//   }
-// }
-
-
+import ElectionDesc from './content/src/miscElection/ElectionDesc';
+import ElectionNomination from './content/src/ElectionNomination';
+import ElectionVoting from './content/src/ElectionVoting';
+import ElectionEnded from './content/src/ElectionEnded';
 
 export default function Content() {
   return(
@@ -45,7 +29,12 @@ export default function Content() {
         <Route path="/addcommittee" element={<CommitteeAdd/>} />
         <Route path="/election" element={<Election elections={elections} user={user}/>} />
         <Route path="createelection" element={<CreateElection/>}/>
-        <Route path="/viewelection" element={<ElectionView/>} />
+        <Route path="/viewelection" element={<ElectionView elections={elections} candidates={candidates}/>} />
+        {/* <Route path="/descelection" element={<ElectionDesc elections={elections}/>} />
+        <Route path="/nomelection" element={<ElectionNomination elections={elections} candidates={candidates}/>} />
+        <Route path="/votelection" element={<ElectionVoting elections={elections} candidates={candidates}/>} />
+        <Route path="/endelection" element={<ElectionEnded elections={elections} candidates={candidates}/>} /> */}
+
       </Routes>
     </Router>
   );
@@ -195,7 +184,7 @@ let committeemembers= [
 let elections= [
   {
     name: 'President',
-    status: 'Running',
+    status: 'Ended',
     candidates: ['nahian', 'farhana', 'utsha', 'alif'],
     winner: '',
     create_time: '2020-01-01',
@@ -226,5 +215,19 @@ let elections= [
     voting_start_time: '2020-01-01',
     voting_end_time: '2020-01-01',
   }
+]
 
+let candidates = [
+  {
+    id: 1,
+    name: 'nahian',
+    floor: 1,
+    unit: 'A',
+  },
+  {
+    id: 2,
+    name: 'farhana',
+    floor: 1,
+    unit: 'B',
+  }
 ]

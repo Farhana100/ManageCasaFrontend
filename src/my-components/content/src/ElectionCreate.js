@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button from '../../misc/Button';
 import DateTimePicker from '../../misc/DateTimePicker';
+import ElectionNavbar from './miscElection/ElectionNavbar';
 
 
 export default class ElectionCreate extends Component{
@@ -25,6 +26,7 @@ export default class ElectionCreate extends Component{
 render(){
   return (
     <>
+        <ElectionNavbar/>
         <h3> Create New Committee Election</h3>
         <div class="form-elec">
             <div>
