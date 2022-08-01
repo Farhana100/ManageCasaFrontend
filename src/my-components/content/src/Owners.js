@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { Component } from 'react'
 import '../static/css/owners.css'
 
-export default function Owners ({owners}) {
+export default class Owners extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+     
+    };
+}
+
+render(){
   return (
     <div className='owners'>
        <div className='container mycontainer'>
         <h3 className='owner-head'>List of Flat Owners</h3>
-        {owners.map(owner=> {
+        {this.props.owners.map(owner=> {
                 return(
                     <>
                     <div className='grid-container'>
@@ -29,4 +37,5 @@ export default function Owners ({owners}) {
     </div>
   
   )
+}
 }

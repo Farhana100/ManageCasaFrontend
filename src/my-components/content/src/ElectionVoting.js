@@ -1,17 +1,26 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ElectionNavbar from './miscElection/ElectionNavbar'
 import '../static/css/electionview.css'
 import ElectionDesc from './miscElection/ElectionDesc'
 import Button from '../../misc/Button'
 import Progress_bar from '../../misc/ProgressBar'
 
-export default function ElectionVoting(props){
+export default class ElectionVoting extends Component{
+    constructor (props) {
+        super(props)
+        this.state = {
+         
+        };
+        
+    }
+
+render(){
     return(
         <>
-            <ElectionDesc elections={props.elections}/>
+            <ElectionDesc elections={this.props.elections}/>
             <h3>Candidates:</h3>
         
-            {props.candidates.map(candidate => {
+            {this.props.candidates.map(candidate => {
             return(
                 <>
                 <div className="votelistcontainer">
@@ -23,7 +32,7 @@ export default function ElectionVoting(props){
                         <p className="card-text"><small className="text-muted">Apartment No. {candidate.floor}{candidate.unit}</small></p>  
                     </div> 
                     {
-                        props.user === "admin"
+                        this.props.user === "admin"
                         ?
                         <>
                         <div className='progbar'>
@@ -47,7 +56,7 @@ export default function ElectionVoting(props){
             )
         })}
         {
-            props.user === "admin"
+            this.props.user === "admin"
             ?
             <>
                 <div className='mybtn'>
@@ -70,4 +79,5 @@ export default function ElectionVoting(props){
         
         </>
     )
+}
 }

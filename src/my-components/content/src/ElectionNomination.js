@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ElectionNavbar from './miscElection/ElectionNavbar'
 import '../static/css/electionview.css'
 import ElectionDesc from './miscElection/ElectionDesc'
 import Button from '../../misc/Button'
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
-export default function ElectionNomination(props){
-    let navigate = useNavigate();
+export default class ElectionNomination extends Component{
+    constructor (props) {
+        super(props)
+        this.state = {
+          
+        };
+        
+    }
+    
+render(){
     return(
         <>
-            <ElectionDesc elections={props.elections}/>
+            <ElectionDesc elections={this.props.elections}/>
             <h3>Nominees: </h3>
-        {props.candidates.map(candidate => {
+        {this.props.candidates.map(candidate => {
             return(
                 <>
                 <div className="nomlistcontainer">
@@ -23,7 +31,7 @@ export default function ElectionNomination(props){
                     <p className="card-text"><small className="text-muted">Apartment No. {candidate.floor}{candidate.unit}</small></p>  
                 </div> 
                 {
-                    props.user === "admin"
+                    this.props.user === "admin"
                     ?
                     <>
                     <div className='nom-btn'>
@@ -49,7 +57,7 @@ export default function ElectionNomination(props){
             )
         })}
         {
-            props.user === "admin"
+            this.props.user === "admin"
             ?
             <>
             <div className='mybtn'>
@@ -73,4 +81,5 @@ export default function ElectionNomination(props){
 
         </>
     )
+}
 }

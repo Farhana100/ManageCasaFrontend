@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Button from '../../misc/Button';
 import DateTimePicker from '../../misc/DateTimePicker';
 import ElectionNavbar from './miscElection/ElectionNavbar';
 
 
-class ElectionCreateClass extends Component{
+export default class ElectionCreateClass extends Component{
     
     constructor(props){
         super(props);
@@ -89,10 +89,10 @@ render(){
         </div>
         <div className='btn-cont'>
             <div>
-                <Button text='Cancel' OnClick={() => {this.props.navigate('/election');}}/>
+                <Button text='Cancel' OnClick={() => {<Navigate to="/election"/>}}/>
             </div>
             <div>
-                <Button text='Create' OnClick={() => {this.props.navigate('/election');}}/>
+                <Button text='Create' OnClick={() => {<Navigate to="/election"/>}}/>
             </div>
         </div>
     </>
@@ -100,12 +100,12 @@ render(){
 }
 }
 
-export default function ElectionCreate(props){
-    let navigate = useNavigate();
-    return(
-        <ElectionCreateClass elections={props.elections} navigate={navigate}/>
-    )
-  }
+// export default function ElectionCreate(props){
+//     let navigate = useNavigate();
+//     return(
+//         <ElectionCreateClass elections={props.elections} navigate={navigate}/>
+//     )
+//   }
 
 
 

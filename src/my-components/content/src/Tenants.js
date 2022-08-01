@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { Component } from 'react'
 import '../static/css/tenants.css'
 
-export default function Tenants ({tenants}) {
+export default class Tenants extends Component {
+
+  constructor (props) {
+    super(props)
+    this.state = {
+     
+    };
+}
+
+render(){
   return (
     <div className='tenants'>
        <div className='container mycontainer'>
         <h3 className='tenant-head'>List of Tenants</h3>
-        {tenants.map(tenant=> {
+        {this.props.tenants.map(tenant=> {
          return(
           <>
           <div className='grid-container'>
@@ -29,4 +38,5 @@ export default function Tenants ({tenants}) {
     </div>
   
   )
+}
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import DatePicker from 'react-datepicker';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
 import Button from '../../misc/Button'
 import "../static/css/election.css"
@@ -8,7 +8,7 @@ import "../static/css/election.css"
 import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ElectionNavbar from './miscElection/ElectionNavbar';
 
-class ElectionClass extends Component{
+export default class Election extends Component{
     constructor (props) {
         super(props)
         this.state = {
@@ -17,7 +17,7 @@ class ElectionClass extends Component{
         this.handleChange = this.handleChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
         
-      }
+    }
       handleChange(date) {
         this.setState({
           startDate: date
@@ -58,7 +58,7 @@ render() {
             this.props.user === 'admin' 
             ?
             <div className='new-btn'>
-              <Button text="Create New" OnClick={() => {this.props.navigate('/createelection');}}/>
+              <Button text="Create New" OnClick={() => {<Navigate to="/createelection"/>}}/>
             </div> 
             :
             null
@@ -69,7 +69,7 @@ render() {
       {this.props.elections.map(election=> {
             return( 
             <div className="elec-container" >
-                <div className="elec-info" onClick={() => {this.props.navigate('/viewelection');}}>
+                <div className="elec-info" onClick={() => {<Navigate to="/viewelection"/>}}>
                     <h5 className="elec-title">{election.status}</h5>
                     <p className="elec-name">{election.name}</p>
                     <p className="card-text"><small className="text-muted">Start Time {election.create_time}</small></p>  
@@ -84,9 +84,9 @@ render() {
 }
 }
 
-export default function Election(props){
-  let navigate = useNavigate();
-  return(
-      <ElectionClass elections={props.elections} navigate={navigate} user={props.user}/>
-  )
-}
+// export default function Election(props){
+//   let navigate = useNavigate();
+//   return(
+//       <ElectionClass elections={props.elections} navigate={navigate} user={props.user}/>
+//   )
+// }

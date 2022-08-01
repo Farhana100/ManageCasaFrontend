@@ -1,16 +1,25 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ElectionNavbar from './miscElection/ElectionNavbar'
 import '../static/css/electionview.css'
 import ElectionDesc from './miscElection/ElectionDesc'
 import Progress_bar from '../../misc/ProgressBar'
 
-export default function ElectionEnded(props){
+export default class ElectionEnded extends Component{
+    constructor (props) {
+        super(props)
+        this.state = {
+          
+        };
+        
+    }
+
+render() {
     return(
         <>
-            <ElectionDesc elections={props.elections}/>
+            <ElectionDesc elections={this.props.elections}/>
             <h3> Result:</h3>
         
-            {props.candidates.map(candidate => {
+            {this.props.candidates.map(candidate => {
             return(
                 <>
                 <div className="votelistcontainer">
@@ -36,4 +45,5 @@ export default function ElectionEnded(props){
         })}
         </>
     )
+}
 }
