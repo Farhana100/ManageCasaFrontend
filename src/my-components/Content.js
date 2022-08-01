@@ -4,7 +4,7 @@ import Home from './Home'
 import Tenants from './content/src/Tenants';
 import Committee from './content/src/Committee';
 import Owners from './content/src/Owners';
-import CommitteeAdd from './content/src/CommitteeAdd';
+import AddCommittee from './content/src/CommitteeAdd';
 import Election from './content/src/Election';
 import Button from './misc/Button'
 
@@ -12,7 +12,7 @@ import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import './content/static/css/content.css';
 import ElectionView from './content/src/ElectionView';
-import CreateElection from './content/src/ElectionCreate';
+import ElectionCreate from './content/src/ElectionCreate';
 import Login from './Login';
 import ElectionDesc from './content/src/miscElection/ElectionDesc';
 import ElectionNomination from './content/src/ElectionNomination';
@@ -28,9 +28,9 @@ export default function Content() {
         <Route path="/owners" element={<Owners owners={owners}/>} />
         <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
         <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
-        <Route path="/addcommittee" element={<CommitteeAdd user={user}/> } />
+        <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
         <Route path="/election" element={<Election elections={elections} user={user}/>} />
-        <Route path="createelection" element={<CreateElection user={user}/>}/>
+        <Route path="createelection" element={<ElectionCreate user={user}/>}/>
         <Route path="/viewelection" element={<ElectionView elections={elections} candidates={candidates} user={user}/>} />
         
         {/* <Route path="/descelection" element={<ElectionDesc elections={elections}/>} />
@@ -43,7 +43,7 @@ export default function Content() {
   );
 }
 
-let user = "admin";
+// let user = "admin";
 
 let apartments = [
   {

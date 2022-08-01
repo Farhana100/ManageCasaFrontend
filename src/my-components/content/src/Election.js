@@ -55,10 +55,10 @@ render() {
             </form>
         </div>
         {
-            this.props.user === 'admin' 
+            this.props.user.userType === 'admin' 
             ?
             <div className='new-btn'>
-              <Button text="Create New" OnClick={() => {<Navigate to="/createelection"/>}}/>
+              <Button text="Create New" OnClick={() => {<Navigate to="/createelection" replace={true}/>}}/>
             </div> 
             :
             null

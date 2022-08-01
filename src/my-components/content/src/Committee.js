@@ -20,7 +20,7 @@ render() {
        <div className='container'>
         <h3 className='committee_hd'>List of Current Committee Members</h3>
         {this.props.committee.map(committeemember=> {
-            if(this.props.user === 'admin') { 
+            if(this.props.user.userType === 'admin') { 
                 return( 
                 <div className="flex-container">
                     <div className='fitem image'>
@@ -32,7 +32,7 @@ render() {
                         <p className="card-text"><small className="text-muted">Apartment No. {committeemember.floor}{committeemember.unit}</small></p>  
                     </div> 
                     <div className='fitem button'>
-                        <Button text="Edit" OnClick={() => {<Navigate to="/addcommittee"/>}}/>
+                        <Button text="Edit" link='/addcommittee'/>
                     </div>
                     <div className='fitem button'>
                         <Button text="Delete"/>
@@ -55,10 +55,10 @@ render() {
                     )
             }
         })}
-        {this.props.user === 'admin'
+        {this.props.user.userType === 'admin'
             ?
             <div className='flex-end'>
-                <Button text="Add New Committee Member" OnClick={() => {<Navigate to="/addcommittee"/>}}/>
+                <Button text="Add New Committee Member" link={"/addcommittee"}/>
             </div>
             :
             <div></div>

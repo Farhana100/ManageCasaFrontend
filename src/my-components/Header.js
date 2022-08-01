@@ -11,7 +11,7 @@ function ActiveUserHeader ({username}) {
                 <a className="nav-link disabled px-3">Welcome, {username}</a>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="/logout">Log out</a>
+                <a className="nav-link" href='#'>Log out</a>
             </li>
         </>
     )
@@ -54,6 +54,8 @@ function HeaderContent ({username, userActive}) {
     }
     return <InactiveUserHeader />;
 }
+
+
 
 export default function Header({username, userActive}) {
   return (
