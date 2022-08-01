@@ -32,7 +32,6 @@ export class Login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log("submit pressed ", this.state);
-    // window.location.replace("http://localhost:3000/dashboard");
 
     var url = "http://127.0.0.1:8000/login"
     fetch(url, {
@@ -56,6 +55,7 @@ export class Login extends Component {
       }
       
       this.state.user_active = data.user_active
+      window.location.reload();
     });
   }
 

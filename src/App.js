@@ -67,22 +67,6 @@ export class App extends Component {
             <div className='p-3'><Content/></div>
           </div>
         }
-      {/* {user.user_active */
-          // ? 
-          // <div className='app-grid-container'>
-          //   <Navbar userType={user.userType}/>
-          //   <div className='p-3'><Content /></div>
-          // </div>
-          // :
-          // <Router>
-          //   <Routes>
-          //     <Route path="/login" exact element={<Login/>} />
-          //     <Route path="/register" exact element={<Register/>} />
-          //     <Route path="/home" exact element={<Home/>} />
-          //     {/* <Route path="*" exact element={<Home/>} /> */}
-          //   </Routes>
-          // </Router> 
-        }
       </>
     );
   }

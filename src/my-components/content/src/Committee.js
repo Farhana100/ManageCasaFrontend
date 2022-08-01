@@ -20,7 +20,7 @@ render() {
        <div className='container'>
         <h3 className='committee_hd'>List of Current Committee Members</h3>
         {this.props.committee.map(committeemember=> {
-            if(this.props.user === 'admin') { 
+            if(this.props.user.userType === 'admin') { 
                 return( 
                 <div className="flex-container">
                     <div className='fitem image'>
@@ -55,7 +55,7 @@ render() {
                     )
             }
         })}
-        {this.props.user === 'admin'
+        {this.props.user.userType === 'admin'
             ?
             <div className='flex-end'>
                 <Button text="Add New Committee Member" OnClick={() => {<Navigate to="/addcommittee"/>}}/>
