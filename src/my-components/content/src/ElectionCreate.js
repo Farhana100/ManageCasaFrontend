@@ -5,7 +5,7 @@ import DateTimePicker from '../../misc/DateTimePicker';
 import ElectionNavbar from './miscElection/ElectionNavbar';
 
 
-export default class ElectionCreateClass extends Component{
+export default class ElectionCreate extends Component{
     
     constructor(props){
         super(props);
