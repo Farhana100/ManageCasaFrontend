@@ -1,4 +1,5 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
+import { Navigate } from "react-router-dom";
 import logo from './brand/logo.svg'
 import image1 from './content/static/images/login-image.png'
 import './content/static/css/login.css'
@@ -6,12 +7,14 @@ import Footer from './Footer'
 
 
 export class Login extends Component {
+
   constructor(props){
     super(props);
     this.state = {
         username: '',
         password: '',
         msg: null,
+        user_active: false,
     }
   }
 
@@ -47,15 +50,25 @@ export class Login extends Component {
       })
       console.log(data.msg)
       console.log(data.token)
-      localStorage.setItem('token', data)
-      const temp =localStorage.getItem('token') 
-      console.log("token ", temp.token)
+      console.log(data.user_active)
+
+      if (data.user_active){
+        localStorage.setItem('data', JSON.stringify(data))
+      }
+      
+      this.state.user_active = data.user_active
     });
   }
 
   render() {
+    let user = JSON.parse(localStorage.getItem('data'));
+    
     return (
       <div>
+        {user && user.user_active && (
+          <Navigate to="/dashboard" replace={true} />
+        )}
+
         <div className='container-fluid'>
           <div className='row text-center'>
             <div className='col-8 d-none d-lg-block p-0 login-col1'>

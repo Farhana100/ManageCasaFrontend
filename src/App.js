@@ -12,33 +12,40 @@ export class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data:{
-        // username:"nahian",
-        // user_active: true,
-        // userType: 'admin'
-      }
+      data:{}
      };
-    this.fetchUserStatus = this.fetchUserStatus.bind(this);
+    // this.fetchUserStatus = this.fetchUserStatus.bind(this);
   };
 
-  componentDidMount(){
-    this.fetchUserStatus();
-  };
+  // componentDidMount(){
+  //   this.fetchUserStatus();
+  // };
 
-  fetchUserStatus(){
-    fetch('http://127.0.0.1:8000/getUser')
-    .then(response => response.json())
-    .then(data =>
-          this.setState({
-           data:data 
-          })
-          // console.log(data)
-      );
-    console.log("this state", this.state);
-  };
+  // fetchUserStatus(){
+  //   fetch('http://127.0.0.1:8000/getUser')
+  //   .then(response => response.json())
+  //   .then(data =>
+  //         this.setState({
+  //          data:data 
+  //         })
+  //         // console.log(data)
+  //     );
+  //   console.log("this state", this.state);
+  // };
 
   render(){
-    var user = this.state.data
+    // localStorage.clear();
+    let user = JSON.parse(localStorage.getItem('data'));
+    if (! user) {
+      console.log('DEBUG');
+      user = {
+       username: "",
+       userType: "",
+       user_active: false,
+      }
+    }
+
+    // var user = this.state.data
     console.log('user ', user)
 
     return (
