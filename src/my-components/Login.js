@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import logo from './brand/logo.svg'
 import image1 from './content/static/images/login-image.png'
 import './content/static/css/login.css'
@@ -45,6 +45,11 @@ export class Login extends Component {
       this.setState({
         msg : data.msg
       })
+      console.log(data.msg)
+      console.log(data.token)
+      localStorage.setItem('token', data)
+      const temp =localStorage.getItem('token') 
+      console.log("token ", temp.token)
     });
   }
 

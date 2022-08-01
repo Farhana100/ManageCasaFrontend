@@ -30,6 +30,7 @@ export default function Content() {
         <Route path="/election" element={<Election elections={elections} user={user}/>} />
         <Route path="createelection" element={<CreateElection user={user}/>}/>
         <Route path="/viewelection" element={<ElectionView elections={elections} candidates={candidates} user={user}/>} />
+        
         {/* <Route path="/descelection" element={<ElectionDesc elections={elections}/>} />
         <Route path="/nomelection" element={<ElectionNomination elections={elections} candidates={candidates}/>} />
         <Route path="/votelection" element={<ElectionVoting elections={elections} candidates={candidates}/>} />
@@ -38,16 +39,6 @@ export default function Content() {
       </Routes>
     </Router>
   );
-}
-
-Content.defaultProps = {
-  page: null,
-  content_vars: null,
-}
-
-Content.propTypes = {
-  page: PropTypes.string,
-  content_vars: PropTypes.any,
 }
 
 let user = "admin";
@@ -184,7 +175,7 @@ let committeemembers= [
 let elections= [
   {
     name: 'President',
-    status: 'Nomination',
+    status: 'Voting',
     candidates: ['Nahian', 'Farhana', 'Utsha', 'Alif'],
     winner: '',
     create_time: '2020-01-01',
