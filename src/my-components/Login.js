@@ -14,7 +14,6 @@ export class Login extends Component {
         username: '',
         password: '',
         msg: null,
-        user_active: false,
     }
   }
 

@@ -20,6 +20,8 @@ import ElectionVoting from './content/src/ElectionVoting';
 import ElectionEnded from './content/src/ElectionEnded';
 
 export default function Content() {
+  let user = JSON.parse(localStorage.getItem('data'));
+  
   return(
     <Router>
       <Routes>

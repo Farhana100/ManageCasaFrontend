@@ -51,23 +51,22 @@ export class App extends Component {
     return (
       <>
         <Header username={user.username} userActive={user.user_active}/>
-        {user.user_active
-          ? 
+        <Router>
+          <Routes>
+            <Route path="/login" exact element={<Login/>} />
+            <Route path="/register" exact element={<Register/>} />
+            <Route path="/home" exact element={<Home/>} />
+            <Route path="/" exact element={<Home/>} />
+          </Routes>
+        </Router> 
+
+        {user && user.user_active &&
+
           <div className='app-grid-container'>
             <Navbar userType={user.userType}/>
             <div className='p-3'><Content/></div>
           </div>
-          :
-          <Router>
-            <Routes>
-              <Route path="/login" exact element={<Login/>} />
-              <Route path="/register" exact element={<Register/>} />
-              <Route path="/home" exact element={<Home/>} />
-              {/* <Route path="*" exact element={<Home/>} /> */}
-            </Routes>
-          </Router> 
         }
-
       {/* {user.user_active */
           // ? 
           // <div className='app-grid-container'>
