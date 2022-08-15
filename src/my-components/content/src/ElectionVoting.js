@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ElectionNavbar from './miscElection/ElectionNavbar'
 import '../static/css/electionview.css'
 import ElectionDesc from './miscElection/ElectionDesc'
 import Button from '../../misc/Button'
@@ -17,7 +16,7 @@ export default class ElectionVoting extends Component{
 render(){
     return(
         <>
-            <ElectionDesc elections={this.props.elections}/>
+            <ElectionDesc election={this.props.election}/>
             <h3>Candidates:</h3>
         
             {this.props.candidates.map(candidate => {

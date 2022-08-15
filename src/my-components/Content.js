@@ -1,23 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import Home from './Home'
 import Tenants from './content/src/Tenants';
 import Committee from './content/src/Committee';
 import Owners from './content/src/Owners';
 import AddCommittee from './content/src/CommitteeAdd';
 import Election from './content/src/Election';
-import Button from './misc/Button'
 
 import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import './content/static/css/content.css';
 import ElectionView from './content/src/ElectionView';
 import ElectionCreate from './content/src/ElectionCreate';
-import Login from './Login';
-import ElectionDesc from './content/src/miscElection/ElectionDesc';
-import ElectionNomination from './content/src/ElectionNomination';
-import ElectionVoting from './content/src/ElectionVoting';
-import ElectionEnded from './content/src/ElectionEnded';
 
 export default function Content() {
   let user = JSON.parse(localStorage.getItem('data'));
@@ -29,21 +21,14 @@ export default function Content() {
         <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
         <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
         <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
-        <Route path="/election" element={<Election elections={elections} user={user}/>} />
-        <Route path="createelection" element={<ElectionCreate user={user}/>}/>
-        <Route path="/viewelection" element={<ElectionView elections={elections} candidates={candidates} user={user}/>} />
-        
-        {/* <Route path="/descelection" element={<ElectionDesc elections={elections}/>} />
-        <Route path="/nomelection" element={<ElectionNomination elections={elections} candidates={candidates}/>} />
-        <Route path="/votelection" element={<ElectionVoting elections={elections} candidates={candidates}/>} />
-        <Route path="/endelection" element={<ElectionEnded elections={elections} candidates={candidates}/>} /> */}
-
+        <Route path="/election" element={<Election user={user}/>} />
+        <Route path="/createelection" element={<ElectionCreate user={user}/>}/>
+        <Route path="/viewelection" element={<ElectionView candidates={candidates} user={user}/>} />
       </Routes>
     </Router>
   );
 }
 
-// let user = "admin";
 
 let apartments = [
   {
@@ -174,41 +159,41 @@ let committeemembers= [
   }
 ]
 
-let elections= [
-  {
-    name: 'President',
-    status: 'Voting',
-    candidates: ['Nahian', 'Farhana', 'Utsha', 'Alif'],
-    winner: '',
-    create_time: '2020-01-01',
-    nom_start_time: '2020-01-01',
-    nom_end_time: '2020-01-01',
-    voting_start_time: '2020-01-01',
-    voting_end_time: '2020-01-01',
-  },
-  {
-    name: 'Secretary',
-    status: 'Ended',
-    candidates: ['nahian', 'farhana', 'utsha', 'alif'],
-    winner: 'nahian',
-    create_time: '2020-01-01',
-    nom_start_time: '2020-01-01',
-    nom_end_time: '2020-01-01',
-    voting_start_time: '2020-01-01',
-    voting_end_time: '2020-01-01',
-  },
-  {
-    name: 'President',
-    status: 'Nomination',
-    candidates: ['nahian', 'farhana', 'utsha', 'alif'],
-    winner: '',
-    create_time: '2020-01-01',
-    nom_start_time: '2020-01-01',
-    nom_end_time: '2020-01-01',
-    voting_start_time: '2020-01-01',
-    voting_end_time: '2020-01-01',
-  }
-]
+// let elections= [
+//   {
+//     name: 'President',
+//     phase: 'Voting',
+//     candidates: ['Nahian', 'Farhana', 'Utsha', 'Alif'],
+//     winner: '',
+//     create_time: '2020-01-01',
+//     nom_start_time: '2020-01-01',
+//     nom_end_time: '2020-01-01',
+//     voting_start_time: '2020-01-01',
+//     voting_end_time: '2020-01-01',
+//   },
+//   {
+//     name: 'Secretary',
+//     phase: 'Ended',
+//     candidates: ['nahian', 'farhana', 'utsha', 'alif'],
+//     winner: 'nahian',
+//     create_time: '2020-01-01',
+//     nom_start_time: '2020-01-01',
+//     nom_end_time: '2020-01-01',
+//     voting_start_time: '2020-01-01',
+//     voting_end_time: '2020-01-01',
+//   },
+//   {
+//     name: 'President',
+//     phase: 'Nomination',
+//     candidates: ['nahian', 'farhana', 'utsha', 'alif'],
+//     winner: '',
+//     create_time: '2020-01-01',
+//     nom_start_time: '2020-01-01',
+//     nom_end_time: '2020-01-01',
+//     voting_start_time: '2020-01-01',
+//     voting_end_time: '2020-01-01',
+//   }
+// ]
 
 let candidates = [
   {

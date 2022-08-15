@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import DatePicker from 'react-datepicker';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
 import Button from '../../misc/Button'
 import "../static/css/election.css"
@@ -12,24 +12,36 @@ export default class Election extends Component{
     constructor (props) {
         super(props)
         this.state = {
-          startDate: new Date()
+          elections:[],
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.onFormSubmit = this.onFormSubmit.bind(this);
         
-    }
-      handleChange(date) {
-        this.setState({
-          startDate: date
-        })
-      }
-      onFormSubmit(e) {
-        e.preventDefault();
-        console.log(this.state.startDate)
-      }
+        this.fetchElections = this.fetchElections.bind(this)
+    };
 
+    componentDidMount(){
+      this.fetchElections()
+    }
+      
+    fetchElections(){
+      console.log("fetching...")
+
+      fetch('http://127.0.0.1:8000/getAllElections')
+      .then(response => response.json())
+      .then(data =>
+        this.setState({
+          elections:data
+        })
+          
+      );
+      console.log("this state", this.state);
+    }
+
+
+  
 
 render() {
+  var elections = this.state.elections
+  console.log(elections)
   return (
     <>
     <ElectionNavbar/>
@@ -58,7 +70,7 @@ render() {
             this.props.user.userType === 'admin' 
             ?
             <div className='new-btn'>
-              <Button text="Create New" OnClick={() => {<Navigate to="/createelection" replace={true}/>}}/>
+              <Button text="Create New" link = "/createelection" />
             </div> 
             :
             null
@@ -66,13 +78,13 @@ render() {
         
     </div>
     <div>
-      {this.props.elections.map(election=> {
+      {elections.map(election=> {
             return( 
             <div className="elec-container" >
-                <div className="elec-info" onClick={() => {<Navigate to="/viewelection"/>}}>
-                    <h5 className="elec-title">{election.status}</h5>
-                    <p className="elec-name">{election.name}</p>
-                    <p className="card-text"><small className="text-muted">Start Time {election.create_time}</small></p>  
+                <div className="elec-info">
+                    <h5 className="elec-title">{election.phase}</h5>
+                    <p className="elec-name"> {election.position} </p>
+                    <p className="card-text"><small className="text-muted">Start Time {election.creation_time}</small></p>  
                 </div>    
             </div>
             )

@@ -3,33 +3,57 @@ import ElectionNavbar from './miscElection/ElectionNavbar'
 import ElectionEnded from './ElectionEnded'
 import ElectionNomination from './ElectionNomination'
 import ElectionVoting from './ElectionVoting'
-import ElectionDesc from './miscElection/ElectionDesc'
 
 export default class ElectionView extends Component{
 
   constructor (props) {
     super(props)
     this.state = {
-      
+      election:{},
     };
+    this.fetchElection = this.fetchElection.bind(this)
+  }
+
+  componentDidMount(){
+    this.fetchElection()
+  }
+
+  fetchElection(){
+    console.log("fetching...")
+
+    fetch('http://127.0.0.1:8000/getElection/1')
+    .then(response => response.json())
+    .then(data =>
+      {
+      this.setState({
+        election:data
+        
+      })
+      console.log(data)  
+    }
+    );
     
-}
+    console.log("this state");
+  }
 
 
 render(){
+  var election = this.state.election;
+  console.log('details', election.phase) 
   return (
     <>
     <ElectionNavbar/>
     {
-        this.props.elections[0].status.toLowerCase() === 'nomination'
+        election.phase === 'nomination'
         ?
-        <ElectionNomination elections={this.props.elections} candidates={this.props.candidates} user={this.props.user}/>
+        <ElectionNomination election={election} candidates={this.props.candidates} user={this.props.user}/>
         :
-        this.props.elections[0].status.toLowerCase() === 'voting'
+        election.phase === 'voting'
         ?
-        <ElectionVoting elections={this.props.elections} candidates={this.props.candidates} user={this.props.user}/>
+        
+        <ElectionVoting election={election} candidates={this.props.candidates} user={this.props.user}/>
         :
-        <ElectionEnded elections={this.props.elections} candidates={this.props.candidates} user={this.props.user}/>
+        <ElectionEnded election={election} candidates={this.props.candidates} user={this.props.user}/>
     }
     
     </>

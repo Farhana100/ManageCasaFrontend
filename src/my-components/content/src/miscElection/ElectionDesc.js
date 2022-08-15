@@ -23,12 +23,12 @@ export default class ElectionDesc extends Component{
                 <h3>Committee Election</h3>
             </div>
             <div>
-                <text className='status'> {this.props.elections[0].status} </text>
+                <text className='status'> {this.props.election.phase} </text>
             </div>
         </div>
-        <h5 className='myh5'> Committee Member Position: {this.props.elections[0].name}</h5>
+        <h5 className='myh5'> Committee Member Position: {this.props.election.position}</h5>
         {
-            this.props.elections[0].status.toLowerCase() === 'nomination'
+            this.props.election.phase.toLowerCase() === 'nomination'
             ?
             <div class="apprtoggle">
                 <div>
@@ -52,7 +52,7 @@ export default class ElectionDesc extends Component{
                 <p className='timename'>Nomination Start Time:</p>
             </div>
             <div>
-                <p className='timev1'>{this.props.elections[0].nom_start_time}</p>
+                <p className='timev1'>{this.props.election.nomination_start_time}</p>
             </div>
             <div className='icon-area'>
                 <FiEdit size={25} className='edit-icon'/>
@@ -63,7 +63,7 @@ export default class ElectionDesc extends Component{
                 <p className='timename'>Nomination End Time:</p>
             </div>
             <div>
-                <p className='timev2'>{this.props.elections[0].nom_end_time}</p>
+                <p className='timev2'>{this.props.election.nomination_end_time}</p>
             </div>
             <div className='icon-area'>
                 <FiEdit size={25} className='edit-icon'/>
@@ -74,7 +74,7 @@ export default class ElectionDesc extends Component{
                 <p className='timename'>Voting Start Time:</p>
             </div>
             <div>
-                <p className='timev3'>{this.props.elections[0].voting_start_time}</p>
+                <p className='timev3'>{this.props.election.voting_start_time}</p>
             </div>
             <div className='icon-area'>
                 <FiEdit size={25} className='edit-icon'/>
@@ -85,7 +85,7 @@ export default class ElectionDesc extends Component{
                 <p className='timename'>Voting End Time:</p>
             </div>
             <div>
-                <p className='timev4'>{this.props.elections[0].voting_end_time}</p>
+                <p className='timev4'>{this.props.election.voting_end_time}</p>
             </div>
             <div className='icon-area'>
                 <FiEdit size={25} className='edit-icon'/>
