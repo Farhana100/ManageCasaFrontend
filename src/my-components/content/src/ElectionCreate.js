@@ -1,95 +1,120 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import { Navigate } from 'react-router-dom';
 import Button from '../../misc/Button';
 import DateTimePicker from '../../misc/DateTimePicker';
 import ElectionNavbar from './miscElection/ElectionNavbar';
 
 
-export default class ElectionCreate extends Component{
+export default function ElectionCreate(props){
+    const [ positionData, setPositionData ] = useState("");
+    const [ nomstartData, setNomStartData ] = useState(new Date().toLocaleDateString('fr-FR'));
+    const [ nomendData, setNomEndData ] = useState();
+    const [ votestartData, setVoteStartData ] =useState();
+    const [voteEndData, setVoteEndData ] = useState();
     
-    constructor(props){
-        super(props);
-        this.state = {
-           
-        }
+    const handlepositionchange = (e) => {
+        setPositionData(e.target.value);
+        console.log("position: ", e.target.value);
+        console.log("set position: ", positionData);
+    }
+    function handleNomStart(e){
+        setNomStartData(e.target.value);
+        console.log("nom start date: ", nomstartData);
+    }
+    function handleNomEnd(e){
+        setNomEndData(e.target.value);
     }
 
-   handlepositionchange(e){
-        alert(`${e.target.value}`)
-   }
+    function handleVoteStart(e){
+        setVoteStartData(e.target.value);
+    }
+    function handleVoteEnd(e){
+        setVoteEndData(e.target.value);
+    }
 
-   approvehandler(e){
-    alert(`${e.target.checked}`)
-   }
+    function approvehandler(e){
+        alert(`${e.target.checked}`)
+    }
+
+    function createElectionHandler(){
+        
+    }
 
 
-render(){
+
   return (
     <>
         <ElectionNavbar/>
         <h3> Create New Committee Election</h3>
-        <div class="form-elec">
+        <div className="form-elec">
             <div>
                 <h5 className='elecname'>Committee Member Position:</h5>
             </div>
             <div>
-            <select class="elec-pos" id="selectfloor" value={this.state.floor} onChange={this.handlepositionchange}>
+            <select className="elec-pos" id="selectposition"  onClick={handlepositionchange}>
                 <option>President</option>
                 <option>Secretary</option>
                 <option>Treasurer</option>
             </select>
             </div>
         </div>
-        <div class="apprtoggle">
+        <div className="apprtoggle">
             <div>
                 <text className='autonom'>Auto Approve All Nominations</text>
             </div>
             <div>
             <label class="switch">
-                <input type="checkbox" onClick={this.approvehandler}/>
+                <input type="checkbox" onClick={approvehandler}/>
                 <span class="slider round"></span>
             </label>
             </div>
         </div>
 
-        <div class="startend">
+        <div className="startend">
             <div>
                 <text className='settime'>Nomination Start Time:</text>
             </div>
             <div>
-                <DateTimePicker/>
+                <DateTimePicker
+                datefor
+                onChange={(date) => {
+                    const d = new Date(date).toLocaleDateString('fr-FR');
+                    console.log(d);
+                    setNomStartData(d);
+                    }}
+                />
             </div>
         </div>
 
-        <div class="startend">
+        <div className="startend">
             <div>
                 <text className='settime'>Nomination End Time:</text>
             </div>
             <div>
-                <DateTimePicker/>
+                <DateTimePicker onChange={handleNomEnd}/>
             </div>
         </div>
 
-        <div class="startend">
+        <div className="startend">
             <div>
                 <text className='settime'>Voting Start Time:</text>
             </div>
             <div>
-                <DateTimePicker/>
+                <DateTimePicker onChange={handleVoteStart}/>
             </div>
         </div>
 
-        <div class="startend">
+        <div className="startend">
             <div>
                 <text className='settime'>Voting end Time:</text>
             </div>
             <div>
-                <DateTimePicker/>
+                <DateTimePicker onChange={handleVoteEnd}/>
             </div>
         </div>
         <div className='btn-cont'>
             <div>
-                <Button text='Cancel' OnClick={() => {<Navigate to="/election"/>}}/>
+                <Button text='Cancel' OnClick={createElectionHandler}/>
             </div>
             <div>
                 <Button text='Create' OnClick={() => {<Navigate to="/election"/>}}/>
@@ -98,14 +123,6 @@ render(){
     </>
   )
 }
-}
-
-// export default function ElectionCreate(props){
-//     let navigate = useNavigate();
-//     return(
-//         <ElectionCreateClass elections={props.elections} navigate={navigate}/>
-//     )
-//   }
 
 
 

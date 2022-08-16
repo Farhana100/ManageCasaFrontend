@@ -7,96 +7,98 @@ import "../static/css/election.css";
 
 import ElectionNavbar from "./miscElection/ElectionNavbar";
 
-class ElectionComp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      elections: [],
-    };
+import { useState, useEffect } from "react";
 
-    this.fetchElections = this.fetchElections.bind(this);
-  }
+export default function Election(props){
+  const [ electionData, setElectionData ] = useState({});
+  const [ datafetched, setDataFetched ] = useState(false);
+  const [ isLoading, setIsLoading ] = useState(true);
 
-  componentDidMount() {
-    this.fetchElections();
-  }
-
-  fetchElections() {
+  function fetchElections() {
     console.log("fetching...");
 
     fetch("http://127.0.0.1:8000/getAllElections")
       .then((response) => response.json())
-      .then((data) =>
-        this.setState({
-          elections: data,
-        })
-      );
-    console.log("this state", this.state);
+      .then((data) => {
+          setElectionData(data);
+          console.log("allElectionData = ", data);
+          setDataFetched(true);
+      });
+    console.log("fetched all election data");
   }
 
-  handleClick = () => {
+  useEffect(() => {
+    fetchElections();
+    setIsLoading(false);
+  }, []);
+
+  let navigate = useNavigate();
+
+  function handleClick(){
     console.log("clicked");
-    this.props.navigate("/viewelection");
+    navigate("/viewelection");
   };
 
-  render() {
-    var elections = this.state.elections;
-    console.log(elections);
+  
     return (
       <>
-        <ElectionNavbar />
-        <div className="second-header">
-          <div>
-            <form>
-              <div className="calender">
-                <div className="datepicker">
-                  <DatePicker
-                    selected={this.state.startDate}
-                    onChange={this.handleChange}
-                    showTimeSelect
-                    // timeFormat="HH:mm"
-                    // timeIntervals={20}
-                    // timeCaption="time"
-                    dateFormat="MMMM, yyyy"
-                  />
-                </div>
-                <div className="date-btn">
-                  <Button text={"Select"} />
-                </div>
-              </div>
-            </form>
-          </div>
-          {this.props.user.userType === "admin" ? (
-            <div className="new-btn">
-              <Button text="Create New" link="/createelection" />
-            </div>
-          ) : null}
-        </div>
+      {
+        !isLoading && datafetched
+        ?
         <div>
-          {elections.map((election) => {
-            return (
-              <a href={`/viewelection/${election.id}`}>
-                <div className="elec-container">
-                  <div className="elec-info">
-                    <h5 className="elec-title">{election.phase}</h5>
-                    <p className="elec-name"> {election.position} </p>
-                    <p className="card-text">
-                      <small className="text-muted">
-                        Start Time {election.creation_time}
-                      </small>
-                    </p>
+          <ElectionNavbar />
+          <div className="second-header">
+            <div>
+              <form>
+                <div className="calender">
+                  <div className="datepicker">
+                    <DatePicker
+                      // selected={this.state.startDate}
+                      // onChange={handleChange}
+                      showTimeSelect
+                      // timeFormat="HH:mm"
+                      // timeIntervals={20}
+                      // timeCaption="time"
+                      dateFormat="MMMM, yyyy"
+                    />
+                  </div>
+                  <div className="date-btn">
+                    <Button text={"Select"} />
                   </div>
                 </div>
-              </a>
-            );
-          })}
+              </form>
+            </div>
+            {props.user.userType === "admin" ? (
+              <div className="new-btn">
+                <Button text="Create New" link="/createelection" />
+              </div>
+            ) : null}
+          </div>
+          <div>
+            {electionData.map((election) => {
+              return (
+                <a href={`/viewelection/${election.id}`}>
+                  <div className="elec-container">
+                    <div className="elec-info">
+                      <h5 className="elec-title">{election.phase}</h5>
+                      <p className="elec-name"> {election.position} </p>
+                      <p className="card-text">
+                        <small className="text-muted">
+                          Start Time {election.creation_time}
+                        </small>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+
         </div>
+        :
+        <div> Loading... </div>    
+    
+      }
       </>
     );
   }
-}
-
-export default function Election(props) {
-  let navigate = useNavigate();
-  return <ElectionComp navigate={navigate} user={props.user} />;
-}
