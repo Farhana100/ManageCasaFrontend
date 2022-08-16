@@ -3,19 +3,10 @@ import '../../static/css/electionview.css'
 import '../../static/css/election.css'
 import {FiEdit} from 'react-icons/fi';
 
-export default class ElectionDesc extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-        }
-    }
-
-    approvehandler(e){
+export default function ElectionDesc(props){
+    function approvehandler(e){
         alert(`${e.target.checked}`)
     }
-
-
-    render(){
     return(
         <>
         <div className='desc-header'>
@@ -23,69 +14,69 @@ export default class ElectionDesc extends Component{
                 <h3>Committee Election</h3>
             </div>
             <div>
-                <text className='status'> {this.props.elections[0].status} </text>
+                <text className='status'> {props.election.phase} </text>
             </div>
         </div>
-        <h5 className='myh5'> Committee Member Position: {this.props.elections[0].name}</h5>
+        <h5 className='myh5'> Committee Member Position: {props.election.position}</h5>
         {
-            this.props.elections[0].status.toLowerCase() === 'nomination'
+            props.election.phase === 'nomination'
             ?
-            <div class="apprtoggle">
+            <div className="apprtoggle">
                 <div>
                     <text className='autonom'>Auto Approve All Nominations</text>
                 </div>
                 <div>
-                <label class="switch">
-                    <input type="checkbox" onClick={this.approvehandler}/>
-                    <span class="slider round"></span>
+                <label className="switch">
+                    <input type="checkbox" onClick={approvehandler}/>
+                    <span className="slider round"></span>
                 </label>
                 </div>
             </div>
             :
             <div className='count'>
-                <p>Total Number of Voters: voters</p>
-                <p> Total Number of Participants: participants</p>
+                <p>Total Number of Voters: </p>
+                <p> Total Number of Participants: {props.election.vote_count}</p>
             </div>
         }
-        <div class="timeinfo">
+        <div className="timeinfo">
             <div>
                 <p className='timename'>Nomination Start Time:</p>
             </div>
             <div>
-                <p className='timev1'>{this.props.elections[0].nom_start_time}</p>
+                <p className='timev1'>{props.election.nomination_start_time}</p>
             </div>
             <div className='icon-area'>
                 <FiEdit size={25} className='edit-icon'/>
             </div>
         </div>
-        <div class="timeinfo">
+        <div className="timeinfo">
             <div>
                 <p className='timename'>Nomination End Time:</p>
             </div>
             <div>
-                <p className='timev2'>{this.props.elections[0].nom_end_time}</p>
+                <p className='timev2'>{props.election.nomination_end_time}</p>
             </div>
             <div className='icon-area'>
                 <FiEdit size={25} className='edit-icon'/>
             </div>
         </div>
-        <div class="timeinfo">
+        <div className="timeinfo">
             <div>
                 <p className='timename'>Voting Start Time:</p>
             </div>
             <div>
-                <p className='timev3'>{this.props.elections[0].voting_start_time}</p>
+                <p className='timev3'>{props.election.voting_start_time}</p>
             </div>
             <div className='icon-area'>
                 <FiEdit size={25} className='edit-icon'/>
             </div>
         </div>
-        <div class="timeinfo">
+        <div className="timeinfo">
             <div>
                 <p className='timename'>Voting End Time:</p>
             </div>
             <div>
-                <p className='timev4'>{this.props.elections[0].voting_end_time}</p>
+                <p className='timev4'>{props.election.voting_end_time}</p>
             </div>
             <div className='icon-area'>
                 <FiEdit size={25} className='edit-icon'/>
@@ -93,5 +84,4 @@ export default class ElectionDesc extends Component{
         </div>
         </>
     )
-}
 }

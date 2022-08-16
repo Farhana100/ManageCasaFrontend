@@ -1,25 +1,14 @@
 import React, { Component } from 'react'
-import ElectionNavbar from './miscElection/ElectionNavbar'
 import '../static/css/electionview.css'
 import ElectionDesc from './miscElection/ElectionDesc'
 import Button from '../../misc/Button'
-import { Navigate } from 'react-router-dom'
 
-export default class ElectionNomination extends Component{
-    constructor (props) {
-        super(props)
-        this.state = {
-          
-        };
-        
-    }
-    
-render(){
+export default function ElectionNomination(props) {
     return(
         <>
-            <ElectionDesc elections={this.props.elections}/>
+            <ElectionDesc election={props.election}/>
             <h3>Nominees: </h3>
-        {this.props.candidates.map(candidate => {
+        {props.candidates.map(candidate => {
             return(
                 <>
                 <div className="nomlistcontainer">
@@ -27,11 +16,11 @@ render(){
                         <img className='image' src={require('../static/images/nahian.jpg')}/>
                 </div> */}
                 <div className="nom-info">
-                    <h5 className="card-title">{candidate.name}</h5>
-                    <p className="card-text"><small className="text-muted">Apartment No. {candidate.floor}{candidate.unit}</small></p>  
+                    <h5 className="card-title">{candidate.owner_name}</h5>
+                    <p className="card-text"><small className="text-muted">Apartment No. {candidate.floor_no}{candidate.unit_no}</small></p>  
                 </div> 
                 {
-                    this.props.user === "admin"
+                    props.user === "admin"
                     ?
                     <>
                     <div className='nom-btn'>
@@ -45,7 +34,7 @@ render(){
                     <>
                     <div></div>
                     <div>
-                        {candidate.status}
+                        {candidate.approval_status}
                     </div>  
                     </>
                 }
@@ -57,7 +46,7 @@ render(){
             )
         })}
         {
-            this.props.user === "admin"
+            props.user === "admin"
             ?
             <>
             <div className='mybtn'>
@@ -81,5 +70,4 @@ render(){
 
         </>
     )
-}
 }
