@@ -4,8 +4,6 @@ import ElectionNavbar from './miscElection/ElectionNavbar'
 import ElectionEnded from './ElectionEnded'
 import ElectionNomination from './ElectionNomination'
 import ElectionVoting from './ElectionVoting'
-import Navbar  from '../../Navbar'
-import Header from '../../Header'
 
 import { useState, useEffect } from "react";
 

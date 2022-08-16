@@ -45,9 +45,9 @@ function App() {
             <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
             <Route path="/election" element={<Election user={user}/>} />
             <Route path="/createelection" element={<ElectionCreate user={user}/>}/>
-            <Route path="/viewelection" element={<Election_View user={user}/>}>
-              <Route path=':id' element={<Election_View user={user}/>} />
-            </Route>
+            <Route path="/viewelection/:id" element={<Election_View user={user}/>}/>
+              {/* <Route path=':id' element={<Election_View user={user}/>} /> */}
+            {/* </Route> */}
           </Route>
         </Routes>
       </Router>
