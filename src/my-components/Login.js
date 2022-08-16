@@ -54,8 +54,8 @@ export class Login extends Component {
         localStorage.setItem('data', JSON.stringify(data))
       }
       
-      this.state.user_active = data.user_active
-      window.location.reload();
+      this.state.user_active = data.user_active;
+      window.location.replace('/dashboard');
     });
   }
 

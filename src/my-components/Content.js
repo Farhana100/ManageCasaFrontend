@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Home from './Home'
+import Apartments from './content/src/Apartments'; 
 import Tenants from './content/src/Tenants';
 import Committee from './content/src/Committee';
 import Owners from './content/src/Owners';
@@ -25,6 +25,7 @@ export default function Content() {
   return(
     <Router>
       <Routes>
+        <Route path="/apartments" element={<Apartments/>} />
         <Route path="/owners" element={<Owners owners={owners}/>} />
         <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
         <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
@@ -226,3 +227,4 @@ let candidates = [
     status: "pending"
   }
 ]
+

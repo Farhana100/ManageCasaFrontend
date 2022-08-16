@@ -11,9 +11,9 @@ import Register from './my-components/Register';
 export class App extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      data:{}
-     };
+    // this.state = {
+    //   data:{}
+    //  };
     // this.fetchUserStatus = this.fetchUserStatus.bind(this);
   };
 
@@ -34,7 +34,6 @@ export class App extends Component {
   // };
 
   render(){
-    // localStorage.clear();
     let user = JSON.parse(localStorage.getItem('data'));
     if (! user) {
       console.log('DEBUG');
@@ -43,10 +42,8 @@ export class App extends Component {
        userType: "",
        user_active: false,
       }
+      console.log("i am here");
     }
-
-    // var user = this.state.data
-    console.log('user ', user)
 
     return (
       <>

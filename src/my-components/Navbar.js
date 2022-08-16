@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import PropTypes from 'prop-types'
 import './navbar/navbar.css'
 import Navlinks from './Navlinks'
@@ -37,7 +37,7 @@ function NavbarContent ({navbar_content_array, page, userType}) {
 export default function Navbar({userType}) {
   let navbar_content = [
     { link:"/dashboard",      text:"Dashboard",         for: 0b111, },
-    { link:"#",               text:"Apartments",        for: 0b111, },
+    { link:"/apartments",     text:"Apartments",        for: 0b111, },
     { link:"/committee",      text:"Committee Members", for: 0b111, },
     { link:"/owners",         text:"Owners",            for: 0b111, },
     { link:"/tenants",        text:"Tenants",           for: 0b111, },
@@ -62,6 +62,9 @@ export default function Navbar({userType}) {
       <Routes>
         <Route path="/dashboard" exact element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'dashboard' } userType={ userType }/></div>
+        } />
+        <Route path="/apartments" exact element={
+          <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'apartments' } userType={ userType }/></div>
         } />
         <Route path="/owners" exact element={
           <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'owners' } userType={ userType }/></div>
