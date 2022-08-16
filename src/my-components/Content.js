@@ -37,6 +37,7 @@ export default function Content() {
             <Route path="/" exact element={<Home/>} />
 
             <Route path="/owners" element={<Owners owners={owners}/>} />
+            <Route path="/apartments" element={<Apartments />} />
             <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
             <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
             <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
