@@ -4,6 +4,13 @@ import Brand from './Brand'
 import PropTypes from 'prop-types'
 import './header/header.css'
 
+function handleLogout(e)
+{
+    e.preventDefault();
+    localStorage.clear();
+    window.location.replace('/home');
+}
+
 function ActiveUserHeader ({username}) {
     return (
         <>
@@ -11,7 +18,7 @@ function ActiveUserHeader ({username}) {
                 <a className="nav-link disabled px-3">Welcome, {username}</a>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href='#'>Log out</a>
+                <a className="nav-link" href='#' onClick={handleLogout}>Log out</a>
             </li>
         </>
     )

@@ -1,7 +1,7 @@
 import React from 'react'
-import logo from './brand/logo.svg'
-import './content/static/css/home.css'
-import Footer from './Footer'
+import logo from '../my-components/brand/logo.svg'
+import '../my-components/content/static/css/home.css'
+import Footer from '../my-components/Footer'
 
 export default function Home() {
   return (
