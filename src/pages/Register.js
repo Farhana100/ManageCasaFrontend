@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import logo from './brand/logo.svg'
-import Brand from './Brand'
-import Footer from './Footer'
+import logo from '../my-components/brand/logo.svg'
+import Footer from '../my-components/Footer'
 
 const divisions = ["Dhaka", "Barishal", "Chattogram", "Khulna", "Rajshahi", "Rangpur", "Mymensingh", "Sylhet"];
 const districts = {

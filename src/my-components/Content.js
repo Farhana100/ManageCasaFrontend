@@ -15,9 +15,9 @@ import './content/static/css/content.css';
 import ElectionCreate from './content/src/ElectionCreate';
 
 
-import Home from '../my-components/Home';
-import Login from '../my-components/Login';
-import Register from '../my-components/Register';
+import Home from '../pages/Home';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
 
 
 
@@ -29,13 +29,6 @@ export default function Content() {
   
   return(
     <>
-      <Router>
-          <Routes>
-            <Route path="/login" exact element={<Login/>} />
-            <Route path="/register" exact element={<Register/>} />
-            <Route path="/home" exact element={<Home/>} />
-            <Route path="/" exact element={<Home/>} />
-
             <Route path="/owners" element={<Owners owners={owners}/>} />
             <Route path="/apartments" element={<Apartments />} />
             <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
@@ -46,8 +39,6 @@ export default function Content() {
             <Route path="/viewelection" element={<Election_View user={user}/>}>
               <Route path=':id' element={<Election_View user={user}/>} />
             </Route>
-          </Routes>
-        </Router> 
     </>
   );
 }

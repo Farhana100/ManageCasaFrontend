@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Navigate } from "react-router-dom";
-import logo from './brand/logo.svg'
-import image1 from './content/static/images/login-image.png'
-import './content/static/css/login.css'
-import Footer from './Footer'
+import logo from '../my-components/brand/logo.svg'
+import image1 from '../my-components/content/static/images/login-image.png'
+import '../my-components/content/static/css/login.css'
+import Footer from '../my-components/Footer'
 
 
 export class Login extends Component {
