@@ -20,7 +20,7 @@ export default function ElectionNomination(props) {
                     <p className="card-text"><small className="text-muted">Apartment No. {candidate.floor_no}{candidate.unit_no}</small></p>  
                 </div> 
                 {
-                    props.user === "admin"
+                    props.user.userType === "admin"
                     ?
                     <>
                     <div className='nom-btn'>
@@ -46,7 +46,7 @@ export default function ElectionNomination(props) {
             )
         })}
         {
-            props.user === "admin"
+            props.user.userType === "admin"
             ?
             <>
             <div className='mybtn'>
