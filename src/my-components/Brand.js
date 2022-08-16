@@ -7,7 +7,7 @@ export default function Brand() {
     <div className='brand-test'>
       <div className='brand'>
         <img src={logo} className="App-logo" alt="ManageCasa logo" />
-        <h5 class="mt-auto font-weight-normal">ManageCasa</h5>
+        <h5 className="mt-auto font-weight-normal">ManageCasa</h5>
       </div>
     </div>
   )

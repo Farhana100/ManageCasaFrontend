@@ -4,28 +4,48 @@ import Committee from './content/src/Committee';
 import Owners from './content/src/Owners';
 import AddCommittee from './content/src/CommitteeAdd';
 import Election from './content/src/Election';
+import Election_View from './content/src/Election_View';
 
 import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import './content/static/css/content.css';
-import ElectionView from './content/src/ElectionView';
+// import ElectionView from './content/src/ElectionView';
 import ElectionCreate from './content/src/ElectionCreate';
+
+
+import Home from '../my-components/Home';
+import Login from '../my-components/Login';
+import Register from '../my-components/Register';
+
+
+
+
+
 
 export default function Content() {
   let user = JSON.parse(localStorage.getItem('data'));
   
   return(
-    <Router>
-      <Routes>
-        <Route path="/owners" element={<Owners owners={owners}/>} />
-        <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
-        <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
-        <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
-        <Route path="/election" element={<Election user={user}/>} />
-        <Route path="/createelection" element={<ElectionCreate user={user}/>}/>
-        <Route path="/viewelection" element={<ElectionView candidates={candidates} user={user}/>} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+          <Routes>
+            <Route path="/login" exact element={<Login/>} />
+            <Route path="/register" exact element={<Register/>} />
+            <Route path="/home" exact element={<Home/>} />
+            <Route path="/" exact element={<Home/>} />
+
+            <Route path="/owners" element={<Owners owners={owners}/>} />
+            <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
+            <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
+            <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
+            <Route path="/election" element={<Election user={user}/>} />
+            <Route path="/createelection" element={<ElectionCreate user={user}/>}/>
+            <Route path="/viewelection" element={<Election_View user={user}/>}>
+              <Route path=':id' element={<Election_View user={user}/>} />
+            </Route>
+          </Routes>
+        </Router> 
+    </>
   );
 }
 
@@ -159,41 +179,19 @@ let committeemembers= [
   }
 ]
 
-// let elections= [
-//   {
-//     name: 'President',
-//     phase: 'Voting',
-//     candidates: ['Nahian', 'Farhana', 'Utsha', 'Alif'],
-//     winner: '',
-//     create_time: '2020-01-01',
-//     nom_start_time: '2020-01-01',
-//     nom_end_time: '2020-01-01',
-//     voting_start_time: '2020-01-01',
-//     voting_end_time: '2020-01-01',
-//   },
-//   {
-//     name: 'Secretary',
-//     phase: 'Ended',
-//     candidates: ['nahian', 'farhana', 'utsha', 'alif'],
-//     winner: 'nahian',
-//     create_time: '2020-01-01',
-//     nom_start_time: '2020-01-01',
-//     nom_end_time: '2020-01-01',
-//     voting_start_time: '2020-01-01',
-//     voting_end_time: '2020-01-01',
-//   },
-//   {
-//     name: 'President',
-//     phase: 'Nomination',
-//     candidates: ['nahian', 'farhana', 'utsha', 'alif'],
-//     winner: '',
-//     create_time: '2020-01-01',
-//     nom_start_time: '2020-01-01',
-//     nom_end_time: '2020-01-01',
-//     voting_start_time: '2020-01-01',
-//     voting_end_time: '2020-01-01',
-//   }
-// ]
+let elections= [
+  {
+    name: 'President',
+    phase: 'voting',
+    candidates: ['Nahian', 'Farhana', 'Utsha', 'Alif'],
+    winner: '',
+    creation_time: '2020-01-01',
+    nomination_start_time: '2020-01-01',
+    nomination_end_time: '2020-01-01',
+    voting_start_time: '2020-01-01',
+    voting_end_time: '2020-01-01',
+  }
+]
 
 let candidates = [
   {
