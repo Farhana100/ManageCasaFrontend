@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import '../static/css/electionview.css'
 import ElectionDesc from './miscElection/ElectionDesc'
 import Button from '../../misc/Button'
@@ -14,6 +14,10 @@ export default function ElectionNomination(props) {
         }
     }
 
+    const [ isLoading, setIsLoading ] = useState(true);
+    const [ nomineeexisted, setNomineeExisted ] = useState(false);
+    const [ datafetched, setDataFetched ] = useState(false);
+
     async function handleNomination() {
         const name = user.username;
         const approval_status = "pending";
@@ -27,13 +31,15 @@ export default function ElectionNomination(props) {
             body: JSON.stringify({
                 name: name,
                 approval_status: approval_status,
-                election_id: election_id
+                election_id: election_id,
             })
         })
         .then(res => res.json())
         .then(data => {
-            console.log("RESPONSE: ", data);
-            alert("Nominee data submitted!");
+            if(data.success){
+                window.location.reload()
+            }
+            
         })
     }
 
@@ -73,18 +79,52 @@ export default function ElectionNomination(props) {
           .then(data => {
             console.log(data.msg);
             if(data.success){
-                console.log("deleted!!");
                 window.location.replace('/election')
             }
           });
     }
-  
+
+    function getNomineeInfo(){
+        fetch(`http://127.0.0.1:8000/isNominee/${props.election.id}`, {
+            method: 'POST',
+            headers: {
+              'Content-type':'application/json',
+            },
+            body: JSON.stringify({nominee_name: user.username})
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.msg);
+            if(data.success){
+                if(data.nominee_existed){
+                    setNomineeExisted(true);
+                }
+                setDataFetched(true);
+            }
+          });
+    }
+
+    useEffect(() => {
+        if(user.userType === "owner"){
+            getNomineeInfo();    
+        }
+        else{
+            setDataFetched(true);
+        }
+        setIsLoading(false); 
+        
+               
+    }, []);
 
     return(
         <>
+        {
+        !isLoading && datafetched
+        ? 
+        <div>
             <ElectionDesc election={props.election}/>
             <h3>Nominees: </h3>
-        {props.candidates.map(candidate => {
+            {props.candidates.map(candidate => {
             return(
                 <>
                 <div className="nomlistcontainer">
@@ -123,10 +163,9 @@ export default function ElectionNomination(props) {
                     </div>  
                     </>
                 }
-                 
-            </div>
-            <hr/>
-            
+                </div>
+                <hr/>
+         
             </>
             )
         })}
@@ -144,14 +183,22 @@ export default function ElectionNomination(props) {
             </div>
             </>
             :
+            !nomineeexisted
+            ?
             <div className='mybtn'>
                 <div></div>
                 <div className='mynom'>
-                    <Button className='btn btn-success' text={"Nominate yourself"} onClick={handleNomination} />                     
+                    <Button text={"Nominate yourself"} OnClick={handleNomination} />                     
                 </div> 
             </div>
+            :
+            null
         }
-
+        </div>
+        :
+        <div> Nomination Loading... </div>    
+    
+        }
         </>
     )
 }
