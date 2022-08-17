@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ApartmentCard from './ApartmentCard';
 
-export default class Apartments extends Component {
+export default class ApartmentList extends Component {
 
   constructor (props) {
     super(props)

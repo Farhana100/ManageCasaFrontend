@@ -1,15 +1,7 @@
-.apartment{
-    margin: 6px;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 25%;
-    height: 100%;
-    background-color: #D8BFD8;
-    padding: 10px;
-}
-
-.floor{
-    display: inline;
-}
+.apartment-grid-container {
+    display: grid;
+    grid-template-columns: 0.15fr 0.85fr;
+    grid-gap: 2px;
+    height:100%;
+    width: 100%;
+  }

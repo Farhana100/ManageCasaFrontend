@@ -8,13 +8,15 @@ import Register from './pages/Register';
 import PrivateRoute from './pages/PrivateRoute';
 
 import Owners from './my-components/content/src/Owners';
-import Apartments from './my-components/content/src/Apartments';
+import Apartments from './my-components/content/src/apartment/Apartments';
 import Tenants from './my-components/content/src/Tenants';
 import Committee from './my-components/content/src/Committee';
 import AddCommittee from './my-components/content/src/CommitteeAdd';
 import Election from './my-components/content/src/Election';
 import ElectionCreate from './my-components/content/src/ElectionCreate';
 import Election_View from './my-components/content/src/Election_View';
+import ApartmentList from './my-components/content/src/apartment/ApartmentList';
+import ApartmentView from './my-components/content/src/apartment/ApartmentView';
 
 
 function App() {
@@ -39,7 +41,10 @@ function App() {
           <Route path="/register" element={<Register/>} exact />
           <Route path="/" element={<PrivateRoute/>}>
             <Route path="/owners" element={<Owners owners={owners}/>} />
-            <Route path="/apartments" element={<Apartments />} />
+            <Route path="/apartments" element={<Apartments />}>
+              <Route path="/apartments/" element={<ApartmentList />} />
+              <Route path="/apartments/:id" element={<ApartmentView />} />
+            </Route>
             <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
             <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
             <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
