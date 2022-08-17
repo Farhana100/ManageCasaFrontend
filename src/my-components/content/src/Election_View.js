@@ -24,7 +24,6 @@ export default function Election_View(props) {
         .then(response => response.json())
         .then((data) => {
             setElectionData(data);
-            // console.log("setElectionData = ", data);
         });
     }
 
@@ -33,7 +32,6 @@ export default function Election_View(props) {
         .then(response => response.json())
         .then((data) => {
             setNomineesData(data);
-            // console.log("setNomineesData = ", data);
             setDataFetched(true);
         });
     }
