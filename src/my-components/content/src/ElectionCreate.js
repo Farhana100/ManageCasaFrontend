@@ -15,16 +15,10 @@ export default function ElectionCreate(props){
     const handlepositionchange = (e) => {
         setPositionData(e.target.value);
     }
-   
 
-    function showData(){
-        console.log("nom start: ", nomstartData);
-        console.log("position: ", positionData);
-    }
-
-    function approvehandler(e){
-        alert(`${e.target.checked}`)
-    }
+    // function approvehandler(e){
+    //     alert(`${e.target.checked}`)
+    // }
 
     function createElectionHandler(){
         fetch("http://127.0.0.1:8000/createElection", {
@@ -53,8 +47,6 @@ export default function ElectionCreate(props){
     function cancelHandler(){
         navigate('/election')
     }
-
-    showData();
 
 
   return (

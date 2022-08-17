@@ -1,9 +1,85 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import '../static/css/electionview.css'
 import ElectionDesc from './miscElection/ElectionDesc'
 import Button from '../../misc/Button'
 
 export default function ElectionNomination(props) {
+
+    let user = JSON.parse(localStorage.getItem('data'));
+    if (! user) {
+        user = {
+        username: "",
+        userType: "",
+        user_active: false,
+        }
+    }
+
+    async function handleNomination() {
+        const name = user.username;
+        const approval_status = "pending";
+        const election_id = props.election.id;
+
+        fetch("http://127.0.0.1:8000/createNominee", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: name,
+                approval_status: approval_status,
+                election_id: election_id
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("RESPONSE: ", data);
+            alert("Nominee data submitted!");
+        })
+    }
+
+    async function ApproveNomineeHandler(nominee_name, event){
+        const name = nominee_name;
+        const approval_status = "approved";
+        const committee_election_id = props.election.id;
+
+        fetch("http://127.0.0.1:8000/approveNominee", {
+            method: 'POST',
+            headers: {
+              'Content-type':'application/json',
+            },
+            body: JSON.stringify({name: name,
+                                approval_status: approval_status,
+                                election_id: committee_election_id,
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.msg);
+            if(data.success){
+                window.location.reload();
+            }
+          });
+    }
+
+    function handleDeleteElection(){
+        fetch(`http://127.0.0.1:8000/deleteElection/${props.election.id}`, {
+            method: 'POST',
+            headers: {
+              'Content-type':'application/json',
+            },
+            body: JSON.stringify()
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.msg);
+            if(data.success){
+                console.log("deleted!!");
+                window.location.replace('/election')
+            }
+          });
+    }
+  
+
     return(
         <>
             <ElectionDesc election={props.election}/>
@@ -22,12 +98,21 @@ export default function ElectionNomination(props) {
                 {
                     props.user.userType === "admin"
                     ?
+                    candidate.approval_status === "pending"
+                    ?
                     <>
-                    <div className='nom-btn'>
-                        <Button text="Approve"/>
-                    </div>
-                    <div className='nom-btn'>
-                        <Button text="Delete"/>
+                        <div className='nom-btn'>
+                            <Button text="Approve" OnClick = {(e) => {ApproveNomineeHandler(candidate.owner_name, e)}}/>
+                        </div>
+                        <div className='nom-btn'>
+                            <Button text="Delete"/>
+                        </div>  
+                    </>
+                    :
+                    <>
+                    <div></div>
+                    <div>
+                        {candidate.approval_status}
                     </div>  
                     </>
                     :
@@ -51,7 +136,7 @@ export default function ElectionNomination(props) {
             <>
             <div className='mybtn'>
                 <div className='btn-can'>
-                        <Button text="Cancel Election"/>
+                        <Button text="Cancel Election" OnClick={handleDeleteElection}/>
                 </div>
                 <div className='nom-btn'>
                     <Button text="Early Stop"/>
@@ -62,8 +147,7 @@ export default function ElectionNomination(props) {
             <div className='mybtn'>
                 <div></div>
                 <div className='mynom'>
-                    <Button text="Nominate Yourself" OnClick={() => {alert(`${"you have nominated yourself"}`);}}/>
-                                                                            
+                    <Button className='btn btn-success' text={"Nominate yourself"} onClick={handleNomination} />                     
                 </div> 
             </div>
         }

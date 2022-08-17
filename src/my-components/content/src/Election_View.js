@@ -17,14 +17,14 @@ export default function Election_View(props) {
 
     const splitList = window.location.href.split('/');
     const electionId = splitList[splitList.length - 1];
-    console.log("Election ID: ", electionId);
+    // console.log("Election ID: ", electionId);
 
     function fetchelectiondata(){
         fetch(`http://127.0.0.1:8000/getElection/${electionId}`)
         .then(response => response.json())
         .then((data) => {
             setElectionData(data);
-            console.log("setElectionData = ", data);
+            // console.log("setElectionData = ", data);
         });
     }
 
@@ -33,7 +33,7 @@ export default function Election_View(props) {
         .then(response => response.json())
         .then((data) => {
             setNomineesData(data);
-            console.log("setNomineesData = ", data);
+            // console.log("setNomineesData = ", data);
             setDataFetched(true);
         });
     }
@@ -44,6 +44,8 @@ export default function Election_View(props) {
         setIsLoading(false);        
     }, []);
     
+    
+
     return (
     <>
     {

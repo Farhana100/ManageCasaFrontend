@@ -10,21 +10,27 @@ import ElectionNavbar from "./miscElection/ElectionNavbar";
 import { useState, useEffect } from "react";
 
 export default function Election(props){
+  let user = JSON.parse(localStorage.getItem('data'));
+  if (! user) {
+    user = {
+      username: "",
+      userType: "",
+      user_active: false,
+    }
+  }
+
   const [ electionData, setElectionData ] = useState({});
   const [ datafetched, setDataFetched ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
 
   function fetchElections() {
-    console.log("fetching...");
 
     fetch("http://127.0.0.1:8000/getAllElections")
       .then((response) => response.json())
       .then((data) => {
           setElectionData(data);
-          console.log("allElectionData = ", data);
           setDataFetched(true);
       });
-    console.log("fetched all election data");
   }
 
   useEffect(() => {
@@ -35,7 +41,6 @@ export default function Election(props){
   let navigate = useNavigate();
 
   function handleClick(){
-    console.log("clicked");
     navigate("/viewelection");
   };
 
@@ -68,7 +73,7 @@ export default function Election(props){
                 </div>
               </form>
             </div>
-            {props.user.userType === "admin" ? (
+            {user.userType === "admin" ? (
               <div className="new-btn">
                 <Button text="Create New" link="/createelection" />
               </div>

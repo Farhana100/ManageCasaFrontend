@@ -10,7 +10,6 @@ export default function Button({link, text, style, OnClick}) {
 
 
 Button.defaultProps = {
-    link: '#',
     text: 'Button',
     style: 'mybutton',
 }
