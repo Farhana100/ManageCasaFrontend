@@ -1,7 +1,6 @@
 import React from 'react'
 import {Outlet} from 'react-router-dom';
 import Navbar from '../my-components/Navbar'
-import Content from '../my-components/Content'
 
 export default function PrivateRoute() {
     let user = JSON.parse(localStorage.getItem('data'));

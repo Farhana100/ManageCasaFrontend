@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Header from './my-components/Header';
@@ -37,7 +37,7 @@ function App() {
           <Route path="/home" element={<Home/>} exact />
           <Route path="/login" element={<Login/>} exact />
           <Route path="/register" element={<Register/>} exact />
-          <Route path="/" element={<PrivateRoute/>} exact>
+          <Route path="/" element={<PrivateRoute/>}>
             <Route path="/owners" element={<Owners owners={owners}/>} />
             <Route path="/apartments" element={<Apartments />} />
             <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
@@ -46,8 +46,6 @@ function App() {
             <Route path="/election" element={<Election/>} />
             <Route path="/createelection" element={<ElectionCreate user={user}/>}/>
             <Route path="/viewelection/:id" element={<Election_View user={user}/>}/>
-              {/* <Route path=':id' element={<Election_View user={user}/>} /> */}
-            {/* </Route> */}
           </Route>
         </Routes>
       </Router>

@@ -33,7 +33,7 @@ function NavbarContent ({navbar_content_array, userType}) {
   return <FilterContent navbar_content_array={navbar_content_array} access={0}/>;
 }
 
-export default function Navbar({userType, link}) {
+export default function Navbar({userType}) {
   let navbar_content = [
     { link:"/dashboard",      text:"Dashboard",         for: 0b111, },
     { link:"/apartments",     text:"Apartments",        for: 0b111, },
@@ -61,51 +61,14 @@ export default function Navbar({userType, link}) {
       <nav>
         <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } userType={ userType }/></div>
       </nav>
-    
     </>
-    // <Router>
-    //   <Routes>
-    //     <Route path="/dashboard" exact element={
-    //       <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'dashboard' } userType={ userType }/></div>
-    //     } />
-    //     <Route path="/apartments" exact element={
-    //       <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'apartments' } userType={ userType }/></div>
-    //     } />
-    //     <Route path="/owners" exact element={
-    //       <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'owners' } userType={ userType }/></div>
-    //     } />
-    //     <Route path="/tenants" exact element={
-    //       <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'tenants' } userType={ userType }/></div>
-    //     } />
-    //     <Route path="/committee" exact element={
-    //       <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'Committee Members' } userType={ userType }/></div>
-    //     }/>
-    //     <Route path="/addcommittee" exact element={
-    //       <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'Committee Members' } userType={ userType }/></div>
-    //     } />
-    //     <Route path="/election" exact element={
-    //       <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'election' } userType={ userType }/></div>
-    //     } />
-    //     <Route path="/createelection" exact element={
-    //       <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'election' } userType={ userType }/></div>
-    //     } />
-    //     <Route path="/viewelection" exact element={
-    //       <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'election' } userType={ userType }/></div>
-    //     } />
-    //      <Route path="/descelection" exact element={
-    //       <div className='my-navbar'><NavbarContent navbar_content_array={ navbar_content } page={ 'election' } userType={ userType }/></div>
-    //     } />
-    //   </Routes>
-    // </Router>
   )
 }
 
 Navbar.defaultProps = {
-  userType: null,
-  link: '#'
+  userType: null
 }
 
 Navbar.propTypes = {
-  userType: PropTypes.string,
-  link: PropTypes.string
+  userType: PropTypes.string
 }
