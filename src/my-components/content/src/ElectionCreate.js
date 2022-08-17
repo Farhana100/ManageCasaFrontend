@@ -1,35 +1,25 @@
 import React, { Component, useState } from 'react'
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import Button from '../../misc/Button';
-import DateTimePicker from '../../misc/DateTimePicker';
+import DateTimePicker from 'react-datetime-picker';
 import ElectionNavbar from './miscElection/ElectionNavbar';
 
 
 export default function ElectionCreate(props){
     const [ positionData, setPositionData ] = useState("");
-    const [ nomstartData, setNomStartData ] = useState(new Date().toLocaleDateString('fr-FR'));
+    const [ nomstartData, setNomStartData ] = useState(new Date());
     const [ nomendData, setNomEndData ] = useState();
     const [ votestartData, setVoteStartData ] =useState();
-    const [voteEndData, setVoteEndData ] = useState();
+    const [ voteendData, setVoteEndData ] = useState();
     
     const handlepositionchange = (e) => {
         setPositionData(e.target.value);
-        console.log("position: ", e.target.value);
-        console.log("set position: ", positionData);
     }
-    function handleNomStart(e){
-        setNomStartData(e.target.value);
-        console.log("nom start date: ", nomstartData);
-    }
-    function handleNomEnd(e){
-        setNomEndData(e.target.value);
-    }
+   
 
-    function handleVoteStart(e){
-        setVoteStartData(e.target.value);
-    }
-    function handleVoteEnd(e){
-        setVoteEndData(e.target.value);
+    function showData(){
+        console.log("nom start: ", nomstartData);
+        console.log("position: ", positionData);
     }
 
     function approvehandler(e){
@@ -37,9 +27,34 @@ export default function ElectionCreate(props){
     }
 
     function createElectionHandler(){
-        
+        fetch("http://127.0.0.1:8000/createElection", {
+            method: 'POST',
+            headers: {
+              'Content-type':'application/json',
+            },
+            body: JSON.stringify({positionData: positionData,
+                                nomstartData: nomstartData,
+                                nomendData: nomendData,
+                                votestartData: votestartData,
+                                voteendData: voteendData,
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.msg);
+            if(data.success){
+                navigate('/election')
+            }
+            
+          });
     }
 
+    let navigate = useNavigate();
+    function cancelHandler(){
+        navigate('/election')
+    }
+
+    showData();
 
 
   return (
@@ -58,17 +73,17 @@ export default function ElectionCreate(props){
             </select>
             </div>
         </div>
-        <div className="apprtoggle">
+        {/* <div className="apprtoggle">
             <div>
                 <text className='autonom'>Auto Approve All Nominations</text>
             </div>
             <div>
-            <label class="switch">
+            <label className="switch">
                 <input type="checkbox" onClick={approvehandler}/>
-                <span class="slider round"></span>
+                <span className="slider round"></span>
             </label>
             </div>
-        </div>
+        </div> */}
 
         <div className="startend">
             <div>
@@ -76,12 +91,8 @@ export default function ElectionCreate(props){
             </div>
             <div>
                 <DateTimePicker
-                datefor
-                onChange={(date) => {
-                    const d = new Date(date).toLocaleDateString('fr-FR');
-                    console.log(d);
-                    setNomStartData(d);
-                    }}
+                onChange={setNomStartData}
+                value={nomstartData}
                 />
             </div>
         </div>
@@ -91,7 +102,7 @@ export default function ElectionCreate(props){
                 <text className='settime'>Nomination End Time:</text>
             </div>
             <div>
-                <DateTimePicker onChange={handleNomEnd}/>
+                <DateTimePicker onChange={setNomEndData} value={nomendData}/>
             </div>
         </div>
 
@@ -100,7 +111,7 @@ export default function ElectionCreate(props){
                 <text className='settime'>Voting Start Time:</text>
             </div>
             <div>
-                <DateTimePicker onChange={handleVoteStart}/>
+                <DateTimePicker onChange={setVoteStartData} value={votestartData}/>
             </div>
         </div>
 
@@ -109,15 +120,15 @@ export default function ElectionCreate(props){
                 <text className='settime'>Voting end Time:</text>
             </div>
             <div>
-                <DateTimePicker onChange={handleVoteEnd}/>
+                <DateTimePicker onChange={setVoteEndData} value={voteendData}/>
             </div>
         </div>
         <div className='btn-cont'>
             <div>
-                <Button text='Cancel' OnClick={createElectionHandler}/>
+                <Button text='Cancel' OnClick={cancelHandler}/>
             </div>
             <div>
-                <Button text='Create' OnClick={() => {<Navigate to="/election"/>}}/>
+                <Button text='Create' OnClick={createElectionHandler}/>
             </div>
         </div>
     </>
