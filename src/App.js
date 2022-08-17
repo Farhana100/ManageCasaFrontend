@@ -43,7 +43,7 @@ function App() {
             <Route path="/owners" element={<Owners owners={owners}/>} />
             <Route path="/apartments" element={<Apartments />}>
               <Route path="/apartments/" element={<ApartmentList />} />
-              <Route path="/apartments/:id" element={<ApartmentView />} />
+              <Route path="/apartments/:id" element={<ApartmentView usertype={user.userType} />} />
             </Route>
             <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
             <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
