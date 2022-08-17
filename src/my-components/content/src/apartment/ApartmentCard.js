@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Button from '../../misc/Button'
 
 function loadApartmentPage(e) {
   e.preventDefault();

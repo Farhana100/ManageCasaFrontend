@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { useParams } from 'react-router-dom'
+import React from 'react'
 import ElectionNavbar from './miscElection/ElectionNavbar'
 import ElectionEnded from './ElectionEnded'
 import ElectionNomination from './ElectionNomination'
