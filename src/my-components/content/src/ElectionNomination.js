@@ -152,6 +152,8 @@ export default function ElectionNomination(props) {
                 {
                     user.userType === "admin"
                     ?
+                    props.election.phase === "nomination"
+                    ?
                     candidate.approval_status === "pending"
                     ?
                     <>
@@ -161,6 +163,13 @@ export default function ElectionNomination(props) {
                         <div className='nom-btn'>
                             <Button text="Delete"/>
                         </div>  
+                    </>
+                    :
+                    <>
+                    <div></div>
+                    <div>
+                        {candidate.approval_status}
+                    </div>  
                     </>
                     :
                     <>
@@ -197,6 +206,8 @@ export default function ElectionNomination(props) {
             </div>
             </>
             :
+            props.election.phase === "nomination"
+            ?
             !nomineeexisted
             ?
             <div className='mybtn'>
@@ -205,6 +216,8 @@ export default function ElectionNomination(props) {
                     <Button text={"Nominate yourself"} OnClick={handleNomination} />                     
                 </div> 
             </div>
+            :
+            null
             :
             null
         }
