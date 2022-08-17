@@ -10,32 +10,30 @@ import { useState, useEffect } from "react";
 
 export default function Election_View(props) {
 
-    const id = 1;
-    // let { id } = useParams();
-    console.log("Farhana ", id);
+    const splitList = window.location.href.split('/');
+    const electionId = splitList[splitList.length - 1];
 
     const [ electionData, setElectionData ] = useState({});
     const [ nomineesData, setNomineesData ] = useState({});
     const [ datafetched, setDataFetched ] = useState(false);
     const [ isLoading, setIsLoading ] = useState(true);
 
-    console.log("Election ID: ", id);
 
     function fetchelectiondata(){
-        fetch(`http://127.0.0.1:8000/getElection/${id}`)
+        fetch(`http://127.0.0.1:8000/getElection/${electionId}`)
         .then(response => response.json())
         .then((data) => {
             setElectionData(data);
-            console.log("setElectionData = ", data);
+            // console.log("setElectionData = ", data);
         });
     }
 
     function fetchonomineedata(){
-        fetch(`http://127.0.0.1:8000/getNominees/${id}`)
+        fetch(`http://127.0.0.1:8000/getNominees/${electionId}`)
         .then(response => response.json())
         .then((data) => {
             setNomineesData(data);
-            console.log("setNomineesData = ", data);
+            // console.log("setNomineesData = ", data);
             setDataFetched(true);
         });
     }
@@ -46,6 +44,8 @@ export default function Election_View(props) {
         setIsLoading(false);        
     }, []);
     
+    
+
     return (
     <>
     {

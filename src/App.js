@@ -48,7 +48,7 @@ function App() {
             <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
             <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
             <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
-            <Route path="/election" element={<Election user={user}/>} />
+            <Route path="/election" element={<Election/>} />
             <Route path="/createelection" element={<ElectionCreate user={user}/>}/>
             <Route path="/viewelection/:id" element={<Election_View user={user}/>}/>
           </Route>

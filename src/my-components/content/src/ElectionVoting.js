@@ -1,12 +1,107 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import '../static/css/electionview.css'
 import ElectionDesc from './miscElection/ElectionDesc'
 import Button from '../../misc/Button'
 import Progress_bar from '../../misc/ProgressBar'
+import { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 
 export default function ElectionVoting(props){
+
+    let user = JSON.parse(localStorage.getItem('data'));
+    if (! user) {
+        user = {
+        username: "",
+        userType: "",
+        user_active: false,
+        }
+    }
+
+    const splitList = window.location.href.split('/');
+    const electionId = splitList[splitList.length - 1];
+    // console.log("Election ID: ", electionId);
+    
+    const [ nominee, setNominee ] = useState("");
+    const [ voter, setVoter ] = useState("");
+    const [ didVote, setDidVote ] = useState(false);
+    const [ electionID, setElectionID ] = useState(null);
+
+    const [ electionVoteCount, setElectionVoteCount ] = useState(null);
+    const [ nomVoteCount, setNomVoteCount ] = useState(null);
+    const [ isLoading, setIsLoading ] = useState(true);
+    const [ datafetched, setDataFetched ] = useState(false);
+
+    function handleRadioSelect(name, event){
+        setNominee(name);
+        setElectionID(props.election.id);
+        setVoter(user.username);
+        console.log(name);
+    }
+
+    function handleVoteCast(){
+        fetch("http://127.0.0.1:8000/castVote", {
+            method: 'POST',
+            headers: {
+              'Content-type':'application/json',
+            },
+            body: JSON.stringify({name: nominee,
+                                electionID: electionID,
+                                voter: voter,
+
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.msg);
+            if(data.success){
+                setDidVote(true);
+                // window.location.reload();
+            }
+            
+          });
+    }
+
+    function getElectionInfo(){
+        fetch(`http://127.0.0.1:8000/getElection/${electionId}`)
+        .then(response => response.json())
+        .then((data) => {
+            setElectionVoteCount(data.vote_count)
+            // console.log("setElectionData = ", data.vote_count);
+            setDataFetched(true);
+        });
+    }
+
+    function handleDeleteElection(){
+        fetch(`http://127.0.0.1:8000/deleteElection/${electionId}`, {
+            method: 'POST',
+            headers: {
+              'Content-type':'application/json',
+            },
+            body: JSON.stringify()
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.msg);
+            if(data.success){
+                console.log("deleted!!");
+                window.location.replace('/election')
+            }
+          });
+    }
+
+    useEffect(() => {
+        getElectionInfo();
+        setIsLoading(false);        
+    }, []);
+
+
     return(
+        
         <>
+        {
+        !isLoading && datafetched
+        ? 
+        <div>
             <ElectionDesc election={props.election}/>
             <h3>Candidates:</h3>
         
@@ -26,15 +121,15 @@ export default function ElectionVoting(props){
                         ?
                         <>
                         <div className='progbar'>
-                            <Progress_bar bgcolor="#452954" progress='30'  height={15}/> 
+                            <Progress_bar bgcolor="#452954" progress={candidate.vote_count/electionVoteCount*100}  height={15}/> 
                         </div>
                         <div className='votecnt'>
-                            <text className='votecount'> {props.election.vote_count} </text>
+                            <text className='votecount'> {candidate.vote_count} </text>
                         </div>
                         </>
                         :
                         <div className="voteradio">
-                            <input className="vote-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                            <input className="vote-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange = {(e) => handleRadioSelect(candidate.owner_name, e)}/>
                         </div>
                     }
                     
@@ -46,12 +141,12 @@ export default function ElectionVoting(props){
             )
         })}
         {
-            props.user === "admin"
+            props.user.userType === "admin"
             ?
             <>
                 <div className='mybtn'>
                     <div className='btn-can'>
-                        <Button text="Cancel Election"/>
+                        <Button text="Cancel Election" OnClick={handleDeleteElection}/>
                     </div>
                     <div className='nom-btn'>
                         <Button text="Early Stop"/>
@@ -59,12 +154,21 @@ export default function ElectionVoting(props){
                 </div>
             </>
             :
-            <div className='mybtn'>
+            !didVote
+            ?
+                <div className='mybtn'>
                     <div></div>
                     <div className='myvote'>
-                        <Button text="Vote" OnClick={() => {alert(`${"You have succesfully casted your vote"}`)}}/>
+                        <Button text="Vote" OnClick={handleVoteCast}/>
                     </div> 
                 </div>
+            :
+            null
+        }
+        </div>
+        :
+        <div> Voting Loading... </div>    
+    
         }
         
         </>

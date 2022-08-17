@@ -4,6 +4,16 @@ import '../../static/css/election.css'
 import {FiEdit} from 'react-icons/fi';
 
 export default function ElectionDesc(props){
+    let user = JSON.parse(localStorage.getItem('data'));
+    if (! user) {
+        user = {
+        username: "",
+        userType: "",
+        user_active: false,
+        }
+    }
+
+
     function approvehandler(e){
         alert(`${e.target.checked}`)
     }
@@ -34,7 +44,6 @@ export default function ElectionDesc(props){
             </div>
             :
             <div className='count'>
-                <p>Total Number of Voters: </p>
                 <p> Total Number of Participants: {props.election.vote_count}</p>
             </div>
         }
@@ -45,9 +54,16 @@ export default function ElectionDesc(props){
             <div>
                 <p className='timev1'>{props.election.nomination_start_time}</p>
             </div>
-            <div className='icon-area'>
-                <FiEdit size={25} className='edit-icon'/>
-            </div>
+            {
+                user.userType === "admin"
+                ?
+                <div className='icon-area'>
+                    <FiEdit size={25} className='edit-icon'/>
+                </div>
+                :
+                null
+            }
+            
         </div>
         <div className="timeinfo">
             <div>
@@ -56,9 +72,15 @@ export default function ElectionDesc(props){
             <div>
                 <p className='timev2'>{props.election.nomination_end_time}</p>
             </div>
-            <div className='icon-area'>
-                <FiEdit size={25} className='edit-icon'/>
-            </div>
+            {
+                user.userType === "admin"
+                ?
+                <div className='icon-area'>
+                    <FiEdit size={25} className='edit-icon'/>
+                </div>
+                :
+                null
+            }
         </div>
         <div className="timeinfo">
             <div>
@@ -67,9 +89,15 @@ export default function ElectionDesc(props){
             <div>
                 <p className='timev3'>{props.election.voting_start_time}</p>
             </div>
-            <div className='icon-area'>
-                <FiEdit size={25} className='edit-icon'/>
-            </div>
+            {
+                user.userType === "admin"
+                ?
+                <div className='icon-area'>
+                    <FiEdit size={25} className='edit-icon'/>
+                </div>
+                :
+                null
+            }
         </div>
         <div className="timeinfo">
             <div>
@@ -78,9 +106,15 @@ export default function ElectionDesc(props){
             <div>
                 <p className='timev4'>{props.election.voting_end_time}</p>
             </div>
-            <div className='icon-area'>
-                <FiEdit size={25} className='edit-icon'/>
-            </div>
+            {
+                user.userType === "admin"
+                ?
+                <div className='icon-area'>
+                    <FiEdit size={25} className='edit-icon'/>
+                </div>
+                :
+                null
+            }
         </div>
         </>
     )
