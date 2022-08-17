@@ -4,25 +4,25 @@ import ElectionNavbar from './miscElection/ElectionNavbar'
 import ElectionEnded from './ElectionEnded'
 import ElectionNomination from './ElectionNomination'
 import ElectionVoting from './ElectionVoting'
-import Navbar  from '../../Navbar'
-import Header from '../../Header'
 
 import { useState, useEffect } from "react";
 
 
 export default function Election_View(props) {
 
+    const id = 1;
+    // let { id } = useParams();
+    console.log("Farhana ", id);
+
     const [ electionData, setElectionData ] = useState({});
     const [ nomineesData, setNomineesData ] = useState({});
     const [ datafetched, setDataFetched ] = useState(false);
     const [ isLoading, setIsLoading ] = useState(true);
 
-    const splitList = window.location.href.split('/');
-    const electionId = splitList[splitList.length - 1];
-    console.log("Election ID: ", electionId);
+    console.log("Election ID: ", id);
 
     function fetchelectiondata(){
-        fetch(`http://127.0.0.1:8000/getElection/${electionId}`)
+        fetch(`http://127.0.0.1:8000/getElection/${id}`)
         .then(response => response.json())
         .then((data) => {
             setElectionData(data);
@@ -31,7 +31,7 @@ export default function Election_View(props) {
     }
 
     function fetchonomineedata(){
-        fetch(`http://127.0.0.1:8000/getNominees/${electionId}`)
+        fetch(`http://127.0.0.1:8000/getNominees/${id}`)
         .then(response => response.json())
         .then((data) => {
             setNomineesData(data);

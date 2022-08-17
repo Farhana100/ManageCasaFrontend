@@ -14,7 +14,7 @@ export default function ElectionDesc(props){
                 <h3>Committee Election</h3>
             </div>
             <div>
-                <text className='status'> {props.election.phase} </text>
+                <p className='status'> {props.election.phase} </p>
             </div>
         </div>
         <h5 className='myh5'> Committee Member Position: {props.election.position}</h5>
@@ -23,7 +23,7 @@ export default function ElectionDesc(props){
             ?
             <div className="apprtoggle">
                 <div>
-                    <text className='autonom'>Auto Approve All Nominations</text>
+                    <p className='autonom'>Auto Approve All Nominations</p>
                 </div>
                 <div>
                 <label className="switch">

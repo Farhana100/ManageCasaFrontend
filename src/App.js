@@ -37,7 +37,7 @@ function App() {
           <Route path="/home" element={<Home/>} exact />
           <Route path="/login" element={<Login/>} exact />
           <Route path="/register" element={<Register/>} exact />
-          <Route path="/" element={<PrivateRoute/>} exact>
+          <Route path="/" element={<PrivateRoute/>}>
             <Route path="/owners" element={<Owners owners={owners}/>} />
             <Route path="/apartments" element={<Apartments />} />
             <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
@@ -45,9 +45,7 @@ function App() {
             <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
             <Route path="/election" element={<Election user={user}/>} />
             <Route path="/createelection" element={<ElectionCreate user={user}/>}/>
-            <Route path="/viewelection" element={<Election_View user={user}/>}>
-              <Route path=':id' element={<Election_View user={user}/>} />
-            </Route>
+            <Route path="/viewelection/:id" element={<Election_View user={user}/>}/>
           </Route>
         </Routes>
       </Router>
