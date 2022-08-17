@@ -54,7 +54,7 @@ export default function Election(props){
           <ElectionNavbar />
           <div className="second-header">
             <div>
-              <form>
+              {/* <form>
                 <div className="calender">
                   <div className="datepicker">
                     <DatePicker
@@ -71,7 +71,7 @@ export default function Election(props){
                     <Button text={"Select"} />
                   </div>
                 </div>
-              </form>
+              </form> */}
             </div>
             {user.userType === "admin" ? (
               <div className="new-btn">

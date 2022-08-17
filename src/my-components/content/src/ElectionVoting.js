@@ -52,21 +52,9 @@ export default function ElectionVoting(props){
             console.log(data.msg);
             if(data.success){
                 setDidVote(true);
-                // window.location.reload();
+                window.location.reload();
             } 
-          });
-        
-          fetch('http://127.0.0.1:8000/getElectionVote/${electionId}')
-          .then(response => response.json())
-          .then(data => {
-            console.log(data.msg);
-            if(data.success){
-                // setDidVote(true);
-                console.log(data.msg);
-                // window.location.reload();
-            } 
-          });
-        
+          });  
     }
 
     function getElectionInfo(){
@@ -74,8 +62,32 @@ export default function ElectionVoting(props){
         .then(response => response.json())
         .then((data) => {
             setElectionVoteCount(data.vote_count)
-            setDataFetched(true);
+            if(user.userType === "admin"){
+                setDataFetched(true);
+            }
         });
+        
+        if(user.userType === "owner"){
+            fetch(`http://127.0.0.1:8000/getElectionVote/${electionId}`, {
+            method: 'POST',
+            headers: {
+              'Content-type':'application/json',
+            },
+            body: JSON.stringify({votername: user.username,})
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.msg);
+            if(data.success){
+                if(data.vote_existed){
+                    setDidVote(true);
+                }
+                console.log(data.msg);
+                setDataFetched(true);
+            } 
+          });
+        }
+        
     }
 
     function handleDeleteElection(){
@@ -102,8 +114,7 @@ export default function ElectionVoting(props){
     }, []);
 
 
-    return(
-        
+    return( 
         <>
         {
         !isLoading && datafetched
@@ -126,6 +137,17 @@ export default function ElectionVoting(props){
                     {
                         props.user.userType === "admin"
                         ?
+                        candidate.vote_count === 0 && electionVoteCount === 0
+                        ?
+                        <>
+                        <div className='progbar'>
+                            <Progress_bar bgcolor="#452954" progress={0}  height={15}/> 
+                        </div>
+                        <div className='votecnt'>
+                            <text className='votecount'> {candidate.vote_count} </text>
+                        </div>
+                        </>
+                        :
                         <>
                         <div className='progbar'>
                             <Progress_bar bgcolor="#452954" progress={candidate.vote_count/electionVoteCount*100}  height={15}/> 
@@ -135,9 +157,13 @@ export default function ElectionVoting(props){
                         </div>
                         </>
                         :
+                        !didVote
+                        ?
                         <div className="voteradio">
                             <input className="vote-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange = {(e) => handleRadioSelect(candidate.owner_name, e)}/>
                         </div>
+                        :
+                        null
                     }
                     
                     
