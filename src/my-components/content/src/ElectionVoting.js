@@ -19,7 +19,6 @@ export default function ElectionVoting(props){
 
     const splitList = window.location.href.split('/');
     const electionId = splitList[splitList.length - 1];
-    // console.log("Election ID: ", electionId);
     
     const [ nominee, setNominee ] = useState("");
     const [ voter, setVoter ] = useState("");
@@ -27,7 +26,6 @@ export default function ElectionVoting(props){
     const [ electionID, setElectionID ] = useState(null);
 
     const [ electionVoteCount, setElectionVoteCount ] = useState(null);
-    const [ nomVoteCount, setNomVoteCount ] = useState(null);
     const [ isLoading, setIsLoading ] = useState(true);
     const [ datafetched, setDataFetched ] = useState(false);
 
@@ -47,7 +45,6 @@ export default function ElectionVoting(props){
             body: JSON.stringify({name: nominee,
                                 electionID: electionID,
                                 voter: voter,
-
             })
           })
           .then(response => response.json())
@@ -56,9 +53,20 @@ export default function ElectionVoting(props){
             if(data.success){
                 setDidVote(true);
                 // window.location.reload();
-            }
-            
+            } 
           });
+        
+          fetch('http://127.0.0.1:8000/getElectionVote/${electionId}')
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.msg);
+            if(data.success){
+                // setDidVote(true);
+                console.log(data.msg);
+                // window.location.reload();
+            } 
+          });
+        
     }
 
     function getElectionInfo(){
@@ -66,7 +74,6 @@ export default function ElectionVoting(props){
         .then(response => response.json())
         .then((data) => {
             setElectionVoteCount(data.vote_count)
-            // console.log("setElectionData = ", data.vote_count);
             setDataFetched(true);
         });
     }
