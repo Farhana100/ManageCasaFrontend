@@ -5,7 +5,7 @@ import DateTimePicker from 'react-datetime-picker';
 import ElectionNavbar from './miscElection/ElectionNavbar';
 
 
-export default function ElectionCreate(props){
+export default function ElectionCreate(){
     const [ positionData, setPositionData ] = useState("");
     const [ nomstartData, setNomStartData ] = useState(new Date());
     const [ nomendData, setNomEndData ] = useState();

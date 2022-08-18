@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {Link} from 'react-router-dom';
+// import noneImage from '../../static/images/noneImage.png'
+import noImg from '../../static/images/noneImage.png'
 import { useParams } from 'react-router-dom';
 import '../../static/css/apartment.css'
 import Button from '../../../misc/Button';
@@ -7,6 +9,12 @@ import Button from '../../../misc/Button';
 
 
 function CarouselIndicators ({array}) {
+  if(array.length === 0) {
+    return (
+      <li data-target="#apartmentImages" data-slide-to={0} className='active'></li>
+    );
+  }
+
   const indicators = array.map(
     (item, index) => {
       if (index) {
@@ -24,6 +32,12 @@ function CarouselIndicators ({array}) {
 }
 
 function CarouselInners ({array}) {
+  if(array.length === 0) {
+    return (
+    <div className="carousel-item active"><img className="d-block apartment-image" src={noImg} alt={[]}/></div>
+    );
+  }
+
   const inners = array.map(
     (item, index) => {
       if (index) {
@@ -39,6 +53,89 @@ function CarouselInners ({array}) {
     <>{inners}</>
   );
 }
+
+function ApartmentOwner({usertype, apartmentData}){
+  if(apartmentData['apartment_owner']) {
+    return (
+      <>
+        <img className="d-block w-50" src={'http://127.0.0.1:8000' + apartmentData['owner_image']} alt={apartmentData['owner_name']}/>
+
+        <div className='container-fluid mt-5 pl-0'>
+          <div className='row'>
+            <div className='col'><strong>Name: </strong></div>
+            <div className='col'>{apartmentData['owner_name']}</div>
+          </div>
+          <div className='row'>
+            <div className='col'><strong>Contact number: </strong></div>
+            <div className='col'>{apartmentData['owner_phone_number']}</div>
+          </div>
+          <div className='row'>
+            <div className='col'><strong>Bkash number: </strong></div>
+            <div className='col'>{apartmentData['owner_bkash_acc_number']}</div>
+          </div>
+        </div>    
+      </>
+    );
+  }
+  else {
+    if(usertype === 'admin') {
+      return (<>
+        <Button text={'Add Owner'}/>
+      </>);
+    }
+    else {
+      return (<>
+        <p className='h4'>This apartment has no owner</p>
+      </>);
+    }
+  }
+}
+
+function ApartmentTenant({usertype, apartmentData}){
+  if(apartmentData['apartment_tenant']) {
+    return (
+      <>
+        <img className="d-block w-50" src={'http://127.0.0.1:8000' + apartmentData['tenant_image']} alt={apartmentData['tenant_name']}/>
+
+        <div className='container-fluid mt-5 pl-0'>
+          <div className='row'>
+            <div className='col'><strong>Name: </strong></div>
+            <div className='col'>{apartmentData['tenant_name']}</div>
+          </div>
+          <div className='row'>
+            <div className='col'><strong>Contact number: </strong></div>
+            <div className='col'>{apartmentData['tenant_phone_number']}</div>
+          </div>
+          <div className='row'>
+            <div className='col'><strong>Bkash number: </strong></div>
+            <div className='col'>{apartmentData['tenant_bkash_acc_number']}</div>
+          </div>
+          <div className='row'>
+            <div className='col'><strong>Arrival date: </strong></div>
+            <div className='col'>{apartmentData['tenant_arrival_date']}</div>
+          </div>
+          <div className='row'>
+            <div className='col'><strong>Departure date: </strong></div>
+            <div className='col'>{apartmentData['tenant_departure_date']}</div>
+          </div>
+        </div>  
+      </>
+    );
+  }
+  else {
+    if(usertype === 'admin') {
+      return (<>
+        <Button text={'Add Tenant'}/>
+      </>);
+    }
+    else {
+      return (<>
+        <p className='h4'>This apartment has no tenant</p>
+      </>);
+    }
+  }
+}
+
 
 export default function ApartmentView({usertype}) {
 
@@ -91,6 +188,13 @@ export default function ApartmentView({usertype}) {
                 <span className="sr-only">Next</span>
               </a>
             </div>
+            
+            { usertype === 'admin' &&
+              <div className='mt-3 px-0'>
+                <Button text={'upload image'}/>
+              </div>
+            }
+            
           </div>
 {/* -------------------------------------------------------- apartment images end ---------------------------------------------------- */}
 
@@ -120,70 +224,22 @@ export default function ApartmentView({usertype}) {
         <div className='row my-5'>
 {/* ----------------------------------------------------- owner description start -------------------------------------------------*/}
           <div className='col-6 px-5'>
-
-            { apartmentData['apartment_owner'] && 
-              <div className="text-left">
-                <p className='h4'>Owner:</p>
-                <hr/> 
-
-                <img className="d-block w-50" src={'http://127.0.0.1:8000' + apartmentData['owner_image']} alt={apartmentData['owner_name']}/>
-
-
-                <div className='container-fluid mt-5 pl-0'>
-                  <div className='row'>
-                    <div className='col'><strong>Name: </strong></div>
-                    <div className='col'>{apartmentData['owner_name']}</div>
-                  </div>
-                  <div className='row'>
-                    <div className='col'><strong>Contact number: </strong></div>
-                    <div className='col'>{apartmentData['owner_phone_number']}</div>
-                  </div>
-                  <div className='row'>
-                    <div className='col'><strong>Bkash number: </strong></div>
-                    <div className='col'>{apartmentData['owner_bkash_acc_number']}</div>
-                  </div>
-                </div>          
-              </div>
-            }
+            
+            <div className="text-left">
+              <p className='h4'>Owner:</p>
+              <hr/> 
+              <ApartmentOwner usertype={usertype} apartmentData={apartmentData}/>      
+            </div>
           </div>
 {/* ----------------------------------------------------- owner description end ---------------------------------------------------*/}
 
 {/* ----------------------------------------------------- tenant description start -------------------------------------------------*/}
           <div className='col-6 px-5'>
-          
-            
-            { apartmentData['apartment_tenant'] && 
-                <div className="text-left">
-                  <p className='h4'>Tenant:</p>
-                  <hr/> 
-
-                  <img className="d-block w-50" src={'http://127.0.0.1:8000' + apartmentData['tenant_image']} alt={apartmentData['owner_name']}/>
-
-
-                  <div className='container-fluid mt-5 pl-0'>
-                    <div className='row'>
-                      <div className='col'><strong>Name: </strong></div>
-                      <div className='col'>{apartmentData['tenant_name']}</div>
-                    </div>
-                    <div className='row'>
-                      <div className='col'><strong>Contact number: </strong></div>
-                      <div className='col'>{apartmentData['tenant_phone_number']}</div>
-                    </div>
-                    <div className='row'>
-                      <div className='col'><strong>Bkash number: </strong></div>
-                      <div className='col'>{apartmentData['tenant_bkash_acc_number']}</div>
-                    </div>
-                    <div className='row'>
-                      <div className='col'><strong>Arrival date: </strong></div>
-                      <div className='col'>{apartmentData['tenant_arrival_date']}</div>
-                    </div>
-                    <div className='row'>
-                      <div className='col'><strong>Departure date: </strong></div>
-                      <div className='col'>{apartmentData['tenant_departure_date']}</div>
-                    </div>
-                  </div>          
-                </div>
-              }
+              <div className="text-left">
+                <p className='h4'>Tenant:</p>
+                <hr/> 
+                <ApartmentTenant usertype={usertype} apartmentData={apartmentData}/>   
+              </div>
           </div>
 {/* ----------------------------------------------------- tenant description end ---------------------------------------------------*/}
         </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Button from '../../../misc/Button';
 import ApartmentCard from './ApartmentCard';
 
 
@@ -20,8 +21,9 @@ function Floors ({dict}) {
     const array = Object.values(dict);
     const floors = array.map(
         (item) => {
+            // console.log('here',item[0]['floor_number']);
             return (<>
-                <div className='h4'>Floor no. : {item.floor_number}</div>
+                <div className='h4'>Floor no. : {item[0]['floor_number']}</div>
                 <hr/>
                 <div className="row mb-4">
                     <Aparts array={item}/>
@@ -40,6 +42,7 @@ function Floors ({dict}) {
 export default function ApartmentList({usertype, building}) {
 
     const [ allApartmentData, setAllApartmentData ] = useState({});
+    console.log("test ", usertype);
   
     function fetchAllApartment(){
 
@@ -65,37 +68,12 @@ export default function ApartmentList({usertype, building}) {
     return (
         <>
         <div className="container-fluid">
-
-            {/* <div className='h4'>Floor no. : 1</div>
-            <hr/>
-
-            <div className="row mb-4">
-            <div className="col-sm-3 mb-2"><ApartmentCard tenant={'Farhana'} owner={'Farhana'}/></div>
-            <div className="col-sm-3 mb-2"><ApartmentCard/></div>
-            <div className="col-sm-3 mb-2"><ApartmentCard/></div>
-            <div className="col-sm-3 mb-2"><ApartmentCard/></div>
-            <div className="col-sm-3 mb-2"><ApartmentCard/></div>
-            </div>
-
-            <div className='h4'>Floor no. : 2</div>
-            <hr/>
-
-            <div className="row mb-4">
-            <div className="col-sm-3 mb-2"><ApartmentCard/></div>
-            <div className="col-sm-3 mb-2"><ApartmentCard/></div>
-            </div>
-
-            <div className='h4'>Floor no. : 3</div>
-            <hr/>
-
-            <div className="row mb-4">
-            <div className="col-sm-3 mb-2"><ApartmentCard/></div>
-            <div className="col-sm-3 mb-2"><ApartmentCard/></div>
-            <div className="col-sm-3 mb-2"><ApartmentCard/></div>
-            <div className="col-sm-3 mb-2"><ApartmentCard/></div>
-            </div> */}
+            {usertype == 'admin' && 
+                <div className='d-flex flex-row-reverse m-3'>
+                    <Button text={'add new'} link={'/apartments/create'}/>
+                </div>
+            }
             <Floors dict={allApartmentData}/>
-
         </div>
         </>
     )
