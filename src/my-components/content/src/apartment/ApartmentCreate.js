@@ -109,7 +109,7 @@ export default function ApartmentCreate(){
                 <small id="floor_numberHelp" className="form-text text-muted">Enter the apartment floor number</small>
             </div>
             <div className="form-group">
-                <label  className='h6 bold' htmlFor="apartment_number">Floor no.</label>
+                <label  className='h6 bold' htmlFor="apartment_number">Apartment no.</label>
                 <input type="text" className="form-control" id="apartment_number" aria-describedby="apartment_numberHelp" placeholder='e.g.,1C' onChange={handleApartment_numberChange}/>
                 <small id="apartment_numberHelp" className="form-text text-muted">Enter the apartment number</small>
             </div>
