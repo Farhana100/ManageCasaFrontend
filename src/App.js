@@ -65,8 +65,8 @@ function App() {
             <Route path="/paymenthistory" element={<ToBeMade/>} />
             <Route path="/notice" element={<ToBeMade/>} />
             <Route path="/election" element={<Election/>} />
-            <Route path="/createelection" element={<ElectionCreate user={user}/>}/>
-            <Route path="/viewelection/:id" element={<Election_View user={user}/>}/>
+            <Route path="/createelection" element={<ElectionCreate/>}/>
+            <Route path="/viewelection/:id" element={<Election_View/>}/>
             <Route path="/visitors" element={<ToBeMade/>} />
           </Route>
           <Route path="*" element={<NotFound/>}></Route>

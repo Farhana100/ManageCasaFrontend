@@ -36,6 +36,7 @@ export default function ElectionNomination(props) {
         })
         .then(res => res.json())
         .then(data => {
+            console.log(data.msg)
             if(data.success){
                 window.location.reload()
             }
@@ -60,7 +61,6 @@ export default function ElectionNomination(props) {
           })
           .then(response => response.json())
           .then(data => {
-            console.log(data.msg);
             if(data.success){
                 window.location.reload();
             }
@@ -77,7 +77,6 @@ export default function ElectionNomination(props) {
           })
           .then(response => response.json())
           .then(data => {
-            console.log(data.msg);
             if(data.success){
                 window.location.replace('/election')
             }
@@ -94,12 +93,27 @@ export default function ElectionNomination(props) {
           })
           .then(response => response.json())
           .then(data => {
-            console.log(data.msg);
             if(data.success){
                 if(data.nominee_existed){
                     setNomineeExisted(true);
                 }
                 setDataFetched(true);
+            }
+          });
+    }
+
+    function handleEarlyStop(){
+        fetch(`http://127.0.0.1:8000/earlyStop/${props.election.id}`, {
+            method: 'POST',
+            headers: {
+              'Content-type':'application/json',
+            },
+            body: JSON.stringify()
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.success){
+                window.location.replace('/election')
             }
           });
     }
@@ -136,7 +150,9 @@ export default function ElectionNomination(props) {
                     <p className="card-text"><small className="text-muted">Apartment No. {candidate.floor_no}{candidate.unit_no}</small></p>  
                 </div> 
                 {
-                    props.user.userType === "admin"
+                    user.userType === "admin"
+                    ?
+                    props.election.phase === "nomination"
                     ?
                     candidate.approval_status === "pending"
                     ?
@@ -162,6 +178,13 @@ export default function ElectionNomination(props) {
                         {candidate.approval_status}
                     </div>  
                     </>
+                    :
+                    <>
+                    <div></div>
+                    <div>
+                        {candidate.approval_status}
+                    </div>  
+                    </>
                 }
                 </div>
                 <hr/>
@@ -170,7 +193,7 @@ export default function ElectionNomination(props) {
             )
         })}
         {
-            props.user.userType === "admin"
+            user.userType === "admin"
             ?
             <>
             <div className='mybtn'>
@@ -178,11 +201,13 @@ export default function ElectionNomination(props) {
                         <Button text="Cancel Election" OnClick={handleDeleteElection}/>
                 </div>
                 <div className='nom-btn'>
-                    <Button text="Early Stop"/>
+                    <Button text="Early Stop" OnClick={handleEarlyStop}/>
                 </div> 
             </div>
             </>
             :
+            props.election.phase === "nomination"
+            ?
             !nomineeexisted
             ?
             <div className='mybtn'>
@@ -191,6 +216,8 @@ export default function ElectionNomination(props) {
                     <Button text={"Nominate yourself"} OnClick={handleNomination} />                     
                 </div> 
             </div>
+            :
+            null
             :
             null
         }

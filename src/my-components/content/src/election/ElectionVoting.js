@@ -24,8 +24,10 @@ export default function ElectionVoting(props){
     const [ voter, setVoter ] = useState("");
     const [ didVote, setDidVote ] = useState(false);
     const [ electionID, setElectionID ] = useState(null);
+    const [ candidatename, setCandidateName ] = useState("");
 
     const [ electionVoteCount, setElectionVoteCount ] = useState(null);
+    const [ ElectionCandidateCount, setElectionCandidateCount ] = useState(null);
     const [ isLoading, setIsLoading ] = useState(true);
     const [ datafetched, setDataFetched ] = useState(false);
 
@@ -33,7 +35,6 @@ export default function ElectionVoting(props){
         setNominee(name);
         setElectionID(props.election.id);
         setVoter(user.username);
-        console.log(name);
     }
 
     function handleVoteCast(){
@@ -49,7 +50,6 @@ export default function ElectionVoting(props){
           })
           .then(response => response.json())
           .then(data => {
-            console.log(data.msg);
             if(data.success){
                 setDidVote(true);
                 window.location.reload();
@@ -62,6 +62,7 @@ export default function ElectionVoting(props){
         .then(response => response.json())
         .then((data) => {
             setElectionVoteCount(data.vote_count)
+            setElectionCandidateCount(data.no_of_candidates)
             if(user.userType === "admin"){
                 setDataFetched(true);
             }
@@ -77,11 +78,11 @@ export default function ElectionVoting(props){
           })
           .then(response => response.json())
           .then(data => {
-            console.log(data.msg);
             if(data.success){
                 if(data.vote_existed){
                     setDidVote(true);
                 }
+                setCandidateName(data.nominee)
                 console.log(data.msg);
                 setDataFetched(true);
             } 
@@ -102,7 +103,22 @@ export default function ElectionVoting(props){
           .then(data => {
             console.log(data.msg);
             if(data.success){
-                console.log("deleted!!");
+                window.location.replace('/election')
+            }
+          });
+    }
+
+    function handleEarlyStop(){
+        fetch(`http://127.0.0.1:8000/earlyStop/${electionId}`, {
+            method: 'POST',
+            headers: {
+              'Content-type':'application/json',
+            },
+            body: JSON.stringify()
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.success){
                 window.location.replace('/election')
             }
           });
@@ -126,6 +142,9 @@ export default function ElectionVoting(props){
             {props.candidates.map(candidate => {
             return(
                 <>
+                {
+                candidate.approval_status === "approved"
+                ?
                 <div className="votelistcontainer">
                 {/* <div className='nom-image'>
                         <img className='image' src={require('../static/images/nahian.jpg')}/>
@@ -135,7 +154,7 @@ export default function ElectionVoting(props){
                         <p className="card-text"><small className="text-muted">Apartment No. {candidate.floor_no}{candidate.unit_no}</small></p>  
                     </div> 
                     {
-                        props.user.userType === "admin"
+                        user.userType === "admin"
                         ?
                         candidate.vote_count === 0 && electionVoteCount === 0
                         ?
@@ -163,18 +182,26 @@ export default function ElectionVoting(props){
                             <input className="vote-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange = {(e) => handleRadioSelect(candidate.owner_name, e)}/>
                         </div>
                         :
+                        candidate.owner_name === candidatename
+                        ?
+                        <h5 style={{color: "green"}}> You Voted! </h5>
+                        :
                         null
                     }
                     
-                    
+                <hr/>
                 </div>
-            <hr/>
+               
+                :
+                null
+            }
+            
             
             </>
             )
         })}
         {
-            props.user.userType === "admin"
+            user.userType === "admin"
             ?
             <>
                 <div className='mybtn'>
@@ -182,12 +209,14 @@ export default function ElectionVoting(props){
                         <Button text="Cancel Election" OnClick={handleDeleteElection}/>
                     </div>
                     <div className='nom-btn'>
-                        <Button text="Early Stop"/>
+                        <Button text="Early Stop" OnClick={handleEarlyStop}/>
                     </div> 
                 </div>
             </>
             :
             !didVote
+            ?
+            ElectionCandidateCount != 0
             ?
                 <div className='mybtn'>
                     <div></div>
@@ -195,6 +224,8 @@ export default function ElectionVoting(props){
                         <Button text="Vote" OnClick={handleVoteCast}/>
                     </div> 
                 </div>
+            :
+            <h5 style={{color : "red"}}> No Candidate! </h5>
             :
             null
         }

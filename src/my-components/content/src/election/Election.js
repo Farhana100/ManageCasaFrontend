@@ -24,7 +24,6 @@ export default function Election(props){
   const [ isLoading, setIsLoading ] = useState(true);
 
   function fetchElections() {
-
     fetch("http://127.0.0.1:8000/getAllElections")
       .then((response) => response.json())
       .then((data) => {

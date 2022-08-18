@@ -23,7 +23,6 @@ export default function Election_View(props) {
         .then(response => response.json())
         .then((data) => {
             setElectionData(data);
-            // console.log("setElectionData = ", data);
         });
     }
 
@@ -32,7 +31,6 @@ export default function Election_View(props) {
         .then(response => response.json())
         .then((data) => {
             setNomineesData(data);
-            // console.log("setNomineesData = ", data);
             setDataFetched(true);
         });
     }
@@ -53,17 +51,17 @@ export default function Election_View(props) {
         <div>
             <ElectionNavbar/>
             {
-                electionData.phase === 'nomination'
+                electionData.phase === 'nomination' || electionData.phase === 'pending'
                 ?
-                <ElectionNomination election={electionData} candidates={nomineesData} user={props.user}/>
+                <ElectionNomination election={electionData} candidates={nomineesData} />
                 :
                 electionData.phase === 'voting'
                 ?
-                <ElectionVoting election={electionData} candidates={nomineesData} user={props.user}/>
+                <ElectionVoting election={electionData} candidates={nomineesData} />
                 :
                 electionData.phase === 'ended'
                 ?
-                <ElectionEnded election={electionData} candidates={nomineesData} user={props.user}/>
+                <ElectionEnded election={electionData} candidates={nomineesData} />
                 :
                 null
             }
