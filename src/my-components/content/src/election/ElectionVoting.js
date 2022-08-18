@@ -216,16 +216,17 @@ export default function ElectionVoting(props){
             :
             !didVote
             ?
-            ElectionCandidateCount != 0
+            
+            ElectionCandidateCount === 0
             ?
-                <div className='mybtn'>
-                    <div></div>
-                    <div className='myvote'>
-                        <Button text="Vote" OnClick={handleVoteCast}/>
-                    </div> 
-                </div>
-            :
             <h5 style={{color : "red"}}> No Candidate! </h5>
+            :
+            <div className='mybtn'>
+                <div></div>
+                <div className='myvote'>
+                    <Button text="Vote" OnClick={handleVoteCast}/>
+                </div> 
+            </div>
             :
             null
         }
