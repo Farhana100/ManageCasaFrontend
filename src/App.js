@@ -24,6 +24,7 @@ import Election_View from './my-components/content/src/election/Election_View';
 
 import NotFound from './pages/NotFound';
 import ToBeMade from './my-components/content/src/ToBeMade';
+import ElectionList from './my-components/content/src/election/ElectionList';
 
 
 function App() {
@@ -64,9 +65,11 @@ function App() {
             <Route path="/dues" element={<ToBeMade/>} />
             <Route path="/paymenthistory" element={<ToBeMade/>} />
             <Route path="/notice" element={<ToBeMade/>} />
-            <Route path="/election" element={<Election/>} />
-            <Route path="/createelection" element={<ElectionCreate/>}/>
-            <Route path="/viewelection/:id" element={<Election_View/>}/>
+            <Route path="/election" element={<Election />}>
+              <Route path="/election" element={<ElectionList/>} />
+              <Route path="/election/create" element={<ElectionCreate/>}/>
+              <Route path="/election/view/:id" element={<Election_View/>}/>
+            </Route>
             <Route path="/visitors" element={<ToBeMade/>} />
           </Route>
           <Route path="*" element={<NotFound/>}></Route>
