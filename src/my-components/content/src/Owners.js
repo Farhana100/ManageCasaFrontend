@@ -57,7 +57,8 @@ export default function Owners(props){
                     <div className='grid-child-element'>
                     <div className='row myrow'>
                         <h5 className='owner-title'>{owner.owner_name}</h5>
-                        <p className='owner-text'> Apartment No. {owner.floor_no}{owner.unit_no}</p>
+                        <p className='owner-text'> Floor No. {owner.floor_no}</p>
+                        <p className='owner-text'> Apartment No. {owner.unit_no}</p>
                         <p className='mobile'>Mobile No. {owner.phone_number}</p>
                     </div>
                     </div>

@@ -54,7 +54,8 @@ export default function Tenants(props) {
             <div className='grid-child-element'>
               <div className='row myrow'>
                 <h5 className='tenant-title'>{tenant.tenant_name}</h5>
-                <p className='tenant-text'> Apartment No. {tenant.floor_no}{tenant.unit_no}</p>
+                <p className='tenant-text'> Floor No. {tenant.floor_no}</p>
+                <p className='tenant-text'> Apartment No. {tenant.unit_no}</p>
                 <p className='mobile'>Mobile No. {tenant.phone_number}</p>
               </div>
             </div>
