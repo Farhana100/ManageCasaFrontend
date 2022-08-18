@@ -40,7 +40,16 @@ function CarouselInners ({array}) {
   );
 }
 
-export default function ApartmentView({usertype}) {
+export default function ApartmentView() {
+
+  let user = JSON.parse(localStorage.getItem('data'));
+  if (! user) {
+    user = {
+      username: "",
+      userType: "",
+      user_active: false,
+    }
+  }
 
   const {id} = useParams();
 
@@ -189,7 +198,7 @@ export default function ApartmentView({usertype}) {
         </div>
       </div>
 
-      { usertype === 'admin' &&
+      { user.usertype === 'admin' &&
         <div className='row m-5'>
           <div className='col-6 text-left'><Button text="Delete"/></div>
           <div className='col-6 text-right'><Button text="Edit"/></div>

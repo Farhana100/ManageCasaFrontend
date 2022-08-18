@@ -40,15 +40,16 @@ export default function Navbar({userType}) {
     { link:"/committee",      text:"Committee Members", for: 0b111, },
     { link:"/owners",         text:"Owners",            for: 0b111, },
     { link:"/tenants",        text:"Tenants",           for: 0b111, },
-    { link:"/employees",      text:"Employees",         for: 0b111, },
+    // { link:"/employees",      text:"Employees",         for: 0b111, },
+    { link:"/election",       text:"Election",          for: 0b011, },
     { link:"/service",        text:"Service Providers", for: 0b111, },
-    { link:"/forum",          text:"Forum",             for: 0b011, },
+    // { link:"/forum",          text:"Forum",             for: 0b011, },
     { link:"/finance",        text:"Finance",           for: 0b011, },
-    { link:"/complaints",     text:"Complaints",        for: 0b011, },
+    // { link:"/complaints",     text:"Complaints",        for: 0b011, },
     { link:"/dues",           text:"Dues",              for: 0b110, },
     { link:"/paymenthistory", text:"Payment history",   for: 0b110, },
-    { link:"/notice",         text:"Notice",            for: 0b111, },
-    { link:"/election",       text:"Election",          for: 0b011, },
+    // { link:"/notice",         text:"Notice",            for: 0b111, },
+    
     // { link:"/visitors",       text:"Visitors",          for: 0b111, },
   ];
 

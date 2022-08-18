@@ -50,12 +50,12 @@ function App() {
           <Route path="/" element={<PrivateRoute/>}>
             <Route path="/dashboard" element={<ToBeMade/>} />
             <Route path="/apartments" element={<Apartments />}>
-              <Route path="/apartments/" element={<ApartmentList usertype={user.userActive} building={user.building}/>} />
-              <Route path="/apartments/:id" element={<ApartmentView usertype={user.userType} />} />
+              <Route path="/apartments/" element={<ApartmentList/>} />
+              <Route path="/apartments/:id" element={<ApartmentView />} />
             </Route>
             <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
             <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
-            <Route path="/owners" element={<Owners owners={owners}/>} />
+            <Route path="/owners" element={<Owners/>} />
             <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
             <Route path="/employees" element={<ToBeMade/>} />
             <Route path="/service" element={<ToBeMade/>} />
@@ -82,44 +82,7 @@ function App() {
 
 
 
-let apartments = [
-  {
-    id: 1,
-    floor: 1,
-    unit: 'A',
-    owner: 'John Doe'
-  },
-  {
-    id: 2,
-    floor: 1,
-    unit: 'B',
-    owner: 'Jane Doe'
-  },
-  {
-    id: 3,
-    floor: 1,
-    unit: 'C',
-    owner: 'John Doe'
-  },
-  {
-    id: 4,
-    floor: 2,
-    unit: 'A',
-    owner: 'Janei Doe'
-  },
-  {
-    id: 5,
-    floor: 2,
-    unit: 'B',
-    owner: 'Johny Doe'
-  },
-  {
-    id: 6,
-    floor: 2,
-    unit: 'C',
-    owner: 'Janes Doe'
-  }
-]
+
 let tenants = [
   {
     id: 1,
@@ -224,25 +187,6 @@ let elections= [
     voting_end_time: '2020-01-01',
   }
 ]
-
-let candidates = [
-  {
-    id: 1,
-    name: 'Nahian',
-    floor: 1,
-    unit: 'A',
-    status: "approved"
-  },
-  {
-    id: 2,
-    name: 'Farhana',
-    floor: 1,
-    unit: 'B',
-    status: "pending"
-  }
-]
-
-
 
 
 export default App;

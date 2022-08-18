@@ -26,7 +26,8 @@
     margin-bottom: 0.5rem;
     padding: 1rem;
 }
-.owners .mycontainer .image{
+
+.owners .mycontainer .ownerimage{
     width: 100%;
     height: 80%;
     border-radius: 50%;
