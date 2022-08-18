@@ -41,7 +41,7 @@ function Floors ({dict}) {
 
 export default function ApartmentList() {
 
-    let user = JSON.parse(localStorage.getItem('data'));
+    const user = JSON.parse(localStorage.getItem('data'));
     if (! user) {
         user = {
         username: "",
@@ -51,7 +51,7 @@ export default function ApartmentList() {
     }
 
     const [ allApartmentData, setAllApartmentData ] = useState({});
-    console.log("test ", user.usertype);
+    console.log("test ", user.userType);
   
     function fetchAllApartment(){
 
@@ -77,7 +77,7 @@ export default function ApartmentList() {
     return (
         <>
         <div className="container-fluid">
-            {user.usertype == 'admin' && 
+            {user.userType === 'admin' && 
                 <div className='d-flex flex-row-reverse m-3'>
                     <Button text={'add new'} link={'/apartments/create'}/>
                 </div>
