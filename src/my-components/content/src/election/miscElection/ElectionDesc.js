@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import '../../static/css/electionview.css'
-import '../../static/css/election.css'
+import '../../../static/css/electionview.css'
+import '../../../static/css/election.css'
 import {FiEdit} from 'react-icons/fi';
 
 export default function ElectionDesc(props){

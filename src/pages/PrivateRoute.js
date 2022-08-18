@@ -5,11 +5,7 @@ import Navbar from '../my-components/Navbar'
 export default function PrivateRoute() {
     let user = JSON.parse(localStorage.getItem('data'));
     if (! user) {
-      user = {
-       username: "",
-       userType: "",
-       user_active: false,
-      }
+      window.location.replace('/login');
     }
 
   return (

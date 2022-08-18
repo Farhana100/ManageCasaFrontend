@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
-import Button from "../../misc/Button";
-import "../static/css/election.css";
+import Button from "../../../misc/Button";
+import "../../static/css/election.css";
 
 import ElectionNavbar from "./miscElection/ElectionNavbar";
 

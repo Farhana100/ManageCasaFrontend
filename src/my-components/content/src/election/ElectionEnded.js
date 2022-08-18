@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import ElectionNavbar from './miscElection/ElectionNavbar'
-import '../static/css/electionview.css'
+import '../../static/css/electionview.css'
 import ElectionDesc from './miscElection/ElectionDesc'
-import Progress_bar from '../../misc/ProgressBar'
+import Progress_bar from '../../../misc/ProgressBar'
 
 export default function ElectionEnded(props){
     console.log("Ended")

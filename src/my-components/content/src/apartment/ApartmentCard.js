@@ -1,16 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-function loadApartmentPage(e) {
-  e.preventDefault();
-  console.log('apartment test 1');
-}
+import NoneImg from '../../static/images/noneImage.png'
 
 export default function ApartmentCard({apartment_number, owner, tenant, imageLink, detailsLink}){
+  console.log(imageLink);
+  if (imageLink) {
+    imageLink = 'http://127.0.0.1:8000' + imageLink 
+  }
+  else{
+    imageLink = NoneImg
+  }
+
   return (
     <>
-      <div className="card card-inverse my-apartment-card mh-25">
-        <img className="card-img-top" src={imageLink} alt="Card image cap"/>
+      <div className="card card-inverse mh-25">
+        <img className="card-img-top my-apartment-card-image" src={imageLink} alt="Card image cap"/>
         <div className="card-body">
           <h5 className="card-title">{apartment_number}</h5>
           <p className="card-text">
@@ -34,7 +38,7 @@ export default function ApartmentCard({apartment_number, owner, tenant, imageLin
 
 ApartmentCard.defaultProps = {
   apartment_number: 'unknown',
-  imageLink: 'https://www.mountsinai.on.ca/wellbeing/images/image-placeholder/image',
+  imageLink: NoneImg,
   detailsLink: '#',
   owner: null,
   tenant: null,

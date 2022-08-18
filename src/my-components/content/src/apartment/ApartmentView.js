@@ -27,10 +27,10 @@ function CarouselInners ({array}) {
   const inners = array.map(
     (item, index) => {
       if (index) {
-        return <div className="carousel-item apartment-image"><img className="d-block w-100" src={'http://127.0.0.1:8000' + item} alt={item}/></div>
+        return <div className="carousel-item"><img className="d-block apartment-image" src={'http://127.0.0.1:8000' + item} alt={item}/></div>
       }
       else {
-        return <div className="carousel-item apartment-image active"><img className="d-block w-100" src={'http://127.0.0.1:8000' + item} alt={item}/></div>
+        return <div className="carousel-item active"><img className="d-block apartment-image" src={'http://127.0.0.1:8000' + item} alt={item}/></div>
       }
     }
   );
@@ -43,7 +43,6 @@ function CarouselInners ({array}) {
 export default function ApartmentView({usertype}) {
 
   const {id} = useParams();
-  console.log("usertype", usertype);
 
   const [ apartmentData, setApartmentData ] = useState({});
   const [ apartmentImages, setApartmentImages] = useState([]);
@@ -81,15 +80,6 @@ export default function ApartmentView({usertype}) {
                 <CarouselIndicators array={apartmentImages}/>
               </ol>
               <div className="carousel-inner">
-                {/* <div className="carousel-item active">
-                  <img className="d-block w-100" src={test_img} alt="First slide"/>
-                </div>
-                <div className="carousel-item">
-                  <img className="d-block w-100" src={test_img} alt="Second slide"/>
-                </div>
-                <div className="carousel-item">
-                  <img className="d-block w-100" src={test_img} alt="Third slide"/>
-                </div> */}
                 <CarouselInners array={apartmentImages}/>
               </div>
               <a className="carousel-control-prev" href="#apartmentImages" role="button" data-slide="prev">

@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from 'react'
-import '../static/css/electionview.css'
+import '../../static/css/electionview.css'
 import ElectionDesc from './miscElection/ElectionDesc'
-import Button from '../../misc/Button'
+import Button from '../../../misc/Button'
 
 export default function ElectionNomination(props) {
 

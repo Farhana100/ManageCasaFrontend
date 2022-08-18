@@ -1,8 +1,8 @@
 import React, { Component, useEffect } from 'react'
-import '../static/css/electionview.css'
+import '../../static/css/electionview.css'
 import ElectionDesc from './miscElection/ElectionDesc'
-import Button from '../../misc/Button'
-import Progress_bar from '../../misc/ProgressBar'
+import Button from '../../../misc/Button'
+import Progress_bar from '../../../misc/ProgressBar'
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 

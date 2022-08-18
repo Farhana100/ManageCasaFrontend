@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom';
-import Button from '../../misc/Button';
+import Button from '../../../misc/Button';
 import DateTimePicker from 'react-datetime-picker';
 import ElectionNavbar from './miscElection/ElectionNavbar';
 

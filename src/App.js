@@ -8,15 +8,22 @@ import Register from './pages/Register';
 import PrivateRoute from './pages/PrivateRoute';
 
 import Owners from './my-components/content/src/Owners';
+
 import Apartments from './my-components/content/src/apartment/Apartments';
-import Tenants from './my-components/content/src/Tenants';
-import Committee from './my-components/content/src/Committee';
-import AddCommittee from './my-components/content/src/CommitteeAdd';
-import Election from './my-components/content/src/Election';
-import ElectionCreate from './my-components/content/src/ElectionCreate';
-import Election_View from './my-components/content/src/Election_View';
 import ApartmentList from './my-components/content/src/apartment/ApartmentList';
 import ApartmentView from './my-components/content/src/apartment/ApartmentView';
+
+import Tenants from './my-components/content/src/Tenants';
+
+import Committee from './my-components/content/src/Committee';
+import AddCommittee from './my-components/content/src/CommitteeAdd';
+
+import Election from './my-components/content/src/election/Election';
+import ElectionCreate from './my-components/content/src/election/ElectionCreate';
+import Election_View from './my-components/content/src/election/Election_View';
+
+import NotFound from './pages/NotFound';
+import ToBeMade from './my-components/content/src/ToBeMade';
 
 
 function App() {
@@ -40,18 +47,29 @@ function App() {
           <Route path="/login" element={<Login/>} exact />
           <Route path="/register" element={<Register/>} exact />
           <Route path="/" element={<PrivateRoute/>}>
-            <Route path="/owners" element={<Owners owners={owners}/>} />
+            <Route path="/dashboard" element={<ToBeMade/>} />
             <Route path="/apartments" element={<Apartments />}>
-              <Route path="/apartments/" element={<ApartmentList />} />
+              <Route path="/apartments/" element={<ApartmentList usertype={user.userActive} building={user.building}/>} />
               <Route path="/apartments/:id" element={<ApartmentView usertype={user.userType} />} />
             </Route>
-            <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
             <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
             <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
+            <Route path="/owners" element={<Owners owners={owners}/>} />
+            <Route path="/tenants" element={<Tenants tenants={tenants}/>} />
+            <Route path="/employees" element={<ToBeMade/>} />
+            <Route path="/service" element={<ToBeMade/>} />
+            <Route path="/forum" element={<ToBeMade/>} />
+            <Route path="/finance" element={<ToBeMade/>} />
+            <Route path="/complaints" element={<ToBeMade/>} />
+            <Route path="/dues" element={<ToBeMade/>} />
+            <Route path="/paymenthistory" element={<ToBeMade/>} />
+            <Route path="/notice" element={<ToBeMade/>} />
             <Route path="/election" element={<Election/>} />
             <Route path="/createelection" element={<ElectionCreate user={user}/>}/>
             <Route path="/viewelection/:id" element={<Election_View user={user}/>}/>
+            <Route path="/visitors" element={<ToBeMade/>} />
           </Route>
+          <Route path="*" element={<NotFound/>}></Route>
         </Routes>
       </Router>
     </>
