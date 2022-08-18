@@ -31,20 +31,21 @@ export default function ElectionDesc(props){
         {
             props.election.phase === 'nomination'
             ?
-            <div className="apprtoggle">
-                <div>
-                    <p className='autonom'>Auto Approve All Nominations</p>
-                </div>
-                <div>
-                <label className="switch">
-                    <input type="checkbox" onClick={approvehandler}/>
-                    <span className="slider round"></span>
-                </label>
-                </div>
-            </div>
+            // <div className="apprtoggle">
+            //     <div>
+            //         <p className='autonom'>Auto Approve All Nominations</p>
+            //     </div>
+            //     <div>
+            //     <label className="switch">
+            //         <input type="checkbox" onClick={approvehandler}/>
+            //         <span className="slider round"></span>
+            //     </label>
+            //     </div>
+            // </div>
+            null
             :
             <div className='count'>
-                <p> Total Number of Participants: {props.election.vote_count}</p>
+                <p> Total Number of Voters: {props.election.vote_count}</p>
             </div>
         }
         <div className="timeinfo">
@@ -54,7 +55,7 @@ export default function ElectionDesc(props){
             <div>
                 <p className='timev1'>{props.election.nomination_start_time}</p>
             </div>
-            {
+            {/* {
                 user.userType === "admin"
                 ?
                 <div className='icon-area'>
@@ -62,7 +63,7 @@ export default function ElectionDesc(props){
                 </div>
                 :
                 null
-            }
+            } */}
             
         </div>
         <div className="timeinfo">
@@ -72,7 +73,7 @@ export default function ElectionDesc(props){
             <div>
                 <p className='timev2'>{props.election.nomination_end_time}</p>
             </div>
-            {
+            {/* {
                 user.userType === "admin"
                 ?
                 <div className='icon-area'>
@@ -80,7 +81,7 @@ export default function ElectionDesc(props){
                 </div>
                 :
                 null
-            }
+            } */}
         </div>
         <div className="timeinfo">
             <div>
@@ -89,7 +90,7 @@ export default function ElectionDesc(props){
             <div>
                 <p className='timev3'>{props.election.voting_start_time}</p>
             </div>
-            {
+            {/* {
                 user.userType === "admin"
                 ?
                 <div className='icon-area'>
@@ -97,7 +98,7 @@ export default function ElectionDesc(props){
                 </div>
                 :
                 null
-            }
+            } */}
         </div>
         <div className="timeinfo">
             <div>
@@ -106,7 +107,7 @@ export default function ElectionDesc(props){
             <div>
                 <p className='timev4'>{props.election.voting_end_time}</p>
             </div>
-            {
+            {/* {
                 user.userType === "admin"
                 ?
                 <div className='icon-area'>
@@ -114,7 +115,7 @@ export default function ElectionDesc(props){
                 </div>
                 :
                 null
-            }
+            } */}
         </div>
         </>
     )
