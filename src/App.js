@@ -25,6 +25,7 @@ import Election_View from './my-components/content/src/election/Election_View';
 import NotFound from './pages/NotFound';
 import ToBeMade from './my-components/content/src/ToBeMade';
 import ElectionList from './my-components/content/src/election/ElectionList';
+import ApartmentCreate from './my-components/content/src/apartment/ApartmentCreate';
 
 
 function App() {
@@ -51,7 +52,8 @@ function App() {
             <Route path="/dashboard" element={<ToBeMade/>} />
             <Route path="/apartments" element={<Apartments />}>
               <Route path="/apartments/" element={<ApartmentList/>} />
-              <Route path="/apartments/:id" element={<ApartmentView />} />
+              <Route path="/apartments/create" element={<ApartmentCreate/>} />
+              <Route path="/apartments/:id" element={<ApartmentView usertype={user.userType} />} />
             </Route>
             <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
             <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
