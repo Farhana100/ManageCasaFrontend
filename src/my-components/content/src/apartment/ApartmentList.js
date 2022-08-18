@@ -39,7 +39,16 @@ function Floors ({dict}) {
 
 
 
-export default function ApartmentList({usertype, building}) {
+export default function ApartmentList() {
+
+    let user = JSON.parse(localStorage.getItem('data'));
+    if (! user) {
+        user = {
+        username: "",
+        userType: "",
+        user_active: false,
+        }
+    }
 
     const [ allApartmentData, setAllApartmentData ] = useState({});
     console.log("test ", usertype);
@@ -47,7 +56,7 @@ export default function ApartmentList({usertype, building}) {
     function fetchAllApartment(){
 
 
-        fetch(`http://127.0.0.1:8000/getAllApartments/${building}`)
+        fetch(`http://127.0.0.1:8000/getAllApartments/${user.building}`)
         .then(response => response.json())
         .then((data) => {
             // console.log(data);
