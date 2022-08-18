@@ -51,7 +51,7 @@ export default function ApartmentList() {
     }
 
     const [ allApartmentData, setAllApartmentData ] = useState({});
-    console.log("test ", usertype);
+    console.log("test ", user.usertype);
   
     function fetchAllApartment(){
 
@@ -77,7 +77,7 @@ export default function ApartmentList() {
     return (
         <>
         <div className="container-fluid">
-            {usertype == 'admin' && 
+            {user.usertype == 'admin' && 
                 <div className='d-flex flex-row-reverse m-3'>
                     <Button text={'add new'} link={'/apartments/create'}/>
                 </div>

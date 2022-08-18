@@ -51,7 +51,7 @@ function App() {
           <Route path="/" element={<PrivateRoute/>}>
             <Route path="/dashboard" element={<ToBeMade/>} />
             <Route path="/apartments" element={<Apartments />}>
-              <Route path="/apartments/" element={<ApartmentList usertype={user.userType} building={user.building}/>} />
+              <Route path="/apartments/" element={<ApartmentList/>} />
               <Route path="/apartments/create" element={<ApartmentCreate/>} />
               <Route path="/apartments/:id" element={<ApartmentView usertype={user.userType} />} />
             </Route>
