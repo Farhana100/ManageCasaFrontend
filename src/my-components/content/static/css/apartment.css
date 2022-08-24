@@ -14,11 +14,11 @@
 * ==========================================
 *
 */
-#upload {
+#file {
   opacity: 0;
 }
 
-#upload-label {
+#file-label {
   position: absolute;
   top: 50%;
   left: 1rem;
