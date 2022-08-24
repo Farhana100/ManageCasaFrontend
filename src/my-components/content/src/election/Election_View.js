@@ -38,10 +38,11 @@ export default function Election_View(props) {
     useEffect(() => {
         fetchelectiondata();
         fetchonomineedata();
+        console.log("data: ", datafetched)
         setIsLoading(false);        
     }, []);
     
-    
+    console.log("election phase: ", typeof electionData.phase);
 
     return (
     <>
@@ -51,15 +52,15 @@ export default function Election_View(props) {
         <div>
             <ElectionNavbar/>
             {
-                electionData.phase === 'nomination' || electionData.phase === 'pending'
+                electionData.phase.toLowerCase() === 'nomination' || electionData.phase.toLowerCase() === 'pending'
                 ?
                 <ElectionNomination election={electionData} candidates={nomineesData} />
                 :
-                electionData.phase === 'voting'
+                electionData.phase.toLowerCase() === 'voting'
                 ?
                 <ElectionVoting election={electionData} candidates={nomineesData} />
                 :
-                electionData.phase === 'ended'
+                electionData.phase.toLowerCase() === 'ended'
                 ?
                 <ElectionEnded election={electionData} candidates={nomineesData} />
                 :

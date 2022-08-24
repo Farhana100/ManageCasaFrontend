@@ -43,7 +43,7 @@ export default function Tenants(props) {
     ?
     <div className='tenants'>
        <div className='container mycontainer'>
-        <h3 className='tenant-head'>List of Tenants</h3>
+        {/* <h3 className='tenant-head'>List of Tenants</h3> */}
         {tenantsData.map(tenant=> {
          return(
           <>

@@ -2,68 +2,40 @@ import React, { Component } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button from '../../misc/Button'
 import '../static/css/committee.css';
+import { useState } from 'react';
 
-export default class AddCommittee extends Component{
-    
-    constructor(props){
-        super(props);
-        this.state = {
-            designation: '',
-            floor: '',
-            unit: '',
-            name: '',
-            email: '',
-            phone: '',
-            // imgSrc: null
-        }
+export default function CommitteeAdd(props) {
+    let user = JSON.parse(localStorage.getItem("data"));
+    if (!user) {
+        user = {
+        username: "",
+        userType: "",
+        user_active: false,
+        };
     }
+    const [positionData, setCommitteePosition] = useState("");
 
-    handledesignationChange = (e) => {
-        this.setState({
-            designation: e.target.value
-        })
-    }
-    handlenameChange = (e) => {
-        this.setState({
-            name: e.target.value
-        })
-    }
-    handleemailChange = (e) => {
-        this.setState({
-            email: e.target.value
-        })
-    }
-    handlephoneChange = (e) => {
-        this.setState({
-            phone: e.target.value
-        })
-    }
-    handlefloorchange = (e) => {
-        this.setState({
-            floor: e.target.value
-        })
-    }
-    handleunitchange = (e) => {
-        this.setState({
-            unit: e.target.value
-        })
+    function createPositionHandler(){
+        console.log(positionData);
+        fetch(`http://127.0.0.1:8000/createCommitteePosition/${user.building}`, {
+            method: 'POST',
+            headers: {
+              'Content-type':'application/json',
+            },
+            body: JSON.stringify({position: positionData,
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.msg);
+            if(data.success){
+                navigate('/committee')
+            }
+          });
     }
 
-    // handleImage() {
-    //     var file = this.refs.file.files[0];
-    //     var reader = new FileReader();
-    //     var url = reader.readAsDataURL(file);
+    let navigate = useNavigate();
 
-    //     reader.onloadend = function (e) {
-    //         this.setState({
-    //             imgSrc: [reader.result];
-    //         })
-    //         }.bind(this);
-    //     console.log(url)
-    // }
-
-
-render(){
   return (
     <>
     <h3> New Member</h3>
@@ -72,71 +44,16 @@ render(){
     <form>
         <div class="form-group">
             <label for="inputdesignation">Designation</label>
-            <input type="text" class="form-control" id="designationInput" placeholder="Enter designation" value={this.state.designation} onChange={this.handledesignationChange}/>
-        </div>
-        <div class="form-group">
-            <label for="FloorSelect">Floor</label>
-            <select class="form-control" id="selectfloor" value={this.state.floor} onChange={this.handlefloorchange}>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="UnitSelect">Unit</label>
-            <select class="form-control" id="selectunit" value={this.state.unit} onChange={this.handleunitchange}>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-            </select>
+            <input type="text" class="form-control" placeholder="Enter designation" onChange={(event) => setCommitteePosition(event.target.value)}  />
         </div>
     </form>
-    <br/>
-    <h4 className='myh4'> Personal Information</h4>
-    <br/>
-    <div className='my-form-container'>
-        <div className='forminfo'>
-            <form>
-                <div class="form-group">
-                    <label for="inputname">Name</label>
-                    <input type="text" class="form-control" id="nameInput" placeholder="Enter name" value={this.state.name} onChange={this.handlenameChange}/>
-                </div>
-                <div class="form-group">
-                    <label for="InputApartment">Email</label>
-                    <input type="email" class="form-control" id="emailInput" placeholder='Enter email' value={this.state.email} onChange={this.handleemailChange}/>
-                </div>
-                <div class="form-group">
-                    <label for="InputMobile">Mobile No.</label>
-                    <input type="text" class="form-control" id="mobileInput" placeholder='Enter mobile' value={this.state.phone} onChange={this.handlephoneChange}/>
-                </div>
-                <div className='btn-container'>
-                    <div className='btn-cancel'>
-                        <Button text="Cancel"/>
-                    </div>
-                    <div className='btn-add'>
-                        <Button text="Add" OnClick={() => alert(`${this.state.designation} ${this.state.floor} ${this.state.unit} ${this.state.name} ${this.state.email} ${this.state.phone}`)} />
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div>
-            <img className='formimage' src={require('../static/images/default_upload.png')}/>
-            {/* <form>
-                <div class="form-group">
-                    <label for="exampleFormControlFile1">Example file input</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1"/>
-                </div>
-            </form> */}
-            <br/>
-            <Button text="Add Photo"/>
-        </div>
+    <div className="add-btn">
+        <Button  text="Add" OnClick={createPositionHandler}/>
     </div>
     </>
   )
 }
-}
+
 
 
 
