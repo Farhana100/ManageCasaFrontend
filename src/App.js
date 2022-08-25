@@ -23,6 +23,12 @@ import Election from './my-components/content/src/election/Election';
 import ElectionCreate from './my-components/content/src/election/ElectionCreate';
 import Election_View from './my-components/content/src/election/Election_View';
 
+import Poll from './my-components/content/src/poll/Poll';
+import PollList from './my-components/content/src/poll/PollList';
+import PollCreate from './my-components/content/src/poll/PollCreate';
+import PollVoting from './my-components/content/src/poll/PollVoting';
+import PollView from './my-components/content/src/poll/PollView';
+
 import NotFound from './pages/NotFound';
 import ToBeMade from './my-components/content/src/ToBeMade';
 import ElectionList from './my-components/content/src/election/ElectionList';
@@ -73,6 +79,11 @@ function App() {
               <Route path="/election" element={<ElectionList/>} />
               <Route path="/election/create" element={<ElectionCreate/>}/>
               <Route path="/election/view/:id" element={<Election_View/>}/>
+              <Route path="/election/poll" element={<Poll/>} >
+                <Route path="/election/poll" element={<PollList/>} />
+                <Route path="/election/poll/create" element={<ToBeMade/>} />
+                <Route path="/election/poll/view/:id" element={<PollView/>}/>
+              </Route>
             </Route>
             <Route path="/visitors" element={<ToBeMade/>} />
           </Route>

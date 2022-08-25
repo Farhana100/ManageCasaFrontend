@@ -1,0 +1,39 @@
+.second-header{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-left: 30px;
+}
+
+.calender{
+    display: flex;
+}
+
+.datepicker{
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+.poll-container{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    background-color: #F5E8F3;
+    border-radius: 5px;
+    padding: 10px;
+    width: 80%;
+}
+
+.poll-title{
+    width: 13%;
+    /* background-color: rgb(192, 210, 238); */
+    border-radius: 5px;
+    padding-left: 3px;
+}
+
+.poll-name{
+    font-size: larger;
+    font-weight: bold;
+
+}

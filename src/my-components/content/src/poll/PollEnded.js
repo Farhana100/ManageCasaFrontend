@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import ElectionNavbar from './miscElection/ElectionNavbar'
+import ElectionNavbar from '../election/miscElection/ElectionNavbar'
 import '../../static/css/electionview.css'
-import ElectionDesc from './miscElection/ElectionDesc'
+import PollDesc from './miscPoll/PollDesc'
 import Progress_bar from '../../../misc/ProgressBar'
 import { useEffect, useState } from 'react'
 
-export default function ElectionEnded(props){
+export default function PollEnded(props){
     let user = JSON.parse(localStorage.getItem('data'));
     if (! user) {
         user = {
@@ -16,26 +16,26 @@ export default function ElectionEnded(props){
     }
 
     const splitList = window.location.href.split('/');
-    const electionId = splitList[splitList.length - 1];
+    const pollId = splitList[splitList.length - 1];
 
     const [ isLoading, setIsLoading ] = useState(true);
     const [ datafetched, setDataFetched ] = useState(false);
 
-    const [ electionVoteCount, setElectionVoteCount ] = useState(null);
-    const [ electedMember, setElectedMember ] = useState(null);
+    const [ pollVoteCount, setPollVoteCount ] = useState(null);
+    const [ selectedoption, setSelectedOption ] = useState(null);
 
-    function getElectionInfo(){
-        fetch(`http://127.0.0.1:8000/getElection/${electionId}`)
+    function getPollInfo(){
+        fetch(`http://127.0.0.1:8000/getPoll/${pollId}`)
         .then(response => response.json())
         .then((data) => {
-            setElectionVoteCount(data.vote_count)
-            setElectedMember(data.elected_member);
+            setPollVoteCount(data.vote_count)
+            setSelectedOption(data.selected_option);
             setDataFetched(true);
         });
     }
 
     useEffect(() => {
-        getElectionInfo();
+        getPollInfo();
         setIsLoading(false);        
     }, []);
 
@@ -45,38 +45,34 @@ export default function ElectionEnded(props){
         !isLoading && datafetched
         ? 
         <div>
-            <ElectionDesc election={props.election}/>
+            <PollDesc poll={props.poll}/>
             <h3> Result:</h3>
 
-            {props.candidates.map(candidate => {
+            {props.options.map(option => {
             return(
                 <>
-                <div className="votelistcontainer" style={{backgroundColor: candidate.owner === electedMember ? "#ECCCF5": null}}>
-                <div className='nom-image'>
-                        <img className='image' src={"http://127.0.0.1:8000" + candidate.image}/>
-                </div>
+                <div className="votelistcontainer" style={{backgroundColor: option.option_name === selectedoption ? "#ECCCF5": null}}>
                     <div className="vote-info">
-                        <h5 className="card-title">{candidate.owner_name}</h5>
-                        <p className="card-text"><small className="text-muted">Apartment No. {candidate.floor_no}{candidate.unit_no}</small></p>  
+                        <h5 className="card-title">{option.option_name}</h5> 
                     </div> 
                     {
-                        candidate.vote_count === 0 && electionVoteCount === 0
+                        option.vote_count === 0 && pollVoteCount === 0
                         ?
                         <>
                         <div className='progbar'>
                             <Progress_bar bgcolor="#452954" progress={0}  height={15}/> 
                         </div>
                         <div className='votecnt'>
-                            <text className='votecount'> {candidate.vote_count} </text>
+                            <text className='votecount'> {option.vote_count} </text>
                         </div>
                         </>
                         :
                         <>
                         <div className='progbar'>
-                            <Progress_bar bgcolor="#452954" progress={(candidate.vote_count/electionVoteCount*100).toFixed(2)}  height={15}/> 
+                            <Progress_bar bgcolor="#452954" progress={(option.vote_count/pollVoteCount*100).toFixed(2)}  height={15}/> 
                         </div>
                         <div className='votecnt'>
-                            <text className='votecount'> {candidate.vote_count} </text>
+                            <text className='votecount'> {option.vote_count} </text>
                         </div>
                         </>
                     }
