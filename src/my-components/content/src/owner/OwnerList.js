@@ -11,33 +11,29 @@ export default function OwnerList(props){
       username: "",
       userType: "",
       user_active: false,
-    }
+    };
   }
 
-  const [ ownerstData, setOwnersData ] = useState({});
+  const [ownersData, setOwnersData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [datafetched, setDataFetched ] = useState(false);
+  const [datafetched, setDataFetched] = useState(false);
 
-  function fetchOwners(){
+  function fetchOwners() {
     fetch(`http://127.0.0.1:8000/getAllOwners/${user.building}`)
-    .then(response => response.json())
-    .then((data) => {
+      .then((response) => response.json())
+      .then((data) => {
         // console.log(data);
-        if(data.success){
+        if (data.success) {
           setOwnersData(data.data);
           setDataFetched(true);
         }
-    });
-}
+      });
+  }
 
-  
   useEffect(() => {
     fetchOwners();
-    setIsLoading(false);  
+    setIsLoading(false);
   }, []);
-
-
-  
 
   return (
     <>

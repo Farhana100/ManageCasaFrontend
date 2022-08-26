@@ -20,7 +20,8 @@ import TenantList from './my-components/content/src/tenant/TenantList';
 import TenantAdd from './my-components/content/src/tenant/TenantAdd';
 
 import Committee from './my-components/content/src/Committee';
-import AddCommittee from './my-components/content/src/CommitteeAdd';
+import CommitteeAdd from './my-components/content/src/CommitteeAdd';
+import CommitteeEdit from './my-components/content/src/CommitteeEdit';
 
 import Election from './my-components/content/src/election/Election';
 import ElectionCreate from './my-components/content/src/election/ElectionCreate';
@@ -61,9 +62,10 @@ function App() {
               <Route path="/apartments/edit/:id" element={<ApartmentEdit/>} />
               <Route path="/apartments/:id" element={<ApartmentView usertype={user.userType} />} />
             </Route>
-            <Route path="/committee" element={<Committee committee={committeemembers} user={user}/>}/>
-            <Route path="/addcommittee" element={<AddCommittee user={user}/> } />
-            <Route path="/owners" element={<Owners/>}>
+            <Route path="/committee" element={<Committee/>}/>
+              <Route path="/committee/add" element={<CommitteeAdd/> } />
+              <Route path="/committee/edit" element={<CommitteeEdit/> } />
+              <Route path="/owners" element={<Owners/>}>
               <Route path="/owners" element={<OwnerList/>} />
               <Route path="/owners/add" element={<OwnerAdd/>} />
             </Route>
@@ -93,114 +95,5 @@ function App() {
   );
 
 }
-
-
-
-
-let tenants = [
-  {
-    id: 1,
-    name: 'John Doe',
-    floor: 1,
-    unit: 'A',
-    email: 'john@gmail.com',
-    phone_no: '1234567890',
-    bkash_no: '1234567890',
-  },
-  {
-    id: 2,
-    name: 'Jane Doe',
-    floor: 2,
-    unit: 'B',
-    email: 'jane@gmail.com',
-    phone_no: '123456790',
-    bkash_no: '123456790',
-  },
-  {
-    id: 3,
-    name: 'Johny Doe',
-    floor: 1,
-    unit: 'C',
-    email: 'johny@gmail.com',
-    phone_no: '123456789',
-    bkash_no: '123456789',
-  }
-]
-let owners = [
-  {
-    id: 1,
-    name: 'John Doe',
-    floor: 1,
-    unit: 'A',
-    email: 'john@gmail.com',
-    phone_no: '1234567890',
-    bkash_no: '1234567890',
-  },
-  {
-    id: 2,
-    name: 'Jane Doe',
-    floor: 2,
-    unit: 'B',
-    email: 'jane@gmail.com',
-    phone_no: '123456790',
-    bkash_no: '123456790',
-  },
-  {
-    id: 3,
-    name: 'Johny Doe',
-    floor: 1,
-    unit: 'C',
-    email: 'johny@gmail.com',
-    phone_no: '123456789',
-    bkash_no: '123456789',
-  }
-]
-let committeemembers= [
-  {
-    id: 1,
-    name: 'John Doe',
-    floor: 1,
-    unit: 'A',
-    email: 'john@gmail.com',
-    phone_no: '1234567890',
-    bkash_no: '1234567890',
-    position: 'President',
-  },
-  {
-    id: 2,
-    name: 'Jane Doe',
-    floor: 2,
-    unit: 'B',
-    email: 'jane@gmail.com',
-    phone_no: '123456790',
-    bkash_no: '123456790',
-    position: 'Vice President',
-  },
-  {
-    id: 3,
-    name: 'Johny Doe',
-    floor: 1,
-    unit: 'C',
-    email: 'johny@gmail.com',
-    phone_no: '123456789',
-    bkash_no: '123456789',
-    position: 'Secretary',
-  }
-]
-
-let elections= [
-  {
-    name: 'President',
-    phase: 'voting',
-    candidates: ['Nahian', 'Farhana', 'Utsha', 'Alif'],
-    winner: '',
-    creation_time: '2020-01-01',
-    nomination_start_time: '2020-01-01',
-    nomination_end_time: '2020-01-01',
-    voting_start_time: '2020-01-01',
-    voting_end_time: '2020-01-01',
-  }
-]
-
 
 export default App;

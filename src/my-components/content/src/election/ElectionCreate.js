@@ -1,131 +1,167 @@
-import React, { Component, useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
-import Button from '../../../misc/Button';
-import DateTimePicker from 'react-datetime-picker';
-import ElectionNavbar from './miscElection/ElectionNavbar';
+import React, { Component, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import Button from "../../../misc/Button";
+import DateTimePicker from "react-datetime-picker";
+import ElectionNavbar from "./miscElection/ElectionNavbar";
+import { useEffect } from "react";
 
+export default function ElectionCreate() {
+  let user = JSON.parse(localStorage.getItem("data"));
+  if (!user) {
+    user = {
+      username: "",
+      userType: "",
+      user_active: false,
+    };
+  }
 
-export default function ElectionCreate(){
-    const [ positionData, setPositionData ] = useState("");
-    const [ nomstartData, setNomStartData ] = useState(new Date());
-    const [ nomendData, setNomEndData ] = useState();
-    const [ votestartData, setVoteStartData ] =useState();
-    const [ voteendData, setVoteEndData ] = useState();
-    
-    const handlepositionchange = (e) => {
-        setPositionData(e.target.value);
-    }
+  const [positions, setPositions] = useState({});
+  const [positionData, setPositionData] = useState("");
+  const [nomstartData, setNomStartData] = useState(new Date());
+  const [nomendData, setNomEndData] = useState();
+  const [votestartData, setVoteStartData] = useState();
+  const [voteendData, setVoteEndData ] = useState();
+  const [ autoapprove, setAutoApprove ] = useState(false);
 
-    // function approvehandler(e){
-    //     alert(`${e.target.checked}`)
-    // }
+  const [isLoading, setIsLoading] = useState(true);
+  const [datafetched, setDataFetched] = useState(false);
 
-    function createElectionHandler(){
-        fetch("http://127.0.0.1:8000/createElection", {
-            method: 'POST',
-            headers: {
-              'Content-type':'application/json',
-            },
-            body: JSON.stringify({positionData: positionData,
-                                nomstartData: nomstartData,
-                                nomendData: nomendData,
-                                votestartData: votestartData,
-                                voteendData: voteendData,
-            })
-          })
-          .then(response => response.json())
-          .then(data => {
-            if(data.success){
-                navigate('/election')
-            }
-            
-          });
-    }
+  const handlepositionchange = (e) => {
+    setPositionData(e.target.value);
+  };
 
-    let navigate = useNavigate();
-    function cancelHandler(){
-        navigate('/election')
-    }
+  function getPositions() {
+    fetch(`http://127.0.0.1:8000/getPositions/${user.building}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setPositions(data.positions);
+          setDataFetched(true);
+        }
+      });
+  }
 
+  function createElectionHandler() {
+    fetch(`http://127.0.0.1:8000/createElection/${user.building}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        positionData: positionData,
+        nomstartData: nomstartData,
+        nomendData: nomendData,
+        votestartData: votestartData,
+        voteendData: voteendData,
+        autoapprove: autoapprove,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          navigate("/election");
+        }
+      });
+  }
+
+  let navigate = useNavigate();
+  function cancelHandler() {
+    navigate("/election");
+  }
+
+  useEffect(() => {
+    getPositions();
+    setIsLoading(false);
+  }, []);
 
   return (
     <>
-        <ElectionNavbar/>
-        <h3> Create New Committee Election</h3>
-        <div className="form-elec">
+      {!isLoading && datafetched ? (
+        <div>
+          <ElectionNavbar />
+          <h3> Create New Committee Election</h3>
+          <div className="form-elec">
             <div>
-                <h5 className='elecname'>Committee Member Position:</h5>
+              <h5 className="elecname">Committee Member Position:</h5>
             </div>
             <div>
-            <select className="elec-pos" id="selectposition"  onClick={handlepositionchange}>
-                <option>President</option>
-                <option>Secretary</option>
-                <option>Treasurer</option>
-            </select>
+              <select
+                className="elec-pos"
+                id="selectposition"
+                onClick={handlepositionchange}
+              >
+                {positions.map((pos) => {
+                  return (
+                    <>
+                      <option>{pos['positions']}</option>
+                    </>
+                  );
+                })}
+              </select>
             </div>
-        </div>
-        {/* <div className="apprtoggle">
+          </div>
+          <div className="apprtoggle">
             <div>
                 <text className='autonom'>Auto Approve All Nominations</text>
             </div>
             <div>
             <label className="switch">
-                <input type="checkbox" onClick={approvehandler}/>
+                <input type="checkbox" onClick={(event) => setAutoApprove(event.target.value === "on"? true : false)}/>
                 <span className="slider round"></span>
             </label>
             </div>
-        </div> */}
-
-        <div className="startend">
-            <div>
-                <text className='settime'>Nomination Start Time:</text>
-            </div>
-            <div>
-                <DateTimePicker
-                onChange={setNomStartData}
-                value={nomstartData}
-                />
-            </div>
         </div>
 
-        <div className="startend">
+          <div className="startend">
             <div>
-                <text className='settime'>Nomination End Time:</text>
+              <text className="settime">Nomination Start Time:</text>
             </div>
             <div>
-                <DateTimePicker onChange={setNomEndData} value={nomendData}/>
+              <DateTimePicker onChange={setNomStartData} value={nomstartData} />
             </div>
-        </div>
+          </div>
 
-        <div className="startend">
+          <div className="startend">
             <div>
-                <text className='settime'>Voting Start Time:</text>
+              <text className="settime">Nomination End Time:</text>
             </div>
             <div>
-                <DateTimePicker onChange={setVoteStartData} value={votestartData}/>
+              <DateTimePicker onChange={setNomEndData} value={nomendData} />
             </div>
-        </div>
+          </div>
 
-        <div className="startend">
+          <div className="startend">
             <div>
-                <text className='settime'>Voting end Time:</text>
+              <text className="settime">Voting Start Time:</text>
             </div>
             <div>
-                <DateTimePicker onChange={setVoteEndData} value={voteendData}/>
+              <DateTimePicker
+                onChange={setVoteStartData}
+                value={votestartData}
+              />
             </div>
+          </div>
+
+          <div className="startend">
+            <div>
+              <text className="settime">Voting end Time:</text>
+            </div>
+            <div>
+              <DateTimePicker onChange={setVoteEndData} value={voteendData} />
+            </div>
+          </div>
+          <div className="btn-cont">
+            <div>
+              <Button text="Cancel" OnClick={cancelHandler} />
+            </div>
+            <div>
+              <Button text="Create" OnClick={createElectionHandler} />
+            </div>
+          </div>
         </div>
-        <div className='btn-cont'>
-            <div>
-                <Button text='Cancel' OnClick={cancelHandler}/>
-            </div>
-            <div>
-                <Button text='Create' OnClick={createElectionHandler}/>
-            </div>
-        </div>
+      ) : (
+        <div> Loading... </div>
+      )}
     </>
-  )
+  );
 }
-
-
-
-

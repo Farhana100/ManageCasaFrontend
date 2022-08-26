@@ -20,7 +20,7 @@ export default function ElectionNomination(props) {
 
     async function handleNomination() {
         const name = user.username;
-        const approval_status = "pending";
+        const approval_status = "Pending";
         const election_id = props.election.id;
 
         fetch("http://127.0.0.1:8000/createNominee", {
@@ -46,7 +46,7 @@ export default function ElectionNomination(props) {
 
     async function ApproveNomineeHandler(nominee_name, event){
         const name = nominee_name;
-        const approval_status = "approved";
+        const approval_status = "Approved";
         const committee_election_id = props.election.id;
 
         fetch("http://127.0.0.1:8000/approveNominee", {
@@ -152,9 +152,9 @@ export default function ElectionNomination(props) {
                 {
                     user.userType === "admin"
                     ?
-                    props.election.phase === "nomination"
+                    props.election.phase.toLowerCase() === "nomination"
                     ?
-                    candidate.approval_status === "pending"
+                    candidate.approval_status.toLowerCase() === "pending"
                     ?
                     <>
                         <div className='nom-btn'>
@@ -206,7 +206,7 @@ export default function ElectionNomination(props) {
             </div>
             </>
             :
-            props.election.phase === "nomination"
+            props.election.phase.toLowerCase() === "nomination"
             ?
             !nomineeexisted
             ?

@@ -48,7 +48,7 @@ export default function TenantList(props) {
             </div>
         }
        <div className='container mycontainer'>
-        <h3 className='tenant-head'>List of Tenants</h3>
+        {/* <h3 className='tenant-head'>List of Tenants</h3> */}
         {tenantsData.map(tenant=> {
          return(
           <>

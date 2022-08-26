@@ -1,79 +1,82 @@
-import React, {Component} from 'react'
-import Button from '../../misc/Button'
-import '../static/css/committee.css';
-import {Navigate} from "react-router-dom";
+import React, { Component } from "react";
+import Button from "../../misc/Button";
+import "../static/css/committee.css";
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
 
+export default function Commitee(props) {
+  let user = JSON.parse(localStorage.getItem("data"));
+  if (!user) {
+    user = {
+      username: "",
+      userType: "",
+      user_active: false,
+    };
+  }
 
-export default class Commitee extends Component{
-    constructor (props) {
-        super(props)
-        this.state = {
+  const [committeeData, setCommitteeData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [datafetched, setDataFetched] = useState(false);
 
-        };
-          
-      }
-    
-
-render() {
-  return (
-    <div className='committee'>
-       <div className='container'>
-        <h3 className='committee_hd'>List of Current Committee Members</h3>
-        {this.props.committee.map(committeemember=> {
-            if(this.props.user.userType === 'admin') { 
-                return( 
-                <div className="flex-container">
-                    <div className='fitem image'>
-                          <img className='image' src={require('../static/images/nahian.jpg')}/>
-                    </div>
-                    <div className="fitem info">
-                        <h5 className="card-title">{committeemember.name}</h5>
-                        <p className="card-text">{committeemember.position}</p>
-                        <p className="card-text"><small className="text-muted">Apartment No. {committeemember.floor}{committeemember.unit}</small></p>  
-                    </div> 
-                    <div className='fitem button'>
-                        <Button text="Edit" link='/addcommittee'/>
-                    </div>
-                    <div className='fitem button'>
-                        <Button text="Delete"/>
-                    </div>   
-                </div>
-                )
-            }
-            else{
-                return( 
-                    <div className="fcontainer">
-                        <div className='fitem image'>
-                            <img className='notadminimage' src={require('../static/images/nahian.jpg')}/>
-                        </div>
-                        <div className="notadmininfo">
-                            <h5 className="card-title">{committeemember.name}</h5>
-                            <p className="card-text">{committeemember.position}</p>
-                            <p className="card-text"><small className="text-muted">Apartment No. {committeemember.floor}</small></p>  
-                        </div> 
-                    </div>
-                    )
-            }
-        })}
-        {this.props.user.userType === 'admin'
-            ?
-            <div className='flex-end'>
-                <Button text="Add New Committee Member" link={"/addcommittee"}/>
-            </div>
-            :
-            <div></div>
+  function fetchCommitteeMembers() {
+    fetch(`http://127.0.0.1:8000/getCommitteeMembers/${user.building}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          console.log(data.data);
+          setCommitteeData(data.data);
+          setDataFetched(true);
         }
+      });
+  }
 
+  useEffect(() => {
+    fetchCommitteeMembers();
+    setIsLoading(false);
+  }, []);
+
+  return (
+    <>
+      {user.userType === "admin" ? (
+        <div className="flex-end">
+          <Button text={'Add New Position'} link={'/committee/add'} />
         </div>
-    </div>
-  
-  )
+      ) : (
+        <div></div>
+      )}
+      {!isLoading && datafetched ? (
+        <div className="committee">
+          <div className="container">
+            {/* <h3 className="committee_hd">List of Current Committee Members</h3> */}
+            {committeeData.map((committeemember) => {
+              return (
+                <>
+                <div className="flex-container">
+                  <div className="fitem image">
+                    <img
+                      className="image"
+                      src={"http://127.0.0.1:8000" + committeemember.image}
+                    />
+                  </div>
+                  <div className="fitem info">
+                    <h5 className="card-title">{committeemember.owner_name}</h5>
+                    <p className="card-text">{committeemember.position}</p>
+                    <p className="card-text">
+                      <small className="text-muted">
+                        Apartment No. {committeemember.floor_no}
+                        {committeemember.unit_no}
+                      </small>
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                </>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
 }
-}
-
-// export default function Committee(props){
-//     let navigate = useNavigate();
-//     return(
-//         <CommiteeClass committee={props.committee} user={props.user} navigate={navigate}/>
-//     )
-// }

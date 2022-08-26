@@ -9,26 +9,26 @@ import ElectionNavbar from "./miscElection/ElectionNavbar";
 
 import { useState, useEffect } from "react";
 
-export default function ElectionList(props){
-  let user = JSON.parse(localStorage.getItem('data'));
-  if (! user) {
+export default function ElectionList(props) {
+  let user = JSON.parse(localStorage.getItem("data"));
+  if (!user) {
     user = {
       username: "",
       userType: "",
       user_active: false,
-    }
+    };
   }
 
-  const [ electionData, setElectionData ] = useState({});
-  const [ datafetched, setDataFetched ] = useState(false);
-  const [ isLoading, setIsLoading ] = useState(true);
+  const [electionData, setElectionData] = useState({});
+  const [datafetched, setDataFetched] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   function fetchElections() {
     fetch(`http://127.0.0.1:8000/getAllElections/${user.building}`)
       .then((response) => response.json())
       .then((data) => {
-          setElectionData(data);
-          setDataFetched(true);
+        setElectionData(data);
+        setDataFetched(true);
       });
   }
 
@@ -39,16 +39,13 @@ export default function ElectionList(props){
 
   let navigate = useNavigate();
 
-  function handleClick(){
+  function handleClick() {
     navigate("/election/view");
-  };
+  }
 
-  
-    return (
-      <>
-      {
-        !isLoading && datafetched
-        ?
+  return (
+    <>
+      {!isLoading && datafetched ? (
         <div>
           <ElectionNavbar />
           <div className="second-header">
@@ -97,12 +94,10 @@ export default function ElectionList(props){
               );
             })}
           </div>
-
         </div>
-        :
-        <div> Loading... </div>    
-    
-      }
-      </>
-    );
-  }
+      ) : (
+        <div> Loading... </div>
+      )}
+    </>
+  );
+}
