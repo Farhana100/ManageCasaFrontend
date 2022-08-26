@@ -95,10 +95,9 @@ export default function ApartmentCreate(){
 
   return (
     <>
-        
         <h4> Add New Apartment</h4>
         <hr/>
-        <form className='container'>
+        <form className='container-fluid'>
             <div className="form-group">
                 <label className='h6 bold'>Add Apartment Image</label>
                 <div className="row py-4">
@@ -137,7 +136,7 @@ export default function ApartmentCreate(){
                 <input type="number" className="form-control" id="rent" aria-describedby="rentHelp" placeholder='0' onChange={handleRentChange}/>
             </div>
             
-            <div className='row my-5'>
+            <div className='form-group row my-5'>
                 <div className='col d-flex justify-content-start'><Button text={'Cancel'} link={'/apartments'} /></div>
                 <div className='col d-flex justify-content-end'><Button text={'Submit'} OnClick={createApartmentHandler}/></div>
             </div>

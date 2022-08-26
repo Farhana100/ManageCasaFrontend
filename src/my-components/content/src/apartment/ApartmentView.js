@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 // import noneImage from '../../static/images/noneImage.png'
 import noImg from '../../static/images/noneImage.png'
 import { useParams } from 'react-router-dom';
@@ -80,7 +80,7 @@ function ApartmentOwner({usertype, apartmentData}){
   else {
     if(usertype === 'admin') {
       return (<>
-        <Button text={'Add Owner'}/>
+        <Button text={'Add Owner'} link={'/owners/add'}/>
       </>);
     }
     else {
@@ -125,7 +125,7 @@ function ApartmentTenant({usertype, apartmentData}){
   else {
     if(usertype === 'admin') {
       return (<>
-        <Button text={'Add Tenant'}/>
+        <Button text={'Add Tenant'} link={'/tenants/add'}/>
       </>);
     }
     else {
@@ -137,8 +137,13 @@ function ApartmentTenant({usertype, apartmentData}){
 }
 
 
-export default function ApartmentView({usertype}) {
+export default function ApartmentView() {
 
+  let user = JSON.parse(localStorage.getItem('data'));
+
+  if (user.userType !== 'admin') {
+      window.location.replace('/apartments');
+  }
   const {id} = useParams();
 
   const [ apartmentData, setApartmentData ] = useState({});
@@ -159,6 +164,33 @@ export default function ApartmentView({usertype}) {
   useEffect(() => {
     fetchApartment();    
   }, []);
+
+  
+  function handleApartmentDelete(e){
+    e.preventDefault();
+    fetch("http://127.0.0.1:8000/deleteApartment", {
+        method: 'POST',
+        headers: {
+        'Content-type':'application/json',
+        },
+        body: JSON.stringify({
+            apartment_pk: apartmentData['apartment_pk'],
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        
+        console.log(data);
+        if(data.success){
+            navigate('/apartments');
+        }
+        else {
+            console.log(data.msg);
+        }
+    });
+  }
+
+  let navigate = useNavigate();
   
   return (
     <>
@@ -189,7 +221,7 @@ export default function ApartmentView({usertype}) {
               </a>
             </div>
             
-            { usertype === 'admin' &&
+            { user.userType === 'admin' &&
               <div className='mt-3 px-0'>
                 <Button text={'upload image'}/>
               </div>
@@ -213,10 +245,12 @@ export default function ApartmentView({usertype}) {
                 <div className='col'>{apartmentData['apartment_floor_number']}</div>
               </div>
 
-              { apartmentData['apartment_rent'] !== 0 &&  <div className='row'>
-                <div className='col'><strong>Rent: </strong></div>
-                <div className='col'>{apartmentData['apartment_rent']}</div>
-              </div>}
+              { apartmentData['apartment_rent'] !== 0 &&  
+                <div className='row'>
+                  <div className='col'><strong>Rent: </strong></div>
+                  <div className='col'>{apartmentData['apartment_rent']}</div>
+                </div>
+              }
             </div>          
           </div>
 {/* ----------------------------------------------------- apartment description end -------------------------------------------------*/}
@@ -228,7 +262,7 @@ export default function ApartmentView({usertype}) {
             <div className="text-left">
               <p className='h4'>Owner:</p>
               <hr/> 
-              <ApartmentOwner usertype={usertype} apartmentData={apartmentData}/>      
+              <ApartmentOwner usertype={user.userType} apartmentData={apartmentData}/>      
             </div>
           </div>
 {/* ----------------------------------------------------- owner description end ---------------------------------------------------*/}
@@ -238,18 +272,20 @@ export default function ApartmentView({usertype}) {
               <div className="text-left">
                 <p className='h4'>Tenant:</p>
                 <hr/> 
-                <ApartmentTenant usertype={usertype} apartmentData={apartmentData}/>   
+                <ApartmentTenant usertype={user.userType} apartmentData={apartmentData}/>   
               </div>
           </div>
 {/* ----------------------------------------------------- tenant description end ---------------------------------------------------*/}
         </div>
       </div>
-
-      { usertype === 'admin' &&
-        <div className='row m-5'>
-          <div className='col-6 text-left'><Button text="Delete"/></div>
-          <div className='col-6 text-right'><Button text="Edit"/></div>
+      { user.userType === 'admin' &&
+        <>
+        <hr/>
+        <div className='row m-5 py-5'>
+          <div className='col-6 text-left' ><Button text="Delete Apartment" OnClick={handleApartmentDelete}/></div>
+          <div className='col-6 text-right'><Button text="Edit Apartment" link={`/apartments/edit/${id}`}/></div>
         </div>
+        </>
       }
 
       <div className='py-5 my-5'></div>

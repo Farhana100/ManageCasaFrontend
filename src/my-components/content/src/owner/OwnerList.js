@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import '../static/css/owners.css'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
+import '../../static/css/owners.css'
+import Button from '../../../misc/Button';
 
 
 
-export default function Owners(props){
+export default function OwnerList(props){
   let user = JSON.parse(localStorage.getItem('data'));
   if (! user) {
     user = {
@@ -45,7 +45,12 @@ export default function Owners(props){
     !isLoading && datafetched 
     ? 
     <div className='owners'>
-       <div className='container mycontainer'>
+      {user.userType === 'admin' && 
+          <div className='d-flex flex-row-reverse m-3'>
+              <Button text={'add new'} link={'/owners/add'}/>
+          </div>
+      }
+      <div className='container mycontainer'>
         <h3 className='owner-head'>List of Flat Owners</h3>
         {ownerstData.map(owner=> {
                 return(
