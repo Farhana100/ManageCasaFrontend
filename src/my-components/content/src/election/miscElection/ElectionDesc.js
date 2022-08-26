@@ -113,7 +113,7 @@ export default function ElectionDesc(props) {
             Committee Member Position: {props.election.position}
           </h5>
           {user.userType === "admin" ? (
-            props.election.phase === "nomination" ? (
+            props.election.phase.toLowerCase() === "nomination" ? (
               <div className="apprtoggle">
                 <div>
                   <p className="autonom">Auto Approve All Nominations</p>

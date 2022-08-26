@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import Button from '../../../misc/Button'
 import DateTimePicker from "react-datetime-picker";
 import ElectionNavbar from "../election/miscElection/ElectionNavbar";
 import "../../static/css/poll.css";
 import '../../static/css/pollview.css'
+import { GrAdd } from "react-icons/gr"; 
 
 export default function PollCreate() {
   let user = JSON.parse(localStorage.getItem("data"));
@@ -20,6 +21,7 @@ export default function PollCreate() {
   const [ description, setDescription ] = useState("");
   const [startData, setStartData] = useState(new Date());
   const [endData, setEndData] = useState(new Date());
+  const addOption = useRef(false);
 
 
   function createPollHandler() {
@@ -44,6 +46,11 @@ export default function PollCreate() {
   }
 
   let navigate = useNavigate();
+  
+
+  function addOptionhandler(){
+    addOption.current = true;
+  }
 
   function cancelHandler() {
     navigate("/election/poll");
@@ -88,6 +95,23 @@ export default function PollCreate() {
             <div>
               <DateTimePicker onChange={setEndData} value={endData} />
             </div>
+          </div>
+
+          <div className="add-opt">
+            <div>
+              <h5> Options: </h5>
+            </div>
+            {
+              addOption ?
+              <div>
+                <input className="field3" type="text" name="name"/>
+                <Button text="Add" OnClick={addOptionhandler}/>
+              </div>
+                :
+              <div>
+                <Button text="Add" OnClick={addOptionhandler}/>
+              </div>
+            }
           </div>
 
           <div className="btn-cont">
