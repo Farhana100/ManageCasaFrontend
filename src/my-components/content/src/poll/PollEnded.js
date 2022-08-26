@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ElectionNavbar from '../election/miscElection/ElectionNavbar'
-import '../../static/css/electionview.css'
+import '../../static/css/pollview.css'
 import PollDesc from './miscPoll/PollDesc'
 import Progress_bar from '../../../misc/ProgressBar'
 import { useEffect, useState } from 'react'

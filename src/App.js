@@ -81,7 +81,7 @@ function App() {
               <Route path="/election/view/:id" element={<Election_View/>}/>
               <Route path="/election/poll" element={<Poll/>} >
                 <Route path="/election/poll" element={<PollList/>} />
-                <Route path="/election/poll/create" element={<ToBeMade/>} />
+                <Route path="/election/poll/create" element={<PollCreate/>} />
                 <Route path="/election/poll/view/:id" element={<PollView/>}/>
               </Route>
             </Route>

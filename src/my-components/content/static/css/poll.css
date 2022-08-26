@@ -37,3 +37,53 @@
     font-weight: bold;
 
 }
+
+/* Poll Create */
+.form-poll{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 40px;
+    gap: 20px;
+}
+
+.topic-desc{
+    display: flex;
+    justify-content: flex-start;
+    
+}
+.field1{
+    margin-left: 85px;
+    font-size: 16px;
+    width: 200%;
+    
+}
+
+.field2{
+    margin-left: 30px;
+    width: 300%;
+}
+
+.pollname{
+    margin-top: 5px;
+}
+
+.startend{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 40px;
+    margin-bottom: 20px;
+    width: 40%;
+}
+
+.settime{
+    font-size: larger;
+}
+
+.btn-cont{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+    margin-left: 50px;
+    margin-right: 50px;
+}

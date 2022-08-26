@@ -83,7 +83,8 @@ export default function ElectionVoting(props){
                     setDidVote(true);
                 }
                 setCandidateName(data.nominee)
-                console.log(data.msg);
+                console.log(data);
+                console.log("candidate name: " + candidatename)
                 setDataFetched(true);
             } 
           });
@@ -126,7 +127,8 @@ export default function ElectionVoting(props){
 
     useEffect(() => {
         getElectionInfo();
-        setIsLoading(false);        
+        setIsLoading(false);    
+        console.log("can:", candidatename)    
     }, []);
 
 

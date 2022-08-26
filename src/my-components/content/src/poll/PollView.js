@@ -35,14 +35,12 @@ export default function PollView(props){
 
 
   function fetchPoll(){
-    console.log("fetching...");
 
     fetch(`http://127.0.0.1:8000/getPoll/${pollId}`)
     .then(response => response.json())
     .then(data =>
       {
-        setPollData(data);
-        console.log("data:", data)  
+        setPollData(data); 
     });
   }
 
@@ -53,8 +51,7 @@ export default function PollView(props){
     .then(data =>
       {
       setOptionData(data);
-      setDataFetched(true);
-      console.log("option data:", data)  
+      setDataFetched(true); 
     }
     );
     
@@ -76,7 +73,7 @@ export default function PollView(props){
     {
         pollData.phase.toLowerCase() === 'voting'
         ?
-        <PollVoting poll={pollData} options={optionData}/>
+        <PollVoting/>
         :
         pollData.phase.toLowerCase() === 'ended'
         ?

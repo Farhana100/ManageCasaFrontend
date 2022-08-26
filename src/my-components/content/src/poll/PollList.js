@@ -25,7 +25,6 @@ export default function PollList(props) {
     fetch(`http://127.0.0.1:8000/getAllPolls/${user.building}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setPollData(data);
         setDataFetched(true);
       });
