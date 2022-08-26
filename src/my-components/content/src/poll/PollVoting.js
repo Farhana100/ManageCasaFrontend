@@ -38,7 +38,7 @@ export default function PollVoting(props){
       }
     
     function fetchOption(){
-    fetch(`http://127.0.0.1:8000/getOptions/${pollId}`)
+        fetch(`http://127.0.0.1:8000/getOptions/${pollId}`)
         .then(response => response.json())
         .then(data =>
             {
@@ -142,7 +142,7 @@ export default function PollVoting(props){
         !isLoading && datafetched
         ? 
         <div>
-            <PollDesc poll={pollData}/>
+            <PollDesc />
             <h3>Options:</h3>
         
             {optionData.map(option => {

@@ -1,13 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import "../../../static/css/pollview.css";
 import "../../../static/css/poll.css";
-import { FiEdit } from "react-icons/fi";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { FiEdit } from "react-icons/fi";
 import Button from "../../../../misc/Button";
 import DateTimePicker from "react-datetime-picker";
 
 export default function PollDesc(props) {
+  const splitList = window.location.href.split("/");
+  const pollId = splitList[splitList.length - 1];
+
   let user = JSON.parse(localStorage.getItem("data"));
   if (!user) {
     user = {
@@ -17,25 +19,47 @@ export default function PollDesc(props) {
     };
   }
 
+  const [ pollData, setPollData ] = useState({});
+  const [ datafetched, setDataFetched ] = useState(false);
+  const [ isLoading, setIsLoading ] = useState(true);
+
+  function fetchPoll(){
+    fetch(`http://127.0.0.1:8000/getPoll/${pollId}`)
+    .then(response => response.json())
+    .then(data =>
+      {
+        setPollData(data); 
+        setDataFetched(true);
+    });
+  }
+
+  useEffect(() => {
+    fetchPoll();
+    setIsLoading(false);
+  }, []);
+
   return (
+    <>
+    {
+      !isLoading && datafetched ? (
         <div>
           <div className="desc-header">
             <div>
               <h3>Poll</h3>
             </div>
             <div>
-              <p className="status"> {props.poll.phase} </p>
+              <p className="status"> {pollData.phase} </p>
             </div>
           </div>
           <h5 className="myh5">
             {" "}
-            Topic: {props.poll.topic}
+            Topic: {pollData.topic}
           </h5>
           <p className="desc">
-            Description: {props.poll.description}
+            Description: {pollData.description}
           </p>
           <div className="count">
-            <p> Total Number of Voters: {props.poll.vote_count}</p>
+            <p> Total Number of Voters: {pollData.vote_count}</p>
           </div>
 
           <div className="timeinfo">
@@ -44,7 +68,7 @@ export default function PollDesc(props) {
             </div>
             <div>
             <p className="timev1">
-                {props.poll.start_time}
+                {pollData.start_time}
             </p>
             </div>
             
@@ -82,7 +106,7 @@ export default function PollDesc(props) {
               <p className="timename">Poll End Time:</p>
             </div>
             <div>
-              <p className="timev2">{props.poll.end_time}</p>
+              <p className="timev2">{pollData.end_time}</p>
             </div>
             {/* {
                 user.userType === "admin"
@@ -95,5 +119,11 @@ export default function PollDesc(props) {
             } */}
           </div>
         </div>
-  );
+  )
+    :
+    
+    <div>Loading...</div>
+  }
+    </>
+)
 }

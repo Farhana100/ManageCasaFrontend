@@ -1,6 +1,7 @@
 import React, { Component, useEffect, useState } from 'react'
 import ElectionNavbar from '../election/miscElection/ElectionNavbar'
 import PollEnded from './PollEnded'
+import PollPending from './PollPending';
 import PollVoting from './PollVoting'
 
 
@@ -29,7 +30,6 @@ export default function PollView(props){
   }
 
   const [ pollData, setPollData ] = useState({});
-  const [ optionData, setOptionData ] = useState({});
   const [ datafetched, setDataFetched ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
 
@@ -41,25 +41,13 @@ export default function PollView(props){
     .then(data =>
       {
         setPollData(data); 
+        setDataFetched(true);
     });
   }
 
-  function fetchOption(){
-
-    fetch(`http://127.0.0.1:8000/getOptions/${pollId}`)
-    .then(response => response.json())
-    .then(data =>
-      {
-      setOptionData(data);
-      setDataFetched(true); 
-    }
-    );
-    
-  }
 
   useEffect(() => {
     fetchPoll();
-    fetchOption()  
     setIsLoading(false);
   }, []);
 
@@ -71,13 +59,17 @@ export default function PollView(props){
     <>
     <ElectionNavbar/>
     {
+        pollData.phase.toLowerCase() === 'pending'
+        ?
+        <PollPending/>
+        :
         pollData.phase.toLowerCase() === 'voting'
         ?
         <PollVoting/>
         :
         pollData.phase.toLowerCase() === 'ended'
         ?
-        <PollEnded poll={pollData} options={optionData}/>
+        <PollEnded/>
         :
         null
     }

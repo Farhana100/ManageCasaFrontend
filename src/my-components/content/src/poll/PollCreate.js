@@ -4,6 +4,7 @@ import Button from '../../../misc/Button'
 import DateTimePicker from "react-datetime-picker";
 import ElectionNavbar from "../election/miscElection/ElectionNavbar";
 import "../../static/css/poll.css";
+import '../../static/css/pollview.css'
 
 export default function PollCreate() {
   let user = JSON.parse(localStorage.getItem("data"));
