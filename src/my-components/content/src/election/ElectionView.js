@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { Component, useEffect, useState } from 'react'
 import ElectionNavbar from './miscElection/ElectionNavbar'
 import ElectionEnded from './ElectionEnded'
 import ElectionNomination from './ElectionNomination'
@@ -17,93 +16,79 @@ const url
 */
 
 
-export default class ElectionView extends Component{
-  constructor (props) {
-    
-    super(props)
-    this.state = {
-      election:{},
-      nominees:{},
+export default function ElectionView(props){
+
+  let user = JSON.parse(localStorage.getItem("data"));
+  if (!user) {
+    user = {
+      username: "",
+      userType: "",
+      user_active: false,
     };
-
-    this.data_loaded = false;
-    this.fetchElection = this.fetchElection().bind(this)
-    this.fetchNominee = this.fetchNominee.bind(this)
   }
 
-  componentDidMount(){
-    if (this.data_loaded === false){
-      this.fetchElection();
-      this.fetchNominee();
-    }
-    
-  }
+  const [electionData, setElectionData] = useState({});
+  const [ nomineeData, setNomineeData ] = useState({});
+  const [datafetched, setDataFetched] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  fetchElection(){
+
+  function fetchElection(){
     console.log("fetching...");
 
-    // const splitList = window.location.href.split("/");
-    // const electtionId = splitList[splitList.length - 1];
-    // console.log("Election id:", electtionId);
+    const splitList = window.location.href.split("/");
+    const electtionId = splitList[splitList.length - 1];
+    console.log("Election id:", electtionId);
 
-    fetch(`http://127.0.0.1:8000/getElection/2`)
+    fetch(`http://127.0.0.1:8000/getElection/${electtionId}`)
     .then(response => response.json())
     .then(data =>
       {
-      this.setState({
-        election:data
-        
-      })
-      this.data_loaded = true;
-      console.log("data:", data)  
-    }
-    );
-    
-    console.log("this state");
+        setElectionData(data);
+        console.log("data:", data)  
+    });
   }
 
-  fetchNominee(){
+  function fetchNominee(){
     console.log("fetching...")
 
-    fetch('http://127.0.0.1:8000/getNominees/1')
+    fetch(`http://127.0.0.1:8000/getNominees/${electionData.id}`)
     .then(response => response.json())
     .then(data =>
       {
-      this.setState({
-        nominees:data
-      })
-      this.data_loaded = true;
+      setNomineeData(data);
+      setDataFetched(true);
       console.log("data:", data)  
     }
     );
     
   }
 
+  useEffect(() => {
+    fetchElection();
+    fetchNominee()  
+    setIsLoading(false);
+  }, []);
 
-render(){
-  var election = this.state.election;
-  var nominees = this.state.nominees;
-  console.log('details', election); 
-  console.log('nominee dets:', nominees);
-  
-  console.log(this.props);
 
   return (
-    this.data_loaded ? (
+    <>
+    {
+      !isLoading && datafetched ? (
     <>
     <ElectionNavbar/>
     {
-        election.phase === 'nomination'
+        electionData.phase.toLowerCase() === 'nomination' || electionData.phase.toLowerCase() === "pending"
         ?
-        <ElectionNomination election={election} candidates={nominees} user={this.props.user}/>
+        <ElectionNomination election={election} candidates={nomineeData}/>
         :
-        election.phase === 'voting'
+        electionData.phase.toLowerCase() === 'voting'
         ?
-        <ElectionVoting election={election} candidates={nominees} user={this.props.user}/>
+        <ElectionVoting election={election} candidates={nomineeData}/>
         :
-        election.phase === 'ended'
+        electionData.phase.toLowerCase() === 'ended'
         ?
-        <ElectionEnded election={election} candidates={nominees} user={this.props.user}/>
+        <ElectionEnded election={election} candidates={nomineeData}/>
         :
         null
     }
@@ -112,7 +97,8 @@ render(){
     ) 
     :
     <div>Loading...</div>
-  )
-}
+    }
+    </>
+      )
 }
 

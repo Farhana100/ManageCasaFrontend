@@ -4,6 +4,7 @@ import Button from "../../../misc/Button";
 import DateTimePicker from "react-datetime-picker";
 import ElectionNavbar from "./miscElection/ElectionNavbar";
 import { useEffect } from "react";
+import '../../static/css/election.css';
 
 export default function ElectionCreate() {
   let user = JSON.parse(localStorage.getItem("data"));

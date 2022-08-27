@@ -142,9 +142,9 @@ export default function ElectionNomination(props) {
             return(
                 <>
                 <div className="nomlistcontainer">
-                {/* <div className='nom-image'>
-                        <img className='image' src={require('../static/images/nahian.jpg')}/>
-                </div> */}
+                <div className='nom-image'>
+                    <img className='image' src={"http://127.0.0.1:8000" + candidate.image}/>
+                </div>
                 <div className="nom-info">
                     <h5 className="card-title">{candidate.owner_name}</h5>
                     <p className="card-text"><small className="text-muted">Apartment No. {candidate.floor_no}{candidate.unit_no}</small></p>  

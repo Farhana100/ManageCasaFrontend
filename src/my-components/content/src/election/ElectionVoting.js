@@ -83,7 +83,8 @@ export default function ElectionVoting(props){
                     setDidVote(true);
                 }
                 setCandidateName(data.nominee)
-                console.log(data.msg);
+                console.log(data);
+                console.log("candidate name: " + candidatename)
                 setDataFetched(true);
             } 
           });
@@ -126,7 +127,8 @@ export default function ElectionVoting(props){
 
     useEffect(() => {
         getElectionInfo();
-        setIsLoading(false);        
+        setIsLoading(false);    
+        console.log("can:", candidatename)    
     }, []);
 
 
@@ -146,9 +148,9 @@ export default function ElectionVoting(props){
                 candidate.approval_status === "approved"
                 ?
                 <div className="votelistcontainer">
-                {/* <div className='nom-image'>
-                        <img className='image' src={require('../static/images/nahian.jpg')}/>
-                </div> */}
+                <div className='nom-image'>
+                        <img className='image' src={"http://127.0.0.1:8000" + candidate.image}/>
+                </div>
                     <div className="vote-info">
                         <h5 className="card-title">{candidate.owner_name}</h5>
                         <p className="card-text"><small className="text-muted">Apartment No. {candidate.floor_no}{candidate.unit_no}</small></p>  
