@@ -37,8 +37,6 @@ import Finance from './my-components/content/src/finance/Finance';
 import ServiceChargeFund from './my-components/content/src/finance/ServiceChargeFund';
 import ExpenseStatistics from './my-components/content/src/finance/ExpenseStatistics';
 
-import NotFound from './pages/NotFound';
-
 import ToBeMade from './my-components/content/src/ToBeMade';
 import ElectionList from './my-components/content/src/election/ElectionList';
 import ApartmentCreate from './my-components/content/src/apartment/ApartmentCreate';
