@@ -1,0 +1,16 @@
+username = request.data['username']
+last name and first name
+building = request.data['building']
+apartment_number = request.data['apartment']        -> apartment pk  : apartment_pk
+
+password = request.data['password']
+email = request.data['email']
+phone_number = request.data['phone_number']
+bkash_acc_number = request.data['bkash_acc_number']
+
+
+'id': apartment.id,
+'floor_number': apartment.floor_number,
+'apartment_number': apartment.apartment_number,
+'owner': str(apartment.owner),
+'tenant': str(apartment.tenant),

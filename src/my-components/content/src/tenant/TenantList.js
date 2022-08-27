@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import '../static/css/tenants.css'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
+import '../../static/css/tenants.css'
+import Button from '../../../misc/Button';
 
-export default function Tenants(props) {
+export default function TenantList(props) {
   let user = JSON.parse(localStorage.getItem('data'));
   if (! user) {
     user = {
@@ -42,6 +42,11 @@ export default function Tenants(props) {
     !isLoading && datafetched
     ?
     <div className='tenants'>
+        {user.userType === 'admin' && 
+            <div className='d-flex flex-row-reverse m-3'>
+                <Button text={'add new'} link={'/tenants/add'}/>
+            </div>
+        }
        <div className='container mycontainer'>
         {/* <h3 className='tenant-head'>List of Tenants</h3> */}
         {tenantsData.map(tenant=> {

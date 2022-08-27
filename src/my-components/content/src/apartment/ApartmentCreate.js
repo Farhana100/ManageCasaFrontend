@@ -3,13 +3,6 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import Button from '../../../misc/Button';
 import '../../static/css/apartment.css'
 
-function readURL() {
-    var image = document.getElementById("upload").files;
-
-    if(image && image[0]){
-        console.log("test", image[0]);
-    }
-}
 
 export default function ApartmentCreate(){
 
@@ -24,6 +17,7 @@ export default function ApartmentCreate(){
     const [ apartment_number, setApartment_number ] = useState(0);
     const [ rent, setRent ] =useState(0);
     const [ service_charge_due_amount, setService_charge_due_amount ] = useState(0);
+    const [ selectedFiles, setSelectedFiles ] = useState([]);
 
     const handleFloor_numberChange = (e) => {
         setFloor_number(e.target.value);
@@ -45,6 +39,27 @@ export default function ApartmentCreate(){
         console.log(service_charge_due_amount);
     }
 
+	const handleImageChange = (e) => {
+		// console.log(e.target.files[])
+		if (e.target.files) {
+			const filesArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
+
+			// console.log("filesArray: ", filesArray);
+
+			setSelectedFiles((prevImages) => prevImages.concat(filesArray));
+			Array.from(e.target.files).map(
+				(file) => URL.revokeObjectURL(file) // avoid memory leak
+			);
+		}
+	};
+
+	const renderPhotos = (source) => {
+		console.log('source: ', source);
+		return source.map((photo) => {
+			return <img className='col-4 img-fluid shadow-sm d-block' src={photo} alt="" key={photo} />;
+		});
+	};
+
     
     function createApartmentHandler(e){
         e.preventDefault();
@@ -58,7 +73,8 @@ export default function ApartmentCreate(){
                 floor_number: floor_number,
                 apartment_number: apartment_number,
                 rent: rent,
-                service_charge_due_amount: service_charge_due_amount
+                service_charge_due_amount: service_charge_due_amount,
+                selectedFiles: selectedFiles
             })
           })
           .then(response => response.json())
@@ -79,29 +95,27 @@ export default function ApartmentCreate(){
 
   return (
     <>
-        
         <h4> Add New Apartment</h4>
         <hr/>
-        <form className='container'>
+        <form className='container-fluid'>
             <div className="form-group">
                 <label className='h6 bold'>Add Apartment Image</label>
                 <div className="row py-4">
                     <div className="col-lg-6 mx-auto">
-
                         {/* <!-- Upload image input--> */}
                         <div className="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                            <input id="upload" type="file" onChange={readURL} className="form-control border-0"/>
-                            <label id="upload-label" htmlFor="upload" className="font-weight-light text-muted">Choose file</label>
+                            <input type="file" id="file" multiple onChange={handleImageChange}  className="form-control border-0" />
+                            <label id="file-label" htmlFor="file" className="font-weight-light text-muted">Choose file</label>
+                            
                             <div className="input-group-append">
-                                <label htmlFor="upload" className="btn btn-light m-0 rounded-pill px-4"> <i className="fa fa-cloud-upload mr-2 text-muted"></i><small className="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                                <label htmlFor="file" className="btn btn-light m-0 rounded-pill px-4"> <i className="fa fa-cloud-upload mr-2 text-muted"></i><small className="text-uppercase font-weight-bold text-muted">Choose file</small></label>
                             </div>
                         </div>
-
-                        {/* <!-- Uploaded image area--> */}
-                        <div className="image-area mt-4"><img id="imageResult" src="#" alt="" className="img-fluid rounded shadow-sm mx-auto d-block"/></div>
-
                     </div>
                 </div>
+                {/* <!-- Uploaded image area--> */}
+                <div className='container-fluid p-0'><div className="result image-area mt-4 row">{renderPhotos(selectedFiles)}</div></div>
+                
             </div>
             <div className="form-group">
                 <label  className='h6 bold' htmlFor="floor_number">Floor no.</label>
@@ -122,7 +136,7 @@ export default function ApartmentCreate(){
                 <input type="number" className="form-control" id="rent" aria-describedby="rentHelp" placeholder='0' onChange={handleRentChange}/>
             </div>
             
-            <div className='row my-5'>
+            <div className='form-group row my-5'>
                 <div className='col d-flex justify-content-start'><Button text={'Cancel'} link={'/apartments'} /></div>
                 <div className='col d-flex justify-content-end'><Button text={'Submit'} OnClick={createApartmentHandler}/></div>
             </div>

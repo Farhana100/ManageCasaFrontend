@@ -7,13 +7,17 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import PrivateRoute from './pages/PrivateRoute';
 
-import Owners from './my-components/content/src/Owners';
+import Owners from './my-components/content/src/owner/Owners';
+import OwnerList from './my-components/content/src/owner/OwnerList';
+import OwnerAdd from './my-components/content/src/owner/OwnerAdd';
 
 import Apartments from './my-components/content/src/apartment/Apartments';
 import ApartmentList from './my-components/content/src/apartment/ApartmentList';
 import ApartmentView from './my-components/content/src/apartment/ApartmentView';
 
-import Tenants from './my-components/content/src/Tenants';
+import Tenants from './my-components/content/src/tenant/Tenants';
+import TenantList from './my-components/content/src/tenant/TenantList';
+import TenantAdd from './my-components/content/src/tenant/TenantAdd';
 
 import Committee from './my-components/content/src/Committee';
 import CommitteeAdd from './my-components/content/src/CommitteeAdd';
@@ -33,6 +37,7 @@ import NotFound from './pages/NotFound';
 import ToBeMade from './my-components/content/src/ToBeMade';
 import ElectionList from './my-components/content/src/election/ElectionList';
 import ApartmentCreate from './my-components/content/src/apartment/ApartmentCreate';
+import ApartmentEdit from './my-components/content/src/apartment/ApartmentEdit';
 
 
 function App() {
@@ -60,13 +65,20 @@ function App() {
             <Route path="/apartments" element={<Apartments />}>
               <Route path="/apartments/" element={<ApartmentList/>} />
               <Route path="/apartments/create" element={<ApartmentCreate/>} />
+              <Route path="/apartments/edit/:id" element={<ApartmentEdit/>} />
               <Route path="/apartments/:id" element={<ApartmentView usertype={user.userType} />} />
             </Route>
             <Route path="/committee" element={<Committee/>}/>
               <Route path="/committee/add" element={<CommitteeAdd/> } />
               <Route path="/committee/edit" element={<CommitteeEdit/> } />
-            <Route path="/owners" element={<Owners/>} />
-            <Route path="/tenants" element={<Tenants/>} />
+              <Route path="/owners" element={<Owners/>}>
+              <Route path="/owners" element={<OwnerList/>} />
+              <Route path="/owners/add" element={<OwnerAdd/>} />
+            </Route>
+            <Route path="/tenants" element={<Tenants/>}>
+              <Route path="/tenants" element={<TenantList/>} />
+              <Route path="/tenants/add" element={<TenantAdd/>} />
+            </Route>
             <Route path="/employees" element={<ToBeMade/>} />
             <Route path="/service" element={<ToBeMade/>} />
             <Route path="/forum" element={<ToBeMade/>} />
