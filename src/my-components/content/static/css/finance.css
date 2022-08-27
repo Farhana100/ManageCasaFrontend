@@ -1,0 +1,28 @@
+.update-charge{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-list{
+    margin-top: 30px;;
+    margin-left: 70px;
+}
+
+.amount{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 100px;
+}
+
+.amnt{
+    font-size: larger;
+}
+
+.table{
+    margin-top: 30px;
+}
+
+.add-expense{
+    display: flex;
+    justify-content: flex-end;
+}

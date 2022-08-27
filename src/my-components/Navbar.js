@@ -40,7 +40,6 @@ export default function Navbar({userType}) {
     { link:"/committee",      text:"Committee Members", for: 0b111, },
     { link:"/owners",         text:"Owners",            for: 0b111, },
     { link:"/tenants",        text:"Tenants",           for: 0b111, },
-    // { link:"/employees",      text:"Employees",         for: 0b111, },
     { link:"/election",       text:"Election",          for: 0b011, },
     { link:"/service",        text:"Service Providers", for: 0b111, },
     // { link:"/forum",          text:"Forum",             for: 0b011, },
