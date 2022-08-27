@@ -33,7 +33,6 @@ import PollCreate from './my-components/content/src/poll/PollCreate';
 import PollVoting from './my-components/content/src/poll/PollVoting';
 import PollView from './my-components/content/src/poll/PollView';
 
-import NotFound from './pages/NotFound';
 import ToBeMade from './my-components/content/src/ToBeMade';
 import ElectionList from './my-components/content/src/election/ElectionList';
 import ApartmentCreate from './my-components/content/src/apartment/ApartmentCreate';
