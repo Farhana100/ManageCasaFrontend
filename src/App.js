@@ -32,15 +32,22 @@ import PollList from './my-components/content/src/poll/PollList';
 import PollCreate from './my-components/content/src/poll/PollCreate';
 import PollView from './my-components/content/src/poll/PollView';
 
+
 import Finance from './my-components/content/src/finance/Finance';
 import ServiceChargeFund from './my-components/content/src/finance/ServiceChargeFund';
 import ExpenseStatistics from './my-components/content/src/finance/ExpenseStatistics';
 
 import NotFound from './pages/NotFound';
+
 import ToBeMade from './my-components/content/src/ToBeMade';
 import ElectionList from './my-components/content/src/election/ElectionList';
 import ApartmentCreate from './my-components/content/src/apartment/ApartmentCreate';
 import ApartmentEdit from './my-components/content/src/apartment/ApartmentEdit';
+import ServiceProviders from './my-components/content/src/service/ServiceProviders';
+import ServiceProviderList from './my-components/content/src/service/ServiceProviderList';
+import ServiceProviderAdd from './my-components/content/src/service/ServiceProviderAdd';
+import ServiceProviderView from './my-components/content/src/service/ServiceProviderView';
+import Error404 from './my-components/content/src/error/Error404';
 
 
 
@@ -61,6 +68,7 @@ function App() {
       <Header username={user.username} userActive={user.user_active}/>
       <Router>
         <Routes>
+          <Route path="/notFound" element={<Error404/>} exact />
           <Route path="/home" element={<Home/>} exact />
           <Route path="/login" element={<Login/>} exact />
           <Route path="/register" element={<Register/>} exact />
@@ -84,7 +92,12 @@ function App() {
               <Route path="/tenants/add" element={<TenantAdd/>} />
             </Route>
             <Route path="/employees" element={<ToBeMade/>} />
-            <Route path="/service" element={<ToBeMade/>} />
+            <Route path="/service" element={<ServiceProviders/>}>
+              <Route path="/service" element={<ServiceProviderList/>} />
+              <Route path="/service/add" element={<ServiceProviderAdd/>} />
+              <Route path="/service/edit/:id" element={<ToBeMade/>} />
+              <Route path="/service/:id" element={<ServiceProviderView/>} />
+            </Route>
             <Route path="/forum" element={<ToBeMade/>} />
             <Route path="/finance" element={<ToBeMade/>} />
             <Route path="/complaints" element={<ToBeMade/>} />
@@ -107,7 +120,7 @@ function App() {
             </Route>
             <Route path="/visitors" element={<ToBeMade/>} />
           </Route>
-          <Route path="*" element={<NotFound/>}></Route>
+          <Route path="*" element={<Error404/>}></Route>
         </Routes>
       </Router>
     </>

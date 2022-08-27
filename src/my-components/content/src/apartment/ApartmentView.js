@@ -197,9 +197,10 @@ export default function ApartmentView() {
       <div className="container-fluid">
         <div className='container m-2'>
           <nav className='navbar'>
-            <Link className='nav-item text-secondary' to='/apartments'>&lt; go back to all apartments</Link>
+            <Link className='nav-item  text-primary text-decoration-none' to='/apartments'>&lt; go back to all apartments</Link>
           </nav>
         </div>
+        <hr/>
         <div className="row">
 
 {/* ------------------------------------------------------- apartment images start ---------------------------------------------------- */}

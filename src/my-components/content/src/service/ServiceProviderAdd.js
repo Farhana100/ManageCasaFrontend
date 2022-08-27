@@ -1,26 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom';
 import Button from '../../../misc/Button';
-import '../../static/css/tenants.css'
-
-
-function ApartmentSelectionDropdown ({dict}) {
-    const array = Object.keys(dict);
-    const options = array.map(
-        (item) => {
-            console.log('here',item);
-            return (<>
-                <option>{item}</option>
-            </>)
-        }
-    );
-
-    return (
-        <>{options}</>
-    );
-}
+import '../../static/css/serviceProviders.css'
   
-export default function TenantAdd(){
+export default function ServiceProviderAdd(){
 
     let user = JSON.parse(localStorage.getItem('data'));
 
@@ -43,34 +26,6 @@ export default function TenantAdd(){
     const [ phone_number, setPhone_number ] = useState(0);
     const [ bkash_acc_number, setBkash_acc_number ] = useState(0);
     const [ selectedFiles, setSelectedFiles ] = useState([]);
-
-// use .current for value
-    const apartment_pk = useRef(-1);
-    const [ allApartmentData, setAllApartmentData ] = useState({});
-    const [ apartmentData, setApartmentData ] = useState(null);
-    
-  
-    function fetchAllApartment(){
-        fetch(`http://127.0.0.1:8000/getAllApartmentsWithoutTenants/${user.building}`)
-        .then(response => response.json())
-        .then((data) => {
-            if(data){
-                console.log(data);
-                setAllApartmentData(data);
-            }
-        });
-    }
-    useEffect(() => {
-      fetchAllApartment();    
-    }, []);
-
-
-    const handleApartmentChange = (e) => {
-        setApartmentData(allApartmentData[e.target.value]);
-        apartment_pk.current = allApartmentData[e.target.value]['id'];
-        // console.log("this is a test ", apartment_pk.current);
-
-    }
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value);
@@ -134,7 +89,7 @@ export default function TenantAdd(){
 	};
 
     
-    function createTenantHandler(e){
+    function createServiceProviderHandler(e){
         e.preventDefault();
         if(password !== "" && confirmPassword !== password){
             // console.log("password do not match");
@@ -142,7 +97,7 @@ export default function TenantAdd(){
         }
         else {
             
-            fetch("http://127.0.0.1:8000/createTenant", {
+            fetch("http://127.0.0.1:8000/createServiceProvider", {
                 method: 'POST',
                 headers: {
                 'Content-type':'application/json',
@@ -153,7 +108,6 @@ export default function TenantAdd(){
                     username: username,
                     lastname: lastname,
                     firstname: firstname,
-                    apartment_pk: apartment_pk.current,
                     password: password,
                     email: email,
                     phone_number: phone_number,
@@ -166,7 +120,7 @@ export default function TenantAdd(){
                 
                 console.log(data);
                 if(data.success){
-                    navigate('/tenants');
+                    navigate('/service');
                 }
                 else {
                     console.log(data.msg);
@@ -184,14 +138,14 @@ export default function TenantAdd(){
   return (
     <>
         
-        <h4> Add New Tenant</h4>
+        <h4> Add New Service Provider</h4>
         <hr/>
         <div className='container-fluid'>
             <div className='row'>
                 <div className='col-7'>
                     <form className='container'>
                         <div className="form-group">
-                            <label className='h6 bold'>Add Tenant's Image</label>
+                            <label className='h6 bold'>Add Service Provider's Image</label>
                             <div className="row py-4">
                                 <div className="col-lg-6 mx-auto">
                                     {/* <!-- Upload image input can upload only one image--> */}
@@ -279,54 +233,10 @@ export default function TenantAdd(){
                         </div>
                         
                         <div className='form-group row my-5'>
-                            <div className='col d-flex justify-content-start'><Button text={'Cancel'} link={'/tenants'} /></div>
-                            <div className='col d-flex justify-content-end'><Button text={'Submit'} OnClick={createTenantHandler}/></div>
+                            <div className='col d-flex justify-content-start'><Button text={'Cancel'} link={'/service'} /></div>
+                            <div className='col d-flex justify-content-end'><Button text={'Submit'} OnClick={createServiceProviderHandler}/></div>
                         </div>
                     </form>
-                </div>
-                <div className='col-5 p-5'>
-                    <div className="row mb-5">
-                        <div className='col'>
-                            <h5 className=''>Select Apartment:</h5>
-                        </div>
-                        <div className='col'>
-                            <select onClick={handleApartmentChange}>
-                                <ApartmentSelectionDropdown dict={allApartmentData} />
-                            </select>
-                        </div>
-                    </div>
-                    <div className='app-info-summary rounded p-4'>
-                        
-{/* ----------------------------------------------------- apartment description start -------------------------------------------------*/}
-                    <div className="text-left">
-                        {   apartmentData
-                            &&
-                            <>
-                            <p className='h4'>{apartmentData['apartment_number']}</p>
-                            <hr/>
-                            <div className='container-fluid mt-5 pl-0'>
-                                <div className='row'>
-                                    <div className='col'><strong>Floor number: </strong></div>
-                                    <div className='col'>{apartmentData['floor_number']}</div>
-                                </div>
-                                {apartmentData['owner'] !== 'None' &&
-                                    <div className='row'>
-                                        <div className='col'><strong>Owner: </strong></div>
-                                        <div className='col'>{apartmentData['owner']}</div>
-                                    </div>
-                                }
-                                {apartmentData['rent'] !== 0 &&
-                                    <div className='row'>
-                                        <div className='col'><strong>Rent: </strong></div>
-                                        <div className='col'>{apartmentData['rent']}</div>
-                                    </div>
-                                }
-                            </div>   
-                            </>      
-                        } 
-                    </div>
-{/* ----------------------------------------------------- apartment description end -------------------------------------------------*/}
-                    </div>
                 </div>
             </div>
         </div>
