@@ -3,7 +3,7 @@ import '../../static/css/pollview.css'
 import PollDesc from './miscPoll/PollDesc'
 import Button from '../../../misc/Button'
 import Progress_bar from '../../../misc/ProgressBar'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 export default function PollVoting(props){
     let user = JSON.parse(localStorage.getItem('data'));
@@ -21,11 +21,12 @@ export default function PollVoting(props){
     
     const [ pollData, setPollData ] = useState({});
     const [ optionData, setOptionData ] = useState({});
-    const [ selectedoption, setSelectedOption ] = useState("");
+    const selectedoption = useRef("");
     const [ didvote, setDidVote ] = useState(false);
     const [ optionname, setOptionName ] = useState("");
     const [ isLoading, setIsLoading ] = useState(true);
     const [ datafetched, setDataFetched ] = useState(false);
+    const [ selected, setSelected ] = useState(false);
 
 
     function fetchPoll(){
@@ -33,6 +34,7 @@ export default function PollVoting(props){
         .then(response => response.json())
         .then(data =>
           {
+            console.log("poll data", data);
             setPollData(data); 
         });
       }
@@ -74,22 +76,22 @@ export default function PollVoting(props){
     
 
     function handleVoteCast(){
-        console.log("casting")
+        console.log("casting", selectedoption)
         fetch(`http://127.0.0.1:8000/castVotePoll/${pollId}`, {
             method: 'POST',
             headers: {
-              'Content-type':'application/json',
+            'Content-type':'application/json',
             },
             body: JSON.stringify({option: selectedoption,
                                 voter: user.username,
             })
-          })
-          .then(response => response.json())
-          .then(data => {
+        })
+        .then(response => response.json())
+        .then(data => {
             if(data.success){
                 window.location.reload();
             } 
-          });  
+        }); 
     }
 
 
@@ -123,6 +125,10 @@ export default function PollVoting(props){
                 window.location.replace('/election/poll')
             }
           });
+    }
+
+    function selectOptionHandler(option_name){
+        selectedoption.current = option_name;
     }
 
     useEffect(() => {
@@ -178,11 +184,11 @@ export default function PollVoting(props){
                         option.option_name === optionname
                         ?
                         <div className="voteradio">
-                            <input className="vote-radio" type="radio" name="flexRadioDefault" checked="checked" OnChange = {()=>setSelectedOption(option.option_name)}/>
+                            <input className="vote-radio" type="radio" name="flexRadioDefault" checked="checked" id="option-radio" onChange = {(e)=>selectOptionHandler(option.option_name)}/>
                         </div>
                         :
                         <div className="voteradio">
-                            <input className="vote-radio" type="radio" name="flexRadioDefault" OnChange = {()=>setSelectedOption(option.option_name)}/>
+                            <input className="vote-radio" type="radio" name="flexRadioDefault" id="option-radio" onChange = {(e)=>selectOptionHandler(option.option_name)}/>
                         </div>
                     }
                     

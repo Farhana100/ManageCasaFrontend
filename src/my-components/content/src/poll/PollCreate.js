@@ -19,13 +19,15 @@ export default function PollCreate() {
 
   const [ topic, setTopic ] = useState("");
   const [ description, setDescription ] = useState("");
-  const [startData, setStartData] = useState(new Date());
-  const [endData, setEndData] = useState(new Date());
-  const addOption = useRef(false);
+  const [ startData, setStartData ] = useState(new Date());
+  const [ endData, setEndData ] = useState(new Date());
+  const [ optionAdded, setOptionAdded ] = useState(false);
+  const [ options, setOptions ] = useState([]);
 
 
   function createPollHandler() {
-    fetch(`http://127.0.0.1:8000/createPoll/${user.building}`, {
+    if(setOptionAdded){
+      fetch(`http://127.0.0.1:8000/createPoll/${user.building}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -35,6 +37,7 @@ export default function PollCreate() {
         description: description,
         startData: startData,
         endData: endData,
+        options: options
       }),
     })
       .then((response) => response.json())
@@ -43,13 +46,19 @@ export default function PollCreate() {
           navigate("/election/poll");
         }
       });
+    }
+    
   }
 
   let navigate = useNavigate();
-  
 
-  function addOptionhandler(){
-    addOption.current = true;
+  function addOptions(e){
+    setOptionAdded(false);
+    const newVal = document.getElementById("optionButton").value;
+    // add new element to js array
+    setOptions([...options, newVal]);
+    setOptionAdded(true)
+    console.log(options);
   }
 
   function cancelHandler() {
@@ -98,21 +107,22 @@ export default function PollCreate() {
           </div>
 
           <div className="add-opt">
-            <div>
+            <div className="opt">
               <h5> Options: </h5>
             </div>
-            {
-              addOption ?
-              <div>
-                <input className="field3" type="text" name="name"/>
-                <Button text="Add" OnClick={addOptionhandler}/>
+              <div className="add-box">
+                <input className="field3" id="optionButton" type="text" name="name"/>
+                <Button text="Add" OnClick={addOptions}/>
               </div>
-                :
-              <div>
-                <Button text="Add" OnClick={addOptionhandler}/>
-              </div>
-            }
           </div>
+          {options.map((option)=>{
+            return(
+              <div>
+                <li className="option-list">{option}</li>
+              </div>
+            );
+          })}
+          
 
           <div className="btn-cont">
             <div>
