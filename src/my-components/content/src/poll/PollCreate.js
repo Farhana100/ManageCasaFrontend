@@ -26,7 +26,7 @@ export default function PollCreate() {
 
 
   function createPollHandler() {
-    if(setOptionAdded){
+    if(optionAdded){
       fetch(`http://127.0.0.1:8000/createPoll/${user.building}`, {
       method: "POST",
       headers: {

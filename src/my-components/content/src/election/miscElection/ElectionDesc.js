@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../../../static/css/electionview.css";
 import "../../../static/css/election.css";
 import { FiEdit } from "react-icons/fi";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../misc/Button";
 import DateTimePicker from "react-datetime-picker";
@@ -18,7 +18,7 @@ export default function ElectionDesc(props) {
   }
   const [datafetched, setDataFetched] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isClicked, setIsClicked] = useState(false);
+  const [ isClicked, setIsClicked ] = useState(false);
 
   const [nomstartData, setNomStartData] = useState(new Date());
   const [nomendData, setNomEndData] = useState();
@@ -34,7 +34,7 @@ export default function ElectionDesc(props) {
       .then((data) => {
         if (data.success) autoApprove = data.autoapprove;
         setDataFetched(true);
-        console.log(autoApprove);
+        // console.log(autoApprove);
       });
   }
 
@@ -61,29 +61,29 @@ export default function ElectionDesc(props) {
   function savehandler(){
     console.log("saved");
     setIsClicked(false);
-    console.log("clicked?", isClicked);
-    // fetch(`http://127.0.0.1:8000/updatenomstart/${props.election.id}`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     nomstart: nomstartData,
-    //   }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     if (data.success) {
-    //       navigate(`/election/view/${props.election.id}`);
-    //     }
-    //   });
+    console.log("clicked?", isClicked.current);
+    fetch(`http://127.0.0.1:8000/updatenomstart/${props.election.id}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        nomstart: nomstartData,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          navigate(`/election/view/${props.election.id}`);
+        }
+      });
       
   }
 
   function editHandler() {
     console.log("clicked");
     setIsClicked(true);
-    // navigate(`/election/view/${props.election.id}`);
+    console.log("is clicked: ", isClicked)
   }
 
   let navigate = useNavigate();
@@ -91,10 +91,8 @@ export default function ElectionDesc(props) {
   useEffect(() => {
     getAutoApproval();
     setIsLoading(false);
-    console.log("baire:", autoApprove);
   }, []);
 
-  console.log("is clicked: ", isClicked)
 
   return (
     <>
@@ -142,13 +140,13 @@ export default function ElectionDesc(props) {
             </div>
             
             {/* {user.userType === "admin" ? (
-              isClicked ? (
+              isClicked.current ? (
                 <div className="afterclick">
                   <div>
                     <DateTimePicker onChange={setNomStartData} value={nomstartData}/>
                   </div>
                   <div>
-                    <Button text={"Save"} onCLick={savehandler}/>
+                    <Button text={"Save"} OnCLick={savehandler}/>
                   </div>
                 </div>
               ) : (

@@ -26,7 +26,6 @@ export default function PollVoting(props){
     const [ optionname, setOptionName ] = useState("");
     const [ isLoading, setIsLoading ] = useState(true);
     const [ datafetched, setDataFetched ] = useState(false);
-    const [ selected, setSelected ] = useState(false);
 
 
     function fetchPoll(){
