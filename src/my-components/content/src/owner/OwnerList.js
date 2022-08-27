@@ -48,7 +48,7 @@ export default function OwnerList(props){
       }
       <div className='container mycontainer'>
         <h3 className='owner-head'>List of Flat Owners</h3>
-        {ownerstData.map(owner=> {
+        {ownersData.map(owner=> {
                 return(
                     <>
                     <div className='grid-container'>
