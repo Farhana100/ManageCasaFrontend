@@ -27,7 +27,7 @@
     justify-content: flex-end;
 }
 
-.exp-hd{
-    margin-top: 30px;
-    margin-left: 10px;
+.add-expense-field{
+    display: flex;
+    justify-content: space-evenly;
 }
