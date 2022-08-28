@@ -13,6 +13,10 @@ export default function DuesList(props){
   if (! user) {
     window.location.replace('/login');
   }
+  
+  if (! user.user_active) {
+    window.location.replace('/login');
+  }
 
   const [totalDue, setTotalDue] = useState(0);
   const payDuesList = useRef([]);
@@ -37,9 +41,10 @@ export default function DuesList(props){
         }
       });
   }
-// proceed with payment button e click korle nicher function ta call hobe
-// alada kore confirmation pop up box chacchi na
+  
+
     function paymentHandler(){
+
         fetch('http://127.0.0.1:8000/stripeCheckoutSession', {
         method: "POST",
         mode: 'cors',
@@ -150,8 +155,15 @@ export default function DuesList(props){
             </tbody>
         </table>
         </div>
+        
+        {!totalDue &&
+            <div className='container text-right'><button type="button" className="btn mybutton" disabled>Proceed with Payment</button></div>
+        }
+        
+        {totalDue !== 0 &&
+            <div className='container text-right'><button type="button" className="btn mybutton" onClick={paymentHandler} >Proceed with Payment</button></div>
+        }
 
-        <button type="button" className="btn mybutton" onClick={paymentHandler}>Proceed with Payment</button>
     </>
     :
     <>loading ...</>

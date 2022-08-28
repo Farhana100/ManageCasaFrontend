@@ -19,10 +19,18 @@ function PackagesTitle ({array}) {
 export default function ServicePackageEdit(){
 
     let user = JSON.parse(localStorage.getItem('data'));
+    if (! user) {
+    window.location.replace('/login');
+    }
+    
+    if (! user.user_active) {
+    window.location.replace('/login');
+    }
 
     if (user.userType !== 'admin') {
         window.location.replace('/dashboard');
     }
+    
     const {id} = useParams();
     const {package_id} = useParams();
 

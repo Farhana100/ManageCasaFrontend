@@ -9,6 +9,10 @@ export default function PaymentList(props){
   if (! user) {
     window.location.replace('/login');
   }
+  
+  if (! user.user_active) {
+    window.location.replace('/login');
+  }
 
   const [paymentData, setPaymentData] = useState({});
   const [isLoading, setIsLoading] = useState(true);

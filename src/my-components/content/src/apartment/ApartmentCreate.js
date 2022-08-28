@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Button from '../../../misc/Button';
 import '../../static/css/apartment.css'
@@ -8,8 +9,16 @@ export default function ApartmentCreate(){
 
     let user = JSON.parse(localStorage.getItem('data'));
 
+    if (!user) {
+        window.location.replace('/login');
+    }
+
+    if (!user.user_active) {
+        window.location.replace('/login');
+    }
+
     if (user.userType !== 'admin') {
-        window.location.replace('/apartments');
+        window.location.replace('/dashboard');
     }
 
     const [ building, setBuilding ] = useState(user.building);
@@ -18,6 +27,7 @@ export default function ApartmentCreate(){
     const [ rent, setRent ] =useState(0);
     const [ service_charge_due_amount, setService_charge_due_amount ] = useState(0);
     const [ selectedFiles, setSelectedFiles ] = useState([]);
+    const [ imageFiles, setImageFiles ] = useState([]);
 
     const handleFloor_numberChange = (e) => {
         setFloor_number(e.target.value);
@@ -43,13 +53,14 @@ export default function ApartmentCreate(){
 		// console.log(e.target.files[])
 		if (e.target.files) {
 			const filesArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-
-			// console.log("filesArray: ", filesArray);
+			const imagesArray = Array.from(e.target.files).map((file) => file);
 
 			setSelectedFiles((prevImages) => prevImages.concat(filesArray));
-			Array.from(e.target.files).map(
-				(file) => URL.revokeObjectURL(file) // avoid memory leak
-			);
+			setImageFiles((prevImages) => prevImages.concat(imagesArray));
+
+			// Array.from(e.target.files).map(
+			// 	(file) => URL.revokeObjectURL(file) // avoid memory leak
+			// );
 		}
 	};
 
@@ -60,29 +71,33 @@ export default function ApartmentCreate(){
 		});
 	};
 
-    
-    function createApartmentHandler(e){
+    async function createApartmentHandler(e){
         e.preventDefault();
-        fetch("http://127.0.0.1:8000/createApartment", {
-            method: 'POST',
-            headers: {
-              'Content-type':'application/json',
-            },
-            body: JSON.stringify({
-                building: building,
-                floor_number: floor_number,
-                apartment_number: apartment_number,
-                rent: rent,
-                service_charge_due_amount: service_charge_due_amount,
-                selectedFiles: selectedFiles
-            })
-          })
-          .then(response => response.json())
-          .then(data => {
-            
-            console.log(data.error);
-            if(data.error){
-                console.log(data.msg)
+
+        let formData = new FormData();
+
+        formData.append('building', building);
+        formData.append('floor_number', floor_number);
+        formData.append('apartment_number', apartment_number);
+        formData.append('rent', rent);
+        formData.append('service_charge_due_amount', service_charge_due_amount);
+
+
+        formData.append('images_count', imageFiles.length);
+        Array.from(imageFiles).map(
+            (file, key) => formData.append('img_' + key, file) // avoid memory leak
+        );
+
+
+        await axios({
+            method: 'post', 
+            url: "http://127.0.0.1:8000/createApartment",
+            data: formData
+        })
+        .then(response => {
+            console.log(response.data.error);
+            if(response.data.error){
+                console.log(response.data.msg)
             }
             else {
                 navigate('/apartments');
@@ -104,7 +119,7 @@ export default function ApartmentCreate(){
                     <div className="col-lg-6 mx-auto">
                         {/* <!-- Upload image input--> */}
                         <div className="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                            <input type="file" id="file" multiple onChange={handleImageChange}  className="form-control border-0" />
+                            <input type="file" id="file" multiple onChange={handleImageChange}  className="form-control border-0"  required/>
                             <label id="file-label" htmlFor="file" className="font-weight-light text-muted">Choose file</label>
                             
                             <div className="input-group-append">
@@ -119,21 +134,21 @@ export default function ApartmentCreate(){
             </div>
             <div className="form-group">
                 <label  className='h6 bold' htmlFor="floor_number">Floor no.</label>
-                <input type="number" className="form-control" id="floor_number" aria-describedby="floor_numberHelp" onChange={handleFloor_numberChange}/>
+                <input type="number" className="form-control" id="floor_number" aria-describedby="floor_numberHelp" onChange={handleFloor_numberChange} required/>
                 <small id="floor_numberHelp" className="form-text text-muted">Enter the apartment floor number</small>
             </div>
             <div className="form-group">
                 <label  className='h6 bold' htmlFor="apartment_number">Apartment no.</label>
-                <input type="text" className="form-control" id="apartment_number" aria-describedby="apartment_numberHelp" placeholder='e.g.,1C' onChange={handleApartment_numberChange}/>
+                <input type="text" className="form-control" id="apartment_number" aria-describedby="apartment_numberHelp" placeholder='e.g.,1C' onChange={handleApartment_numberChange} required/>
                 <small id="apartment_numberHelp" className="form-text text-muted">Enter the apartment number</small>
             </div>
             <div className="form-group">
                 <label  className='h6 bold' htmlFor="service_charge_due_amount">Due Service Charge Amount</label>
-                <input type="number" className="form-control" id="service_charge_due_amount" aria-describedby="service_charge_due_amountHelp" placeholder='0' onChange={handleService_charge_due_amountChange}/>
+                <input type="number" className="form-control" id="service_charge_due_amount" aria-describedby="service_charge_due_amountHelp" placeholder='0' onChange={handleService_charge_due_amountChange} required/>
             </div>
             <div className="form-group">
                 <label className='h6 bold' htmlFor="rent">Apartment Rent</label>
-                <input type="number" className="form-control" id="rent" aria-describedby="rentHelp" placeholder='0' onChange={handleRentChange}/>
+                <input type="number" className="form-control" id="rent" aria-describedby="rentHelp" placeholder='0' onChange={handleRentChange} required/>
             </div>
             
             <div className='form-group row my-5'>

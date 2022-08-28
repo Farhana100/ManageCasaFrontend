@@ -3,13 +3,14 @@ import '../../static/css/tenants.css'
 import Button from '../../../misc/Button';
 
 export default function TenantList(props) {
+  
   let user = JSON.parse(localStorage.getItem('data'));
   if (! user) {
-    user = {
-      username: "",
-      userType: "",
-      user_active: false,
-    }
+  window.location.replace('/login');
+  }
+  
+  if (! user.user_active) {
+  window.location.replace('/login');
   }
 
   const [ tenantsData, setTenantsData ] = useState({});

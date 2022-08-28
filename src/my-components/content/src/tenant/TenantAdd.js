@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Button from '../../../misc/Button';
 import '../../static/css/tenants.css'
@@ -42,7 +43,8 @@ export default function TenantAdd(){
     const [ email, setEmail ] = useState("");
     const [ phone_number, setPhone_number ] = useState(0);
     const [ bkash_acc_number, setBkash_acc_number ] = useState(0);
-    const [ selectedFiles, setSelectedFiles ] = useState([]);
+    const [ image, setImage ] = useState(null);
+    const [ selectedFile, setSelectedFile ] = useState(null);   // temporary
 
 // use .current for value
     const apartment_pk = useRef(-1);
@@ -111,72 +113,104 @@ export default function TenantAdd(){
         setBkash_acc_number(e.target.value);
         console.log(bkash_acc_number);
     }
+    
+    // function createTenantHandler(e){
+    //     e.preventDefault();
+    //     if(password !== "" && confirmPassword !== password){
+    //         // console.log("password do not match");
+    //         errorMsg['password'] = "password do not match";
+    //     }
+    //     else {
+            
+    //         fetch("http://127.0.0.1:8000/createTenant", {
+    //             method: 'POST',
+    //             headers: {
+    //             'Content-type':'application/json',
+    //             },
+    //             body: JSON.stringify({
+                    
+    //                 building: building,
+    //                 username: username,
+    //                 lastname: lastname,
+    //                 firstname: firstname,
+    //                 apartment_pk: apartment_pk.current,
+    //                 password: password,
+    //                 email: email,
+    //                 phone_number: phone_number,
+    //                 bkash_acc_number: bkash_acc_number,
+    //                 selectedFiles: selectedFiles,
+    //             })
+    //         })
+    //         .then(response => response.json())
+    //         .then(data => {
+                
+    //             console.log(data);
+    //             if(data.success){
+    //                 navigate('/tenants');
+    //             }
+    //             else {
+    //                 console.log(data.msg);
+    //                 errorMsg[data.error] = data.msg;
+    //                 console.log('new test ', errorMsg['username']);
+    //             }
+    //         });
+    //     }
 
+    // }
+
+    
 	const handleImageChange = (e) => {
-		// console.log(e.target.files[])
 		if (e.target.files) {
-			const filesArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-
-			// console.log("filesArray: ", filesArray);
-
-			setSelectedFiles((prevImages) => prevImages.concat(filesArray));
-			Array.from(e.target.files).map(
-				(file) => URL.revokeObjectURL(file) // avoid memory leak
-			);
+            setImage(e.target.files[0]);
+			setSelectedFile(URL.createObjectURL(e.target.files[0]));
 		}
 	};
 
 	const renderPhotos = (source) => {
-		console.log('source: ', source);
-		return source.map((photo) => {
-			return <img className='col-4 img-fluid shadow-sm d-block' src={photo} alt="" key={photo} />;
-		});
+        return <img className='col-4 img-fluid shadow-sm d-block' src={source} alt="" key={source} />;
 	};
-
     
-    function createTenantHandler(e){
+    async function createTenantHandler(e){
         e.preventDefault();
         if(password !== "" && confirmPassword !== password){
-            // console.log("password do not match");
+            console.log("password do not match");
+            console.log(password, confirmPassword);
             errorMsg['password'] = "password do not match";
         }
-        else {
-            
-            fetch("http://127.0.0.1:8000/createTenant", {
-                method: 'POST',
-                headers: {
-                'Content-type':'application/json',
-                },
-                body: JSON.stringify({
-                    
-                    building: building,
-                    username: username,
-                    lastname: lastname,
-                    firstname: firstname,
-                    apartment_pk: apartment_pk.current,
-                    password: password,
-                    email: email,
-                    phone_number: phone_number,
-                    bkash_acc_number: bkash_acc_number,
-                    selectedFiles: selectedFiles,
-                })
+        else{
+
+            let formData = new FormData();
+
+            formData.append('building', building);
+            formData.append('username', username);
+            formData.append('lastname', lastname);
+            formData.append('firstname', firstname);
+            formData.append('username', username);
+            formData.append('apartment_pk',  apartment_pk.current);
+            formData.append('password', password);
+            formData.append('email', email);
+            formData.append('image', image);
+            formData.append('phone_number', phone_number);
+            formData.append('bkash_acc_number', bkash_acc_number);
+    
+            await axios({
+                method: 'post', 
+                url: "http://127.0.0.1:8000/createTenant",
+                data: formData
             })
-            .then(response => response.json())
-            .then(data => {
-                
-                console.log(data);
-                if(data.success){
+            .then(response => {
+                if(response.data.success){
                     navigate('/tenants');
                 }
                 else {
-                    console.log(data.msg);
-                    errorMsg[data.error] = data.msg;
+                    console.log(response.data.msg);
+                    errorMsg[response.data.error] = response.data.msg;
                     console.log('new test ', errorMsg['username']);
                 }
             });
         }
-
     }
+
 
     let navigate = useNavigate();
 
@@ -206,7 +240,7 @@ export default function TenantAdd(){
                                 </div>
                             </div>
                             {/* <!-- Uploaded image area--> */}
-                            <div className='container-fluid p-0'><div className="result image-area mt-4 row">{renderPhotos(selectedFiles)}</div></div>
+                            <div className='container-fluid p-0'><div className="result image-area mt-4 row">{renderPhotos(selectedFile)}</div></div>
                             
                         </div>
                         {/* user name */}

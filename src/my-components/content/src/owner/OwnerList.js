@@ -5,13 +5,15 @@ import Button from '../../../misc/Button';
 
 
 export default function OwnerList(props){
+  
   let user = JSON.parse(localStorage.getItem('data'));
-  if (! user) {
-    user = {
-      username: "",
-      userType: "",
-      user_active: false,
-    };
+
+  if (!user) {
+      window.location.replace('/login');
+  }
+
+  if (!user.user_active) {
+      window.location.replace('/login');
   }
 
   const [ownersData, setOwnersData] = useState({});
