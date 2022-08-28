@@ -2,6 +2,14 @@ import React, {useState} from 'react';
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 
 const CheckoutForm = (props) => {
+  let user = JSON.parse(localStorage.getItem("data"));
+  if (!user) {
+    user = {
+      username: "",
+      userType: "",
+      user_active: false,
+    };
+  }
   const stripe = useStripe();
   const elements = useElements();
 
@@ -20,7 +28,7 @@ const CheckoutForm = (props) => {
     console.log("onno kichu")
     console.log("dues list: ", props.paydueslist)
 
-    fetch("http://127.0.0.1:8000/duesPayment", {
+    fetch(`http://127.0.0.1:8000/duesPayment/${user.building}`, {
             method: 'POST',
             headers: {
               'Content-type':'application/json',

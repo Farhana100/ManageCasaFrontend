@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 // import '../../static/css/dues.css'
 import Button from '../../../misc/Button';
-import Payment from './payment';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import CheckoutForm from "./checkoutform";

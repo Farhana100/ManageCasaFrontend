@@ -19,11 +19,14 @@ export default function StickyHeadTable(props) {
   ];
   
   function createData(date, purpose, amount, comment) {
+    let date_ = "";
+    date_ = (date_ + date).substring(0, 10) + " " + (date_ + date).substring(11, 19);
+    date = date_;
     return { date, purpose, amount, comment};
   }
   
   const rows = [];
-//   console.log("length", props.expenseInfo.length);
+  
   for(let i = 0; i < props.expenseInfo.length; i++){
     rows.push(createData(props.expenseInfo[i].date, props.expenseInfo[i].category, props.expenseInfo[i].paid_amount, props.expenseInfo[i].comment));
   }

@@ -5,6 +5,9 @@ import Button from '../../../misc/Button'
 
 export default function ElectionNomination(props) {
 
+    const splitList = window.location.href.split('/');
+    const electionId = splitList[splitList.length - 1];
+
     let user = JSON.parse(localStorage.getItem('data'));
     if (! user) {
         user = {
@@ -14,14 +17,53 @@ export default function ElectionNomination(props) {
         }
     }
 
+    const [ electionData, setElectionData ] = useState({});
+    const [ nomineesData, setNomineesData ] = useState({});
     const [ isLoading, setIsLoading ] = useState(true);
     const [ nomineeexisted, setNomineeExisted ] = useState(false);
     const [ datafetched, setDataFetched ] = useState(false);
 
+    function fetchelectiondata(){
+        fetch(`http://127.0.0.1:8000/getElection/${electionId}`)
+        .then(response => response.json())
+        .then((data) => {
+            setElectionData(data);
+        });
+    }
+
+    function fetchonomineedata(){
+        fetch(`http://127.0.0.1:8000/getNominees/${electionId}`)
+        .then(response => response.json())
+        .then((data) => {
+            setNomineesData(data);
+            if(user.userType == "admin")
+                setDataFetched(true);
+        });
+    }
+
+    function getNomineeInfo(){
+        setDataFetched(false);
+        fetch(`http://127.0.0.1:8000/isNominee/${electionId}`, {
+            method: 'POST',
+            headers: {
+              'Content-type':'application/json',
+            },
+            body: JSON.stringify({nominee_name: user.username})
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.success){
+                if(data.nominee_existed){
+                    setNomineeExisted(true);  
+                } 
+                setDataFetched(true);
+            }
+          });
+    }
+
     async function handleNomination() {
         const name = user.username;
-        const approval_status = "Pending";
-        const election_id = props.election.id;
+        const election_id = electionId;
 
         fetch("http://127.0.0.1:8000/createNominee", {
             method: "POST",
@@ -30,7 +72,6 @@ export default function ElectionNomination(props) {
             },
             body: JSON.stringify({
                 name: name,
-                approval_status: approval_status,
                 election_id: election_id,
             })
         })
@@ -47,7 +88,7 @@ export default function ElectionNomination(props) {
     async function ApproveNomineeHandler(nominee_name, event){
         const name = nominee_name;
         const approval_status = "Approved";
-        const committee_election_id = props.election.id;
+        const committee_election_id = electionId;
 
         fetch("http://127.0.0.1:8000/approveNominee", {
             method: 'POST',
@@ -68,7 +109,7 @@ export default function ElectionNomination(props) {
     }
 
     function handleDeleteElection(){
-        fetch(`http://127.0.0.1:8000/deleteElection/${props.election.id}`, {
+        fetch(`http://127.0.0.1:8000/deleteElection/${electionId}`, {
             method: 'POST',
             headers: {
               'Content-type':'application/json',
@@ -83,27 +124,8 @@ export default function ElectionNomination(props) {
           });
     }
 
-    function getNomineeInfo(){
-        fetch(`http://127.0.0.1:8000/isNominee/${props.election.id}`, {
-            method: 'POST',
-            headers: {
-              'Content-type':'application/json',
-            },
-            body: JSON.stringify({nominee_name: user.username})
-          })
-          .then(response => response.json())
-          .then(data => {
-            if(data.success){
-                if(data.nominee_existed){
-                    setNomineeExisted(true);
-                }
-                setDataFetched(true);
-            }
-          });
-    }
-
     function handleEarlyStop(){
-        fetch(`http://127.0.0.1:8000/earlyStop/${props.election.id}`, {
+        fetch(`http://127.0.0.1:8000/earlyStop/${electionId}`, {
             method: 'POST',
             headers: {
               'Content-type':'application/json',
@@ -119,15 +141,13 @@ export default function ElectionNomination(props) {
     }
 
     useEffect(() => {
+        fetchelectiondata();
+        fetchonomineedata();
         if(user.userType === "owner"){
             getNomineeInfo();    
         }
-        else{
-            setDataFetched(true);
-        }
-        setIsLoading(false); 
-        
-               
+        console.log(datafetched)
+        setIsLoading(false);       
     }, []);
 
     return(
@@ -136,9 +156,9 @@ export default function ElectionNomination(props) {
         !isLoading && datafetched
         ? 
         <div>
-            <ElectionDesc election={props.election}/>
+            <ElectionDesc />
             <h3>Nominees: </h3>
-            {props.candidates.map(candidate => {
+            {nomineesData.map(candidate => {
             return(
                 <>
                 <div className="nomlistcontainer">
@@ -152,7 +172,7 @@ export default function ElectionNomination(props) {
                 {
                     user.userType === "admin"
                     ?
-                    props.election.phase.toLowerCase() === "nomination"
+                    electionData.phase.toLowerCase() === "nomination"
                     ?
                     candidate.approval_status.toLowerCase() === "pending"
                     ?
@@ -206,7 +226,7 @@ export default function ElectionNomination(props) {
             </div>
             </>
             :
-            props.election.phase.toLowerCase() === "nomination"
+            electionData.phase.toLowerCase() === "nomination"
             ?
             !nomineeexisted
             ?

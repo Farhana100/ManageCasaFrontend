@@ -22,14 +22,6 @@ export default function PollPending(props) {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ datafetched, setDataFetched ] = useState(false);
 
-    function fetchPoll(){
-        fetch(`http://127.0.0.1:8000/getPoll/${pollId}`)
-        .then(response => response.json())
-        .then(data =>
-          {
-            setPollData(data); 
-        });
-      }
     
     function fetchOption(){
     fetch(`http://127.0.0.1:8000/getOptions/${pollId}`)
@@ -38,9 +30,7 @@ export default function PollPending(props) {
             {
             setOptionData(data);
             console.log("option data", data);
-            if(user.userType == "admin"){
-                setDataFetched(true);
-            }
+            setDataFetched(true);
         }
         );  
     }
@@ -78,7 +68,7 @@ export default function PollPending(props) {
     }
 
     useEffect(() => {
-        fetchPoll();
+        // fetchPoll();
         fetchOption();
         setIsLoading(false); 
         

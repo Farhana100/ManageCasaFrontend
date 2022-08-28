@@ -88,7 +88,8 @@ export default function PollVoting(props){
         .then(response => response.json())
         .then(data => {
             if(data.success){
-                window.location.reload();
+                // window.location.reload();
+                alert(`Vote Casted`)
             } 
         }); 
     }
