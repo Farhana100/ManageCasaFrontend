@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Button from '../../../misc/Button';
 import '../../static/css/apartment.css'
@@ -18,6 +19,7 @@ export default function ApartmentCreate(){
     const [ rent, setRent ] =useState(0);
     const [ service_charge_due_amount, setService_charge_due_amount ] = useState(0);
     const [ selectedFiles, setSelectedFiles ] = useState([]);
+    const [ imageFiles, setImageFiles ] = useState([]);
 
     const handleFloor_numberChange = (e) => {
         setFloor_number(e.target.value);
@@ -43,13 +45,14 @@ export default function ApartmentCreate(){
 		// console.log(e.target.files[])
 		if (e.target.files) {
 			const filesArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-
-			// console.log("filesArray: ", filesArray);
+			const imagesArray = Array.from(e.target.files).map((file) => file);
 
 			setSelectedFiles((prevImages) => prevImages.concat(filesArray));
-			Array.from(e.target.files).map(
-				(file) => URL.revokeObjectURL(file) // avoid memory leak
-			);
+			setImageFiles((prevImages) => prevImages.concat(imagesArray));
+
+			// Array.from(e.target.files).map(
+			// 	(file) => URL.revokeObjectURL(file) // avoid memory leak
+			// );
 		}
 	};
 
@@ -61,28 +64,62 @@ export default function ApartmentCreate(){
 	};
 
     
-    function createApartmentHandler(e){
-        e.preventDefault();
-        fetch("http://127.0.0.1:8000/createApartment", {
-            method: 'POST',
-            headers: {
-              'Content-type':'application/json',
-            },
-            body: JSON.stringify({
-                building: building,
-                floor_number: floor_number,
-                apartment_number: apartment_number,
-                rent: rent,
-                service_charge_due_amount: service_charge_due_amount,
-                selectedFiles: selectedFiles
-            })
-          })
-          .then(response => response.json())
-          .then(data => {
+    // function createApartmentHandler(e){
+    //     e.preventDefault();
+    //     fetch("http://127.0.0.1:8000/createApartment", {
+    //         method: 'POST',
+    //         headers: {
+    //           'Content-type':'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //             building: building,
+    //             floor_number: floor_number,
+    //             apartment_number: apartment_number,
+    //             rent: rent,
+    //             service_charge_due_amount: service_charge_due_amount,
+    //             selectedFiles: selectedFiles
+    //         })
+    //       })
+    //       .then(response => response.json())
+    //       .then(data => {
             
-            console.log(data.error);
-            if(data.error){
-                console.log(data.msg)
+    //         console.log(data.error);
+    //         if(data.error){
+    //             console.log(data.msg)
+    //         }
+    //         else {
+    //             navigate('/apartments');
+    //         }
+    //       });
+    // }
+    
+    async function createApartmentHandler(e){
+        e.preventDefault();
+
+        let formData = new FormData();
+
+        formData.append('building', building);
+        formData.append('floor_number', floor_number);
+        formData.append('apartment_number', apartment_number);
+        formData.append('rent', rent);
+        formData.append('service_charge_due_amount', service_charge_due_amount);
+
+
+        formData.append('images_count', imageFiles.length);
+        Array.from(imageFiles).map(
+            (file, key) => formData.append('img_' + key, file) // avoid memory leak
+        );
+
+
+        await axios({
+            method: 'post', 
+            url: "http://127.0.0.1:8000/createApartment",
+            data: formData
+        })
+        .then(response => {
+            console.log(response.data.error);
+            if(response.data.error){
+                console.log(response.data.msg)
             }
             else {
                 navigate('/apartments');

@@ -10,13 +10,15 @@ export default function Login (){
 
   let navigate = useNavigate();
   let user = JSON.parse(localStorage.getItem('data'));
-  const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
-  const [ msg, setMsg ] = useState('');
 
   if (user && user.user_active) {
       window.location.replace('/dashboard');
   }
+
+  
+  const [ username, setUsername ] = useState('');
+  const [ password, setPassword ] = useState('');
+  const [ msg, setMsg ] = useState('');
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);

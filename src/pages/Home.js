@@ -4,7 +4,13 @@ import '../my-components/content/static/css/home.css'
 import Footer from '../my-components/Footer'
 
 export default function Home() {
-  return (
+    let user = JSON.parse(localStorage.getItem('data'));
+
+    if (user && user.user_active) {
+        window.location.replace('/dashboard');
+    }
+
+    return (
     <div>
         <div className='home-bg-image1-grad'>
             <div className="text-center my-5">
@@ -15,7 +21,7 @@ export default function Home() {
                 <div className="py-5"></div>
             </div>
         </div>
-         {/* Content section */}
+            {/* Content section */}
         <section className="py-5">
             <div className="container my-5">
                 <div className="row justify-content-center text-center">
@@ -45,5 +51,5 @@ export default function Home() {
         {/* <!-- Footer--> */}
         <Footer/>
     </div>
-  )
+    )
 }
