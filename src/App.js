@@ -49,6 +49,10 @@ import ServiceProviderAdd from './my-components/content/src/service/ServiceProvi
 import ServiceProviderView from './my-components/content/src/service/ServiceProviderView';
 import Error404 from './my-components/content/src/error/Error404';
 import ServicePackageAdd from './my-components/content/src/service/ServicePackageAdd';
+import ServiceProviderEdit from './my-components/content/src/service/ServiceProviderEdit';
+import ServicePackageEdit from './my-components/content/src/service/ServicePackageEdit';
+import Dues from './my-components/content/src/dues/Dues';
+import DuesList from './my-components/content/src/dues/DuesList';
 
 
 
@@ -66,7 +70,7 @@ function App() {
 
   return (
     <>
-      <Header username={user.username} userActive={user.user_active}/>
+      <Header/>
       <Router>
         <Routes>
           <Route path="/notFound" element={<Error404/>} exact />
@@ -82,9 +86,9 @@ function App() {
               <Route path="/apartments/:id" element={<ApartmentView usertype={user.userType} />} />
             </Route>
             <Route path="/committee" element={<Committee/>}/>
-              <Route path="/committee/add" element={<CommitteeAdd/> } />
-              <Route path="/committee/edit" element={<CommitteeEdit/> } />
-              <Route path="/owners" element={<Owners/>}>
+            <Route path="/committee/add" element={<CommitteeAdd/> } />
+            <Route path="/committee/edit" element={<CommitteeEdit/> } />
+            <Route path="/owners" element={<Owners/>}>
               <Route path="/owners" element={<OwnerList/>} />
               <Route path="/owners/add" element={<OwnerAdd/>} />
             </Route>
@@ -96,12 +100,12 @@ function App() {
             <Route path="/service" element={<ServiceProviders/>}>
               <Route path="/service" element={<ServiceProviderList/>} />
               <Route path="/service/add" element={<ServiceProviderAdd/>} />
-              <Route path="/service/edit/:id" element={<ToBeMade/>} />
+              <Route path="/service/edit/:id" element={<ServiceProviderEdit/>} />
               <Route path="/service/edit/:id/addPackage" element={<ServicePackageAdd/>} />
+              <Route path="/service/edit/:id/editPackage/:package_id" element={<ServicePackageEdit/>} />
               <Route path="/service/:id" element={<ServiceProviderView/>} />
             </Route>
             <Route path="/forum" element={<ToBeMade/>} />
-            <Route path="/finance" element={<ToBeMade/>} />
             <Route path="/complaints" element={<ToBeMade/>} />
             <Route path="/dues" element={<ToBeMade/>} />
             <Route path="/paymenthistory" element={<ToBeMade/>} />
@@ -120,6 +124,9 @@ function App() {
               <Route path="/finance" element={<ServiceChargeFund/>} />
               <Route path="/finance/expense" element={<ExpenseStatistics/>} />
               <Route path="/finance/payment" element={<Payment/>} />
+            </Route>
+            <Route path="/dues" element={<Dues/>} >
+              <Route path="/dues" element={<DuesList/>} />
             </Route>
             <Route path="/visitors" element={<ToBeMade/>} />
           </Route>
