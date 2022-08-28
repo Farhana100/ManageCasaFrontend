@@ -11,16 +11,13 @@ export default function ServiceProviderView() {
 
   let user = JSON.parse(localStorage.getItem('data'));
 
-  if (user.userType !== 'admin') {
-      window.location.replace('/apartments');
-  }
   const {id} = useParams();
 
   const [ serviceProviderData, setServiceProviderData ] = useState({});
   const [ serviceProviderPackages, setServiceProviderPackages] = useState([]);
 
   function fetchServiceProvider(){
-      fetch(`http://127.0.0.1:8000/getServiceProvider/${id}`)
+      fetch(`http://127.0.0.1:8000/getServiceProvider/${id}/${user.uid}`)
       .then(response => response.json())
       .then((data) => {
           console.log(data);
@@ -68,7 +65,7 @@ export default function ServiceProviderView() {
   function Packages () {
     const packs = serviceProviderPackages.map(
         (item) => {
-            return <div className="col-sm-3 mb-2"><ServicePackage pk={item['package_id']} service_provider_pk={id} title={item['title']} description={item['description']} fee={item['fee']} subscription_duration={item['duration']} canSubscribe={true} userType={user.userType} /></div>
+            return <div className="col-sm-3 mb-2"><ServicePackage pk={item['package_id']} user_pk={user.uid} title={item['title']} description={item['description']} fee={item['fee']} subscription_duration={item['duration']} canSubscribe={user.userType !== 'admin'} subscribed={item['subscribed']} userType={user.userType} /></div>
         }
       );
 
