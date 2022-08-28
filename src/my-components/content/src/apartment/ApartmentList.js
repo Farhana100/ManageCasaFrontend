@@ -42,16 +42,17 @@ function Floors ({dict}) {
 export default function ApartmentList() {
 
     const user = JSON.parse(localStorage.getItem('data'));
-    if (! user) {
-        user = {
-        username: "",
-        userType: "",
-        user_active: false,
-        }
+
+    
+    if (!user) {
+        window.location.replace('/login');
+    }
+
+    if (!user.user_active) {
+        window.location.replace('/login');
     }
 
     const [ allApartmentData, setAllApartmentData ] = useState({});
-    console.log("test ", user.userType);
   
     function fetchAllApartment(){
 
@@ -62,10 +63,6 @@ export default function ApartmentList() {
             // console.log(data);
             if(!data.msg){
                 setAllApartmentData(data);
-                // console.log(allApartmentData);
-                Object.keys(allApartmentData).forEach(function(key) {
-                    console.log("here ", key, allApartmentData[key]);
-                });
             }
         });
     }

@@ -141,9 +141,14 @@ export default function ApartmentView() {
 
   let user = JSON.parse(localStorage.getItem('data'));
 
-  if (user.userType !== 'admin') {
-      window.location.replace('/apartments');
+  if (!user) {
+    window.location.replace('/login');
   }
+
+  if (!user.user_active) {
+      window.location.replace('/login');
+  }
+
   const {id} = useParams();
 
   const [ apartmentData, setApartmentData ] = useState({});
@@ -221,12 +226,6 @@ export default function ApartmentView() {
                 <span className="sr-only">Next</span>
               </a>
             </div>
-            
-            { user.userType === 'admin' &&
-              <div className='mt-3 px-0'>
-                <Button text={'upload image'}/>
-              </div>
-            }
             
           </div>
 {/* -------------------------------------------------------- apartment images end ---------------------------------------------------- */}

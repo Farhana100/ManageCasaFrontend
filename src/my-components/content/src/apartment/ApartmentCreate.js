@@ -63,36 +63,6 @@ export default function ApartmentCreate(){
 		});
 	};
 
-    
-    // function createApartmentHandler(e){
-    //     e.preventDefault();
-    //     fetch("http://127.0.0.1:8000/createApartment", {
-    //         method: 'POST',
-    //         headers: {
-    //           'Content-type':'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //             building: building,
-    //             floor_number: floor_number,
-    //             apartment_number: apartment_number,
-    //             rent: rent,
-    //             service_charge_due_amount: service_charge_due_amount,
-    //             selectedFiles: selectedFiles
-    //         })
-    //       })
-    //       .then(response => response.json())
-    //       .then(data => {
-            
-    //         console.log(data.error);
-    //         if(data.error){
-    //             console.log(data.msg)
-    //         }
-    //         else {
-    //             navigate('/apartments');
-    //         }
-    //       });
-    // }
-    
     async function createApartmentHandler(e){
         e.preventDefault();
 
@@ -141,7 +111,7 @@ export default function ApartmentCreate(){
                     <div className="col-lg-6 mx-auto">
                         {/* <!-- Upload image input--> */}
                         <div className="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                            <input type="file" id="file" multiple onChange={handleImageChange}  className="form-control border-0" />
+                            <input type="file" id="file" multiple onChange={handleImageChange}  className="form-control border-0"  required/>
                             <label id="file-label" htmlFor="file" className="font-weight-light text-muted">Choose file</label>
                             
                             <div className="input-group-append">
@@ -156,21 +126,21 @@ export default function ApartmentCreate(){
             </div>
             <div className="form-group">
                 <label  className='h6 bold' htmlFor="floor_number">Floor no.</label>
-                <input type="number" className="form-control" id="floor_number" aria-describedby="floor_numberHelp" onChange={handleFloor_numberChange}/>
+                <input type="number" className="form-control" id="floor_number" aria-describedby="floor_numberHelp" onChange={handleFloor_numberChange} required/>
                 <small id="floor_numberHelp" className="form-text text-muted">Enter the apartment floor number</small>
             </div>
             <div className="form-group">
                 <label  className='h6 bold' htmlFor="apartment_number">Apartment no.</label>
-                <input type="text" className="form-control" id="apartment_number" aria-describedby="apartment_numberHelp" placeholder='e.g.,1C' onChange={handleApartment_numberChange}/>
+                <input type="text" className="form-control" id="apartment_number" aria-describedby="apartment_numberHelp" placeholder='e.g.,1C' onChange={handleApartment_numberChange} required/>
                 <small id="apartment_numberHelp" className="form-text text-muted">Enter the apartment number</small>
             </div>
             <div className="form-group">
                 <label  className='h6 bold' htmlFor="service_charge_due_amount">Due Service Charge Amount</label>
-                <input type="number" className="form-control" id="service_charge_due_amount" aria-describedby="service_charge_due_amountHelp" placeholder='0' onChange={handleService_charge_due_amountChange}/>
+                <input type="number" className="form-control" id="service_charge_due_amount" aria-describedby="service_charge_due_amountHelp" placeholder='0' onChange={handleService_charge_due_amountChange} required/>
             </div>
             <div className="form-group">
                 <label className='h6 bold' htmlFor="rent">Apartment Rent</label>
-                <input type="number" className="form-control" id="rent" aria-describedby="rentHelp" placeholder='0' onChange={handleRentChange}/>
+                <input type="number" className="form-control" id="rent" aria-describedby="rentHelp" placeholder='0' onChange={handleRentChange} required/>
             </div>
             
             <div className='form-group row my-5'>
