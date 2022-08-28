@@ -21,7 +21,6 @@ export default function DuesList(props){
   const [isLoading, setIsLoading] = useState(true);
   const [datafetched, setDataFetched] = useState(false);
 
-//   const [clientSecret, setClientSecret] = useState("");
   const [ clientSecret, setClientSecret ] = useState('');
   const [ addedclientsecret, setAddedClientSecret ] = useState(false);
 
@@ -42,7 +41,6 @@ export default function DuesList(props){
 // proceed with payment button e click korle nicher function ta call hobe
 // alada kore confirmation pop up box chacchi na
     function paymentHandler(){
-        console.log("keno dhuklam")
         fetch('http://127.0.0.1:8000/stripeCheckoutSession', {
         method: "POST",
         mode: 'cors',
@@ -59,50 +57,8 @@ export default function DuesList(props){
         .then((response) => response.json())
         .then((data) => { 
             setClientSecret(data.client_secret);
-            console.log("client secret:", data.client_secret);
-            console.log(clientSecret)
             setAddedClientSecret(true);
-            // window.location.reload("/dues/payment");
         });
-        
-        // const appearance = {
-        //     theme: 'stripe',
-        //   };
-        //   const options = {
-        //     clientSecret,
-        //     appearance,
-        //   };
-        // console.log(addedclientsecret)
-
-        // return (
-        //     <>
-        //     addedclientsecret ?
-        //     <Payment options={options} />
-        //     </>
-        // )
-        
-
-
-        // fetch("http://127.0.0.1:8000/duesPayment", {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-type':'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         dues:payDuesList.current
-        //     })
-        //   })
-        //   .then(response => response.json())
-        //   .then(data => {
-            
-        //     if(data.success){
-        //         window.location.reload();
-        //         alert('payment successful');
-        //     }
-        //     else {
-        //         alert('payment unsuccessful');
-        //     }
-        //   });
     }
 
     const appearance = {
@@ -127,8 +83,8 @@ export default function DuesList(props){
     {
     addedclientsecret ? 
     <Elements stripe={stripePromise} options={options}>
-          <CheckoutForm />
-        </Elements>
+        <CheckoutForm paydueslist={payDuesList}/>
+    </Elements>
     :
     
     !isLoading && datafetched 

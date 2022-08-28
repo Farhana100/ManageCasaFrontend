@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 
-const CheckoutForm = () => {
+const CheckoutForm = (props) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -17,12 +17,34 @@ const CheckoutForm = () => {
       // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
+    console.log("onno kichu")
+    console.log("dues list: ", props.paydueslist)
+
+    fetch("http://127.0.0.1:8000/duesPayment", {
+            method: 'POST',
+            headers: {
+              'Content-type':'application/json',
+            },
+            body: JSON.stringify({
+                dues:props.paydueslist.current
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            
+            if(data.success){
+                window.location.reload();
+                alert('payment successful');
+            }
+          });
 
     const {error} = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
+      
       elements,
       confirmParams: {
-        return_url: 'http://127.0.0.1:3000/finance',
+
+        return_url: 'http://127.0.0.1:3000/dues',
       },
     });
 
