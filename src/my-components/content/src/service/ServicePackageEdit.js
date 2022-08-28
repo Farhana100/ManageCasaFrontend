@@ -16,7 +16,7 @@ function PackagesTitle ({array}) {
     );
 }
 
-export default function ServicePackageAdd(){
+export default function ServicePackageEdit(){
 
     let user = JSON.parse(localStorage.getItem('data'));
 
@@ -24,6 +24,7 @@ export default function ServicePackageAdd(){
         window.location.replace('/dashboard');
     }
     const {id} = useParams();
+    const {package_id} = useParams();
 
     let errorMsg = {
         password:"",
@@ -35,27 +36,24 @@ export default function ServicePackageAdd(){
     const [ description, setDescription ] = useState("");
     const [ fee, setFee ] = useState("");
     const [ subscription_duration, setSubscription_duration ] = useState("");
+
     const [ serviceProviderData, setServiceProviderData ] = useState({});
     const [ serviceProviderPackages, setServiceProviderPackages] = useState([]);
 
     const handleTitleChange = (e) => {
         setTitle(e.target.value);
-        console.log(title);
     }
 
     const handleDescriptionChange = (e) => {
         setDescription(e.target.value);
-        console.log(description);
     }
 
     const handleFeeChange = (e) => {
         setFee(e.target.value);
-        console.log(fee);
     }
 
     const handleSubscription_durationChange = (e) => {
         setSubscription_duration(e.target.value);
-        console.log(subscription_duration);
     }
 
   
@@ -74,20 +72,40 @@ export default function ServicePackageAdd(){
         });
     }
   
+  
+    function fetchPackageInfo(){
+        fetch(`http://127.0.0.1:8000/getServicePackage/${package_id}`)
+        .then(response => response.json())
+        .then((data) => {
+            console.log(data);
+            if(data.success){
+                
+                setTitle(data.title);
+                setDescription(data.description);
+                setFee(data.fee);
+                setSubscription_duration(data.duration);
+            }
+            else{
+              navigate('/notFound')
+            }
+        });
+    }
+  
     useEffect(() => {
       fetchServiceProvider();    
+      fetchPackageInfo();
     }, []);
     
-    function createServicePackageHandler(e){
+    function editServicePackageHandler(e){
         e.preventDefault();
             
-        fetch("http://127.0.0.1:8000/createServicePackage", {
+        fetch("http://127.0.0.1:8000/editServicePackage", {
             method: 'POST',
             headers: {
             'Content-type':'application/json',
             },
             body: JSON.stringify({
-                serviceProvider_pk: id,
+                pk: package_id,
                 building: building,
                 title: title,
                 description: description,
@@ -123,14 +141,14 @@ export default function ServicePackageAdd(){
                         {/* title  */}
                         <div className="form-group">
                             <label  className='h6 bold' htmlFor="title">Title: </label>
-                            <input type="text" className="form-control" id="title" aria-describedby="titleHelp" onChange={handleTitleChange}/>
+                            <input type="text" className="form-control" id="title" aria-describedby="titleHelp" value={title} onChange={handleTitleChange}/>
                             <small id="titleHelp" className="form-text text-muted">{errorMsg['title']}</small>
                         </div>
 
                         {/* description */}
                         <div className="form-group">
                             <label  className='h6 bold' htmlFor="description">Description: </label>
-                            <input type="text-area" className="form-control" id="description" aria-describedby="descriptionHelp" onChange={handleDescriptionChange}/>
+                            <input type="text-area" className="form-control" id="description" aria-describedby="descriptionHelp" value={description} onChange={handleDescriptionChange}/>
                             {/* {errorMsg.description !== "" && 
                                 <small id="descriptionHelp" className="form-text text-muted">{errorMsg}</small>
                             } */}
@@ -139,7 +157,7 @@ export default function ServicePackageAdd(){
                         {/* fee */}
                         <div className="form-group">
                             <label  className='h6 bold' htmlFor="fee">Fee: </label>
-                            <input type="number" className="form-control" id="fee" aria-describedby="feeHelp" onChange={handleFeeChange} required name="price" min="0" step=".01"/>
+                            <input type="number" className="form-control" id="fee" aria-describedby="feeHelp" value={fee} onChange={handleFeeChange} required name="price" min="0" step=".01"/>
                             {/* <small id="feeHelp" className="form-text text-muted">this is a test</small> */}
                         </div>
                         
@@ -147,13 +165,13 @@ export default function ServicePackageAdd(){
                         {/* subscription_duration */}
                         <div className="form-group">
                             <label  className='h6 bold' htmlFor="subscription_duration">Subscription Duration: <small>(months)</small></label>
-                            <input type="number" className="form-control" id="subscription_duration" aria-describedby="subscription_durationHelp" onChange={handleSubscription_durationChange} required name="time" min="0" step=".01"/>
+                            <input type="number" className="form-control" id="subscription_duration" aria-describedby="subscription_durationHelp" value={subscription_duration} onChange={handleSubscription_durationChange} required name="time" min="0" step=".01"/>
                             {/* <small id="subscription_durationHelp" className="form-text text-muted">this is a test</small> */}
                         </div>
                         
                         <div className='form-group row my-5'>
                             <div className='col d-flex justify-content-start'><Button text={'Cancel'} link={`/service/${id}`} /></div>
-                            <div className='col d-flex justify-content-end'><Button text={'Submit'} OnClick={createServicePackageHandler}/></div>
+                            <div className='col d-flex justify-content-end'><Button text={'Submit'} OnClick={editServicePackageHandler}/></div>
                         </div>
                     </form>
                 </div>
