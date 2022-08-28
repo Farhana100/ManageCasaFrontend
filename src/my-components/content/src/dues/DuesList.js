@@ -196,31 +196,7 @@ export default function DuesList(props){
         </table>
         </div>
 
-        {/* ---------------- confirmation modal -------------------- */}
-
-        {/* <!-- Button trigger modal --> */}
-        <div className='text-right m-5 container'><button type="button" class="btn mybutton" data-toggle="modal" data-target="#exampleModal">Proceed with Payment</button></div>
-
-        {/* <!-- Modal --> */}
-        <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-            <div className="modal-content">
-            <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Payment Summary</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div className="modal-body">
-                <p>Total Charge: {totalDue} Tk </p>
-                {totalDue === 0 && <p>You must select at least one due.</p>}
-            </div>
-            <div className="modal-footer">
-                {totalDue !== 0 && <button type="button" className="btn mybutton" onClick={paymentHandler}>Confirm</button>}
-            </div>
-            </div>
-        </div>
-        </div>
+        <button type="button" className="btn mybutton" onClick={paymentHandler}>Proceed with Payment</button>
     </>
     :
     <>loading ...</>
