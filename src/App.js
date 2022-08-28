@@ -49,6 +49,8 @@ import Error404 from './my-components/content/src/error/Error404';
 import ServicePackageAdd from './my-components/content/src/service/ServicePackageAdd';
 import ServiceProviderEdit from './my-components/content/src/service/ServiceProviderEdit';
 import ServicePackageEdit from './my-components/content/src/service/ServicePackageEdit';
+import Dues from './my-components/content/src/dues/Dues';
+import DuesList from './my-components/content/src/dues/DuesList';
 
 
 
@@ -66,7 +68,7 @@ function App() {
 
   return (
     <>
-      <Header username={user.username} userActive={user.user_active}/>
+      <Header/>
       <Router>
         <Routes>
           <Route path="/notFound" element={<Error404/>} exact />
@@ -119,6 +121,9 @@ function App() {
             <Route path="/finance" element={<Finance/>} >
               <Route path="/finance" element={<ServiceChargeFund/>} />
               <Route path="/finance/expense" element={<ExpenseStatistics/>} />
+            </Route>
+            <Route path="/dues" element={<Dues/>} >
+              <Route path="/dues" element={<DuesList/>} />
             </Route>
             <Route path="/visitors" element={<ToBeMade/>} />
           </Route>

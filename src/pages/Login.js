@@ -47,7 +47,7 @@ export default function Login (){
       if(data.user_active) {
         // setMsg(data.msg);
         localStorage.setItem('data', JSON.stringify(data));
-        navigate('/dashboard');
+        window.location.replace('/dashboard');
       }
       else{
         setMsg(data.msg);

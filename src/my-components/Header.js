@@ -64,31 +64,23 @@ function HeaderContent ({username, userActive}) {
 
 
 
-export default function Header({username, userActive}) {
-  return (
-    <div>
-        <nav className="navbar navbar-expand-lg navbar-light my-header">
-            <a className="navbar-brand" href={`${userActive ? "/dashboard" : "/home"}`}><Brand/></a>
-            <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarCollapse">
-                <ul className="navbar-nav ml-auto">
-                    <HeaderContent username={username} userActive={userActive} />
-                </ul>
-            </div>
-        </nav>
-        <div className='header-divider'></div>
-    </div>
-  )
-}
+export default function Header() {
+    let user = JSON.parse(localStorage.getItem('data'));
 
-Header.defaultProps = {
-    username: null,
-    userActive: false,
-}
-
-Header.propTypes = {
-    username: PropTypes.string,
-    userActive: PropTypes.bool,
+    return (
+        <div>
+            <nav className="navbar navbar-expand-lg navbar-light my-header">
+                <a className="navbar-brand" href={`${user && user.user_active ? "/dashboard" : "/home"}`}><Brand/></a>
+                <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarCollapse">
+                    <ul className="navbar-nav ml-auto">
+                        <HeaderContent username={user && user.user_active ? user.username : ""} userActive={user && user.user_active} />
+                    </ul>
+                </div>
+            </nav>
+            <div className='header-divider'></div>
+        </div>
+    )
 }
