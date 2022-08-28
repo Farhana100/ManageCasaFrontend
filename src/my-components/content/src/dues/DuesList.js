@@ -2,6 +2,10 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 // import '../../static/css/dues.css'
 import Button from '../../../misc/Button';
+import Payment from './payment';
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+import CheckoutForm from "./checkoutform";
 
 
 
@@ -17,6 +21,12 @@ export default function DuesList(props){
   const [isLoading, setIsLoading] = useState(true);
   const [datafetched, setDataFetched] = useState(false);
 
+//   const [clientSecret, setClientSecret] = useState("");
+  const [ clientSecret, setClientSecret ] = useState('');
+  const [ addedclientsecret, setAddedClientSecret ] = useState(false);
+
+  const stripePromise = loadStripe('pk_test_51LbejzEt2WQeUGdbBmXAYcp7o5BPAz6TYi44sK0jJiUev3S6WCB3q3NSbEcPXwMFTyuIDp9WxcR1w7hWDtsZ4MyR00dIUQxg2B')
+
   function fetchDues() {
     fetch(`http://127.0.0.1:8000/getDues/${user.uid}`)
       .then((response) => response.json())
@@ -29,42 +39,98 @@ export default function DuesList(props){
         }
       });
   }
+// proceed with payment button e click korle nicher function ta call hobe
+// alada kore confirmation pop up box chacchi na
+    function paymentHandler(){
+        console.log("keno dhuklam")
+        fetch('http://127.0.0.1:8000/stripeCheckoutSession', {
+        method: "POST",
+        mode: 'cors',
+        headers: {
+            "Content-type": "application/json",
+            "Access-Control-Allow-Origin": "https://checkout.stripe.com",
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify({
+            amount: totalDue,
+        }),
+        })
+        .then((response) => response.json())
+        .then((data) => { 
+            setClientSecret(data.client_secret);
+            console.log("client secret:", data.client_secret);
+            console.log(clientSecret)
+            setAddedClientSecret(true);
+            // window.location.reload("/dues/payment");
+        });
+        
+        // const appearance = {
+        //     theme: 'stripe',
+        //   };
+        //   const options = {
+        //     clientSecret,
+        //     appearance,
+        //   };
+        // console.log(addedclientsecret)
+
+        // return (
+        //     <>
+        //     addedclientsecret ?
+        //     <Payment options={options} />
+        //     </>
+        // )
+        
+
+
+        // fetch("http://127.0.0.1:8000/duesPayment", {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-type':'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //         dues:payDuesList.current
+        //     })
+        //   })
+        //   .then(response => response.json())
+        //   .then(data => {
+            
+        //     if(data.success){
+        //         window.location.reload();
+        //         alert('payment successful');
+        //     }
+        //     else {
+        //         alert('payment unsuccessful');
+        //     }
+        //   });
+    }
+
+    const appearance = {
+        theme: 'stripe',
+      };
+      const options = {
+        clientSecret,
+        appearance,
+      };
+
+   
 
     useEffect(() => {
         fetchDues();
         setIsLoading(false);
     }, []);
-
-
-    const paymentHandler = (e) => {
-        e.preventDefault();
-        fetch("http://127.0.0.1:8000/duesPayment", {
-            method: 'POST',
-            headers: {
-              'Content-type':'application/json',
-            },
-            body: JSON.stringify({
-                dues:payDuesList.current
-            })
-          })
-          .then(response => response.json())
-          .then(data => {
-            
-            if(data.success){
-                window.location.reload();
-                alert('payment successful');
-            }
-            else {
-                alert('payment unsuccessful');
-            }
-          });
-    }
-
     
 
   return (
     <>
+    
     {
+    addedclientsecret ? 
+    <Elements stripe={stripePromise} options={options}>
+          <CheckoutForm />
+        </Elements>
+    :
+    
     !isLoading && datafetched 
     ? 
     <>
@@ -159,6 +225,7 @@ export default function DuesList(props){
     :
     <>loading ...</>
     }
+
     </>  
   )
 }

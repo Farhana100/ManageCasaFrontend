@@ -4,7 +4,7 @@ import Button from "../../../misc/Button";
 
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-import CheckoutForm from "./checkoutform";
+import CheckoutForm from "../dues/checkoutform";
 
 const Message = ({ message }) => (
   <section>
@@ -12,7 +12,7 @@ const Message = ({ message }) => (
   </section>
 );
 
-export default function Payment() {
+export default function Checkout() {
 
   const stripePromise = loadStripe('pk_test_51LbejzEt2WQeUGdbBmXAYcp7o5BPAz6TYi44sK0jJiUev3S6WCB3q3NSbEcPXwMFTyuIDp9WxcR1w7hWDtsZ4MyR00dIUQxg2B')
   const navigate = useNavigate();
@@ -39,14 +39,10 @@ export default function Payment() {
       .then((response) => response.json())
       .then((data) => { 
         setClientSecret(data.client_secret);
-        //  Data returns the checkout URL given for
-        //  a specific order. The backend returns it
-        //  to the frontend and the frontend redirects.
-        
-        // console.log("Checkout URL", data);
         console.log("client secret:", data.client_secret);
         console.log(clientSecret)
         setDataFetched(true);
+        setIsLoading(false);
         // window.location.href = data;
       });
   }
@@ -59,11 +55,11 @@ export default function Payment() {
     appearance,
   };
 
-  useEffect(() => {
-    checkout();
-    setIsLoading(false);
-    console.log(options)
-  }, []);
+  // useEffect(() => {
+  //   checkout();
+  //   setIsLoading(false);
+  //   console.log(options)
+  // }, []);
 
 
   return (
@@ -72,9 +68,11 @@ export default function Payment() {
     <Elements stripe={stripePromise} options={options}>
       <CheckoutForm />
     </Elements>
-    ) : (
-        <div> Loading... </div>
-      )}
+    ) : 
+    <div>
+        <Button text="submit" OnClick={checkout}/>
+        </div>
+      }
     </>
   );
 }

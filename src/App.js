@@ -37,7 +37,8 @@ import Finance from './my-components/content/src/finance/Finance';
 import ServiceChargeFund from './my-components/content/src/finance/ServiceChargeFund';
 import ExpenseStatistics from './my-components/content/src/finance/ExpenseStatistics';
 
-import Payment from './my-components/content/src/finance/testStripe';
+import Payment from './my-components/content/src/dues/payment';
+import Checkout from './my-components/content/src/finance/testStripe';
 
 import ToBeMade from './my-components/content/src/ToBeMade';
 import ElectionList from './my-components/content/src/election/ElectionList';
@@ -123,10 +124,11 @@ function App() {
             <Route path="/finance" element={<Finance/>} >
               <Route path="/finance" element={<ServiceChargeFund/>} />
               <Route path="/finance/expense" element={<ExpenseStatistics/>} />
-              <Route path="/finance/payment" element={<Payment/>} />
+              
             </Route>
             <Route path="/dues" element={<Dues/>} >
               <Route path="/dues" element={<DuesList/>} />
+              {/* <Route path="/dues/payment" element={<Checkout/>} /> */}
             </Route>
             <Route path="/visitors" element={<ToBeMade/>} />
           </Route>
