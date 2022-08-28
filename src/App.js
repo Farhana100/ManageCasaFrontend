@@ -37,8 +37,6 @@ import Finance from './my-components/content/src/finance/Finance';
 import ServiceChargeFund from './my-components/content/src/finance/ServiceChargeFund';
 import ExpenseStatistics from './my-components/content/src/finance/ExpenseStatistics';
 
-import NotFound from './pages/NotFound';
-
 import ToBeMade from './my-components/content/src/ToBeMade';
 import ElectionList from './my-components/content/src/election/ElectionList';
 import ApartmentCreate from './my-components/content/src/apartment/ApartmentCreate';
@@ -48,6 +46,7 @@ import ServiceProviderList from './my-components/content/src/service/ServiceProv
 import ServiceProviderAdd from './my-components/content/src/service/ServiceProviderAdd';
 import ServiceProviderView from './my-components/content/src/service/ServiceProviderView';
 import Error404 from './my-components/content/src/error/Error404';
+import ServicePackageAdd from './my-components/content/src/service/ServicePackageAdd';
 
 
 
@@ -96,6 +95,7 @@ function App() {
               <Route path="/service" element={<ServiceProviderList/>} />
               <Route path="/service/add" element={<ServiceProviderAdd/>} />
               <Route path="/service/edit/:id" element={<ToBeMade/>} />
+              <Route path="/service/edit/:id/addPackage" element={<ServicePackageAdd/>} />
               <Route path="/service/:id" element={<ServiceProviderView/>} />
             </Route>
             <Route path="/forum" element={<ToBeMade/>} />

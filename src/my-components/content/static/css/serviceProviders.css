@@ -45,3 +45,14 @@
 .service-provider-image{
     max-height: 25vh;
 }
+
+
+.service-provider-summary {
+    background-color:#F5E8F3;
+    min-height: 50vh;
+}
+
+.service-provider-card {
+    min-height: 50vh;
+    max-height: 50vh;
+}

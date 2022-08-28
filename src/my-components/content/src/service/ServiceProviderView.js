@@ -1,22 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import {Link, useNavigate} from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import {Link, useNavigate, useParams } from 'react-router-dom';
 import '../../static/css/serviceProviders.css'
 import Button from '../../../misc/Button';
 import ServicePackage from './ServicePackage';
 
 
-function Packages ({array}) {
-  const packs = array.map(
-      (item) => {
-          return <div className="col-sm-3 mb-2"><ServicePackage title={item['title']} description={item['description']} fee={item['fee']} subscription_duration={item['duration']} canSubscribe={true} /></div>
-      }
-    );
-
-  return (
-    <>{packs}</>
-  );
-}
 
 
 export default function ServiceProviderView() {
@@ -76,24 +64,21 @@ export default function ServiceProviderView() {
   }
 
   let navigate = useNavigate();
+    
+  function Packages () {
+    const packs = serviceProviderPackages.map(
+        (item) => {
+            return <div className="col-sm-3 mb-2"><ServicePackage pk={item['package_id']} service_provider_pk={id} title={item['title']} description={item['description']} fee={item['fee']} subscription_duration={item['duration']} canSubscribe={true} userType={user.userType} /></div>
+        }
+      );
+
+    return (
+      <>{packs}</>
+    );
+  }
   
   return (
     <>
-      {/* ----------------------------------------------- navbar start ----------------------------------------------------- */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div className="navbar-nav">
-            <a className="nav-item nav-link active" href="#">Home <span className="sr-only">(current)</span></a>
-            <a className="nav-item nav-link" href="#">Features</a>
-            <a className="nav-item nav-link" href="#">Pricing</a>
-            <a className="nav-item nav-link disabled" href="#">Disabled</a>
-          </div>
-        </div>
-      </nav>
-      {/* ----------------------------------------------- main start ----------------------------------------------------- */}
       <div className="container-fluid">
         <div className='container ml-0'>
           <nav className='navbar'>
@@ -128,6 +113,7 @@ export default function ServiceProviderView() {
               <p className='lead'>{serviceProviderData.details}</p>
             </div>
           </div>
+          <hr/>
 
         </div>  
         
@@ -135,8 +121,14 @@ export default function ServiceProviderView() {
         {/* ---------------------------------------- packages description start -------------------------------------------------*/}
 
         <div className='container'>
+          <div className='row mb-5'>
+            <div className='col text-left'><p className='h4'>Packages:</p></div>
+            {user.userType === 'admin' && 
+            <div className='col text-right'><Button text="Add Package" link={`/service/edit/${id}/addPackage`}/></div>
+            }
+          </div>
           <div className='row'>
-            <Packages array={serviceProviderPackages}/>
+            <Packages/>
           </div>
         </div>
           
