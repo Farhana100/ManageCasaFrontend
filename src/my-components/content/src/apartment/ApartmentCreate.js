@@ -9,8 +9,16 @@ export default function ApartmentCreate(){
 
     let user = JSON.parse(localStorage.getItem('data'));
 
+    if (!user) {
+        window.location.replace('/login');
+    }
+
+    if (!user.user_active) {
+        window.location.replace('/login');
+    }
+
     if (user.userType !== 'admin') {
-        window.location.replace('/apartments');
+        window.location.replace('/dashboard');
     }
 
     const [ building, setBuilding ] = useState(user.building);

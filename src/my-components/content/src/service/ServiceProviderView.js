@@ -10,6 +10,13 @@ import ServicePackage from './ServicePackage';
 export default function ServiceProviderView() {
 
   let user = JSON.parse(localStorage.getItem('data'));
+  if (! user) {
+  window.location.replace('/login');
+  }
+  
+  if (! user.user_active) {
+  window.location.replace('/login');
+  }
 
   const {id} = useParams();
 
