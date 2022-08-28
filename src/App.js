@@ -51,6 +51,8 @@ import ServiceProviderEdit from './my-components/content/src/service/ServiceProv
 import ServicePackageEdit from './my-components/content/src/service/ServicePackageEdit';
 import Dues from './my-components/content/src/dues/Dues';
 import DuesList from './my-components/content/src/dues/DuesList';
+import PaymentHistory from './my-components/content/src/paymentHistory/PaymentHistory';
+import PaymentList from './my-components/content/src/paymentHistory/PaymentList';
 
 
 
@@ -94,7 +96,6 @@ function App() {
               <Route path="/tenants" element={<TenantList/>} />
               <Route path="/tenants/add" element={<TenantAdd/>} />
             </Route>
-            <Route path="/employees" element={<ToBeMade/>} />
             <Route path="/service" element={<ServiceProviders/>}>
               <Route path="/service" element={<ServiceProviderList/>} />
               <Route path="/service/add" element={<ServiceProviderAdd/>} />
@@ -103,11 +104,6 @@ function App() {
               <Route path="/service/edit/:id/editPackage/:package_id" element={<ServicePackageEdit/>} />
               <Route path="/service/:id" element={<ServiceProviderView/>} />
             </Route>
-            <Route path="/forum" element={<ToBeMade/>} />
-            <Route path="/complaints" element={<ToBeMade/>} />
-            <Route path="/dues" element={<ToBeMade/>} />
-            <Route path="/paymenthistory" element={<ToBeMade/>} />
-            <Route path="/notice" element={<ToBeMade/>} />
             <Route path="/election" element={<Election />}>
               <Route path="/election" element={<ElectionList/>} />
               <Route path="/election/create" element={<ElectionCreate/>}/>
@@ -125,6 +121,13 @@ function App() {
             <Route path="/dues" element={<Dues/>} >
               <Route path="/dues" element={<DuesList/>} />
             </Route>
+            <Route path="/paymenthistory" element={<PaymentHistory/>}>
+              <Route path="/paymenthistory" element={<PaymentList/>}/>
+            </Route>
+            <Route path="/employees" element={<ToBeMade/>} />
+            <Route path="/forum" element={<ToBeMade/>} />
+            <Route path="/complaints" element={<ToBeMade/>} />
+            <Route path="/notice" element={<ToBeMade/>} />
             <Route path="/visitors" element={<ToBeMade/>} />
           </Route>
           <Route path="*" element={<Error404/>}></Route>
