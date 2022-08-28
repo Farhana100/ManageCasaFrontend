@@ -37,6 +37,7 @@ export default function ElectionCreate() {
       .then((data) => {
         if (data.success) {
           setPositions(data.positions);
+          console.log(data.positions);
           setDataFetched(true);
         }
       });
@@ -73,6 +74,7 @@ export default function ElectionCreate() {
   useEffect(() => {
     getPositions();
     setIsLoading(false);
+    console.log(positions);
   }, []);
 
   return (
@@ -103,7 +105,7 @@ export default function ElectionCreate() {
           </div>
           <div className="apprtoggle">
             <div>
-                <text className='autonom'>Auto Approve All Nominations</text>
+                <p className='autonom'>Auto Approve All Nominations</p>
             </div>
             <div>
             <label className="switch">
@@ -115,7 +117,7 @@ export default function ElectionCreate() {
 
           <div className="startend">
             <div>
-              <text className="settime">Nomination Start Time:</text>
+              <p className="settime">Nomination Start Time:</p>
             </div>
             <div>
               <DateTimePicker onChange={setNomStartData} value={nomstartData} />
@@ -124,7 +126,7 @@ export default function ElectionCreate() {
 
           <div className="startend">
             <div>
-              <text className="settime">Nomination End Time:</text>
+              <p className="settime">Nomination End Time:</p>
             </div>
             <div>
               <DateTimePicker onChange={setNomEndData} value={nomendData} />
@@ -133,7 +135,7 @@ export default function ElectionCreate() {
 
           <div className="startend">
             <div>
-              <text className="settime">Voting Start Time:</text>
+              <p className="settime">Voting Start Time:</p>
             </div>
             <div>
               <DateTimePicker
@@ -145,7 +147,7 @@ export default function ElectionCreate() {
 
           <div className="startend">
             <div>
-              <text className="settime">Voting end Time:</text>
+              <p className="settime">Voting end Time:</p>
             </div>
             <div>
               <DateTimePicker onChange={setVoteEndData} value={voteendData} />
