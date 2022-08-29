@@ -55,6 +55,7 @@ import Dues from './my-components/content/src/dues/Dues';
 import DuesList from './my-components/content/src/dues/DuesList';
 import PaymentHistory from './my-components/content/src/paymentHistory/PaymentHistory';
 import PaymentList from './my-components/content/src/paymentHistory/PaymentList';
+import Dashboard from './pages/Dashboard';
 
 
 
@@ -80,7 +81,7 @@ function App() {
           <Route path="/login" element={<Login/>} exact />
           <Route path="/register" element={<Register/>} exact />
           <Route path="/" element={<PrivateRoute/>}>
-            <Route path="/dashboard" element={<ToBeMade/>} />
+            <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/apartments" element={<Apartments />}>
               <Route path="/apartments/" element={<ApartmentList/>} />
               <Route path="/apartments/create" element={<ApartmentCreate/>} />
