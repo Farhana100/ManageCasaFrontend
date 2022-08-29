@@ -14,6 +14,7 @@ export default function CommitteeAdd(props) {
         };
     }
     const [positionData, setCommitteePosition] = useState("");
+    const [ errormsg, setErrorMsg ] = useState('');
 
     function createPositionHandler(){
         console.log(positionData);
@@ -31,6 +32,9 @@ export default function CommitteeAdd(props) {
             if(data.success){
                 navigate('/committee')
             }
+            else{
+              setErrorMsg(data.msg);
+            }
           });
     }
 
@@ -41,6 +45,14 @@ export default function CommitteeAdd(props) {
     <h3> New Member</h3>
     <hr className='mainline'/>
     <br/>
+    {errormsg && 
+        <div className="alert alert-danger alert-dismissible fade show" role="alert">
+        {errormsg}
+        <button type="mybutton" className="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    }
     <form>
         <div class="form-group">
             <label for="inputdesignation">Designation</label>

@@ -46,6 +46,9 @@ export default function TenantAdd(){
     const [ image, setImage ] = useState(null);
     const [ selectedFile, setSelectedFile ] = useState(null);   // temporary
 
+    const [ errorpwd, setErrorpwd ] = useState('');
+    const [ errormsg, setErrorMsg ] = useState('');
+
 // use .current for value
     const apartment_pk = useRef(-1);
     const [ allApartmentData, setAllApartmentData ] = useState({});
@@ -176,6 +179,7 @@ export default function TenantAdd(){
             console.log("password do not match");
             console.log(password, confirmPassword);
             errorMsg['password'] = "password do not match";
+            setErrorpwd("password do not match");
         }
         else{
 
@@ -206,6 +210,7 @@ export default function TenantAdd(){
                     console.log(response.data.msg);
                     errorMsg[response.data.error] = response.data.msg;
                     console.log('new test ', errorMsg['username']);
+                    setErrorMsg(response.data.msg);
                 }
             });
         }
@@ -225,6 +230,22 @@ export default function TenantAdd(){
                 <div className='col-7'>
                     <form className='container'>
                         <div className="form-group">
+                        {errorpwd && 
+                            <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                            {errorpwd}
+                            <button type="mybutton" className="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                        }
+                        {errormsg && 
+                            <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                            {errormsg}
+                            <button type="mybutton" className="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                        }
                             <label className='h6 bold'>Add Tenant's Image</label>
                             <div className="row py-4">
                                 <div className="col-lg-6 mx-auto">
