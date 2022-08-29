@@ -133,7 +133,11 @@ export default function ElectionDesc(props) {
                 </div>
                 <div>
                   <label className="switch">
+                    {electionData.autoapprove ? 
+                    <input type="checkbox" checked="checked" onClick={approvehandler} />
+                    :
                     <input type="checkbox" onClick={approvehandler} />
+                    }
                     <span className="slider round"></span>
                   </label>
                 </div>
