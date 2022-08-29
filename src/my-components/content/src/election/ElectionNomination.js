@@ -36,8 +36,10 @@ export default function ElectionNomination(props) {
         .then(response => response.json())
         .then((data) => {
             setNomineesData(data);
-            if(user.userType == "admin")
+            if(user.userType == "admin"){
                 setDataFetched(true);
+            }
+                
         });
     }
 
