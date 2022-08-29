@@ -72,33 +72,32 @@ export default function ElectionDesc(props) {
       });
   }
 
-  function savehandler(){
-    console.log("saved");
-    setIsClicked(false);
-    console.log("clicked?", isClicked.current);
-    fetch(`http://127.0.0.1:8000/updatenomstart/${electionId}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        nomstart: nomstartData,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          navigate(`/election/view/${electionId}`);
-        }
-      });
-      
-  }
+  // function savehandler(){
+  //   console.log("saved");
+  //   setIsClicked(false);
+  //   console.log("clicked?", isClicked.current);
+  //   fetch(`http://127.0.0.1:8000/updatenomstart/${electionId}`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       nomstart: nomstartData,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (data.success) {
+  //         navigate(`/election/view/${electionId}`);
+  //       }
+  //     });  
+  // }
 
-  function editHandler() {
-    console.log("clicked");
-    setIsClicked(true);
-    console.log("is clicked: ", isClicked)
-  }
+  // function editHandler() {
+  //   console.log("clicked");
+  //   setIsClicked(true);
+  //   console.log("is clicked: ", isClicked)
+  // }
 
   let navigate = useNavigate();
 
@@ -158,8 +157,8 @@ export default function ElectionDesc(props) {
             </p>
             </div>
             
-            {/* {user.userType === "admin" ? (
-              isClicked.current ? (
+            {/* {user.userType === "admin" && electionData.phase.toLowerCase() != "ended" ? (
+              isClicked ? (
                 <div className="afterclick">
                   <div>
                     <DateTimePicker onChange={setNomStartData} value={nomstartData}/>
