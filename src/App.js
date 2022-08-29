@@ -25,7 +25,7 @@ import CommitteeEdit from './my-components/content/src/CommitteeEdit';
 
 import Election from './my-components/content/src/election/Election';
 import ElectionCreate from './my-components/content/src/election/ElectionCreate';
-import Election_View from './my-components/content/src/election/Election_View';
+import ElectionView from './my-components/content/src/election/ElectionView';
 
 import Poll from './my-components/content/src/poll/Poll';
 import PollList from './my-components/content/src/poll/PollList';
@@ -37,7 +37,6 @@ import Finance from './my-components/content/src/finance/Finance';
 import ServiceChargeFund from './my-components/content/src/finance/ServiceChargeFund';
 import ExpenseStatistics from './my-components/content/src/finance/ExpenseStatistics';
 
-import Payment from './my-components/content/src/dues/payment';
 import Checkout from './my-components/content/src/finance/testStripe';
 
 import ToBeMade from './my-components/content/src/ToBeMade';
@@ -110,7 +109,7 @@ function App() {
             <Route path="/election" element={<Election />}>
               <Route path="/election" element={<ElectionList/>} />
               <Route path="/election/create" element={<ElectionCreate/>}/>
-              <Route path="/election/view/:id" element={<Election_View/>}/>
+              <Route path="/election/view/:id" element={<ElectionView/>}/>
               <Route path="/election/poll" element={<Poll/>} >
                 <Route path="/election/poll" element={<PollList/>} />
                 <Route path="/election/poll/create" element={<PollCreate/>} />

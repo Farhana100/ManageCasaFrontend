@@ -8,6 +8,9 @@ import Button from "../../../../misc/Button";
 import DateTimePicker from "react-datetime-picker";
 
 export default function ElectionDesc(props) {
+  const splitList = window.location.href.split('/');
+  const electionId = splitList[splitList.length - 1];
+
   let user = JSON.parse(localStorage.getItem("data"));
   if (!user) {
     user = {
@@ -16,6 +19,8 @@ export default function ElectionDesc(props) {
       user_active: false,
     };
   }
+  const [ electionData, setElectionData ] = useState({});
+
   const [datafetched, setDataFetched] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [ isClicked, setIsClicked ] = useState(false);
@@ -28,8 +33,17 @@ export default function ElectionDesc(props) {
   let autoApprove = false;
   let autoapprove = false;
 
+  function fetchelectiondata(){
+    fetch(`http://127.0.0.1:8000/getElection/${electionId}`)
+    .then(response => response.json())
+    .then((data) => {
+        setElectionData(data);
+        
+    });
+}
+
   function getAutoApproval() {
-    fetch(`http://127.0.0.1:8000/getAutoApprove/${props.election.id}`)
+    fetch(`http://127.0.0.1:8000/getAutoApprove/${electionId}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) autoApprove = data.autoapprove;
@@ -41,7 +55,7 @@ export default function ElectionDesc(props) {
   function approvehandler(e) {
     if (e.target.checked) autoapprove = true;
     else autoapprove = false;
-    fetch(`http://127.0.0.1:8000/updateAutoApprove/${props.election.id}`, {
+    fetch(`http://127.0.0.1:8000/updateAutoApprove/${electionId}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -53,7 +67,7 @@ export default function ElectionDesc(props) {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          navigate(`/election/view/${props.election.id}`);
+          navigate(`/election/view/${electionId}`);
         }
       });
   }
@@ -62,7 +76,7 @@ export default function ElectionDesc(props) {
     console.log("saved");
     setIsClicked(false);
     console.log("clicked?", isClicked.current);
-    fetch(`http://127.0.0.1:8000/updatenomstart/${props.election.id}`, {
+    fetch(`http://127.0.0.1:8000/updatenomstart/${electionId}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -74,7 +88,7 @@ export default function ElectionDesc(props) {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          navigate(`/election/view/${props.election.id}`);
+          navigate(`/election/view/${electionId}`);
         }
       });
       
@@ -89,6 +103,7 @@ export default function ElectionDesc(props) {
   let navigate = useNavigate();
 
   useEffect(() => {
+    fetchelectiondata();
     getAutoApproval();
     setIsLoading(false);
   }, []);
@@ -103,15 +118,15 @@ export default function ElectionDesc(props) {
               <h3>Committee Election</h3>
             </div>
             <div>
-              <p className="status"> {props.election.phase} </p>
+              <p className="status"> {electionData.phase} </p>
             </div>
           </div>
           <h5 className="myh5">
             {" "}
-            Committee Member Position: {props.election.position}
+            Committee Member Position: {electionData.position}
           </h5>
           {user.userType === "admin" ? (
-            props.election.phase.toLowerCase() === "nomination" ? (
+            electionData.phase.toLowerCase() === "nomination" ? (
               <div className="apprtoggle">
                 <div>
                   <p className="autonom">Auto Approve All Nominations</p>
@@ -126,7 +141,7 @@ export default function ElectionDesc(props) {
             ) : null
           ) : null}
           <div className="count">
-            <p> Total Number of Voters: {props.election.vote_count}</p>
+            <p> Total Number of Voters: {electionData.vote_count}</p>
           </div>
 
           <div className="timeinfo">
@@ -135,7 +150,7 @@ export default function ElectionDesc(props) {
             </div>
             <div>
             <p className="timev1">
-                {props.election.nomination_start_time}
+                {electionData.nomination_start_time}
             </p>
             </div>
             
@@ -153,7 +168,7 @@ export default function ElectionDesc(props) {
                 <div className="edit-time">
                   <div>
                     <p className="timev1">
-                      {props.election.nomination_start_time}
+                      {electionData.nomination_start_time}
                     </p>
                   </div>
                   <div className="icon-area">
@@ -173,7 +188,7 @@ export default function ElectionDesc(props) {
               <p className="timename">Nomination End Time:</p>
             </div>
             <div>
-              <p className="timev2">{props.election.nomination_end_time}</p>
+              <p className="timev2">{electionData.nomination_end_time}</p>
             </div>
             {/* {
                 user.userType === "admin"
@@ -190,7 +205,7 @@ export default function ElectionDesc(props) {
               <p className="timename">Voting Start Time:</p>
             </div>
             <div>
-              <p className="timev3">{props.election.voting_start_time}</p>
+              <p className="timev3">{electionData.voting_start_time}</p>
             </div>
             {/* {
                 user.userType === "admin"
@@ -207,7 +222,7 @@ export default function ElectionDesc(props) {
               <p className="timename">Voting End Time:</p>
             </div>
             <div>
-              <p className="timev4">{props.election.voting_end_time}</p>
+              <p className="timev4">{electionData.voting_end_time}</p>
             </div>
             {/* {
                 user.userType === "admin"

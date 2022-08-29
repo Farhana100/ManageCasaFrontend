@@ -23,6 +23,7 @@ export default function ElectionEnded(props){
 
     const [ electionVoteCount, setElectionVoteCount ] = useState(null);
     const [ electedMember, setElectedMember ] = useState(null);
+    const [ nomineesData, setNomineesData ] = useState({});
 
     function getElectionInfo(){
         fetch(`http://127.0.0.1:8000/getElection/${electionId}`)
@@ -30,12 +31,22 @@ export default function ElectionEnded(props){
         .then((data) => {
             setElectionVoteCount(data.vote_count)
             setElectedMember(data.elected_member);
+            
+        });
+    }
+
+    function fetchonomineedata(){
+        fetch(`http://127.0.0.1:8000/getNominees/${electionId}`)
+        .then(response => response.json())
+        .then((data) => {
+            setNomineesData(data);
             setDataFetched(true);
         });
     }
 
     useEffect(() => {
         getElectionInfo();
+        fetchonomineedata();
         setIsLoading(false);        
     }, []);
 
@@ -45,10 +56,10 @@ export default function ElectionEnded(props){
         !isLoading && datafetched
         ? 
         <div>
-            <ElectionDesc election={props.election}/>
+            <ElectionDesc />
             <h3> Result:</h3>
 
-            {props.candidates.map(candidate => {
+            {nomineesData.map(candidate => {
             return(
                 <>
                 <div className="votelistcontainer" style={{backgroundColor: candidate.owner === electedMember ? "#ECCCF5": null}}>

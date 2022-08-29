@@ -26,6 +26,8 @@ export default function ElectionVoting(props){
     const [ electionID, setElectionID ] = useState(null);
     const [ candidatename, setCandidateName ] = useState("");
 
+    const [ nomineesData, setNomineesData ] = useState({});
+
     const [ electionVoteCount, setElectionVoteCount ] = useState(null);
     const [ ElectionCandidateCount, setElectionCandidateCount ] = useState(null);
     const [ isLoading, setIsLoading ] = useState(true);
@@ -33,7 +35,7 @@ export default function ElectionVoting(props){
 
     function handleRadioSelect(name, event){
         setNominee(name);
-        setElectionID(props.election.id);
+        setElectionID(electionId);
         setVoter(user.username);
     }
 
@@ -63,9 +65,9 @@ export default function ElectionVoting(props){
         .then((data) => {
             setElectionVoteCount(data.vote_count)
             setElectionCandidateCount(data.no_of_candidates)
-            if(user.userType === "admin"){
-                setDataFetched(true);
-            }
+            // if(user.userType === "admin"){
+            //     setDataFetched(true);
+            // }
         });
         
         if(user.userType === "owner"){
@@ -83,13 +85,20 @@ export default function ElectionVoting(props){
                     setDidVote(true);
                 }
                 setCandidateName(data.nominee)
-                console.log(data);
-                console.log("candidate name: " + candidatename)
-                setDataFetched(true);
+                
+ 
             } 
           });
-        }
-        
+        } 
+    }
+
+    function fetchonomineedata(){
+        fetch(`http://127.0.0.1:8000/getNominees/${electionId}`)
+        .then(response => response.json())
+        .then((data) => {
+            setNomineesData(data);
+            setDataFetched(true);
+        });
     }
 
     function handleDeleteElection(){
@@ -127,8 +136,8 @@ export default function ElectionVoting(props){
 
     useEffect(() => {
         getElectionInfo();
-        setIsLoading(false);    
-        console.log("can:", candidatename)    
+        fetchonomineedata()
+        setIsLoading(false);     
     }, []);
 
 
@@ -138,14 +147,14 @@ export default function ElectionVoting(props){
         !isLoading && datafetched
         ? 
         <div>
-            <ElectionDesc election={props.election}/>
+            <ElectionDesc />
             <h3>Candidates:</h3>
         
-            {props.candidates.map(candidate => {
+            {nomineesData.map(candidate => {
             return(
                 <>
                 {
-                candidate.approval_status === "approved"
+                candidate.approval_status.toLowerCase() === "approved"
                 ?
                 <div className="votelistcontainer">
                 <div className='nom-image'>

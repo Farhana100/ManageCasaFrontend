@@ -20,6 +20,9 @@ export default function StickyHeadTable(props) {
   ];
   
   function createData(apartment_no, date, pay_amount, paid) {
+    let date_ = "";
+    date_ = (date_ + date).substring(0, 10) + " " + (date_ + date).substring(11, 19);
+    date = date_;
     const due = pay_amount - paid;
     return { apartment_no, date, pay_amount, paid, due };
   }
