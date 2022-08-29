@@ -21,6 +21,8 @@ export default function ApartmentCreate(){
         window.location.replace('/dashboard');
     }
 
+    const [ errormsg, setErrorMsg ] = useState('');
+
     const [ building, setBuilding ] = useState(user.building);
     const [ floor_number, setFloor_number ] = useState(0);
     const [ apartment_number, setApartment_number ] = useState(0);
@@ -97,6 +99,7 @@ export default function ApartmentCreate(){
         .then(response => {
             console.log(response.data.error);
             if(response.data.error){
+                setErrorMsg(response.data.msg);
                 console.log(response.data.msg)
             }
             else {
@@ -115,6 +118,14 @@ export default function ApartmentCreate(){
         <form className='container-fluid'>
             <div className="form-group">
                 <label className='h6 bold'>Add Apartment Image</label>
+                {errormsg && 
+                <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                  {errormsg}
+                  <button type="mybutton" className="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              }
                 <div className="row py-4">
                     <div className="col-lg-6 mx-auto">
                         {/* <!-- Upload image input--> */}
